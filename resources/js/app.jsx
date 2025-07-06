@@ -1,14 +1,14 @@
 import './bootstrap';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import Dashboard from './Pages/Dashboard';
+import App from './Components/App';
 
 const container = document.getElementById('app');
 if (container) {
     const root = createRoot(container);
     root.render(
         <React.StrictMode>
-            <Dashboard/>
+            <App />
         </React.StrictMode>
     );
 } else {
