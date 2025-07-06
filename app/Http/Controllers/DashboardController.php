@@ -8,12 +8,17 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        return view('react-template');
+    }
+    
+    public function getDashboardData()
+    {
         $data = [
             'totalPasswords' => 25,
             'weakPasswords' => 3,
             'strongPasswords' => 22
         ];
         
-        return view('dashboard', compact('data'));
+        return response()->json($data);
     }
 }
