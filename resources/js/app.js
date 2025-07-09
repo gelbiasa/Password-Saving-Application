@@ -1,7 +1,7 @@
 // filepath: c:\xampp\htdocs\Password-Saving-Application\resources\js\app.js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Dashboard from './components/Dashboard';
+import Dashboard from './Pages/Dashboard';
 
 // Setup CSRF token untuk Axios
 window.axios = require('axios');
