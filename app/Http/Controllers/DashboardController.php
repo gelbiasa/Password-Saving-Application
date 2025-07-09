@@ -8,7 +8,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('react-template');
+        return view('pages.dashboard');
     }
     
     public function getDashboardData()
