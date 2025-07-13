@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('m_hak_akses', function (Blueprint $table) {
-            $table->id('hak_akses_id'); // Primary key dengan nama hak_akses_id
+            $table->id('m_hak_akses_id'); // Primary key dengan nama hak_akses_id
             $table->string('hak_akses_kode', 20);
             $table->string('hak_akses_nama', 50);
             $table->tinyInteger('isDeleted')->default(0);
