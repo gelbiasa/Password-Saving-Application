@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\ManagePassword;
+namespace App\Models\ManagementPassword;
 
 use App\Models\TraitsModel;
 use Illuminate\Database\Eloquent\Model;
@@ -15,4 +15,14 @@ class KategoriPasswordModel extends Model
         'kp_kode',
         'kp_nama'
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->fillable = array_merge($this->fillable, $this->getCommonFields());
+    }
+
+    public function createdData() {
+
+    }
 }
