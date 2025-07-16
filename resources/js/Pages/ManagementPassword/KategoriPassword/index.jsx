@@ -1,0 +1,1 @@
+// resoueces/js/Pages/ManagementPassword/KategoriPassword/index.jsx
