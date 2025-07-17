@@ -40945,7 +40945,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
-var Sidebar = function Sidebar() {
+var Sidebar = function Sidebar(_ref) {
+  var _ref$activeMenu = _ref.activeMenu,
+    activeMenu = _ref$activeMenu === void 0 ? 'dashboard' : _ref$activeMenu;
+  var handleNavigation = function handleNavigation(page) {
+    if (page === 'dashboard') {
+      window.location.href = '/dashboard';
+    } else if (page === 'kategori-password') {
+      window.location.href = '/kategori-password';
+    }
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("aside", {
     className: "bg-gray-900 text-white w-56 shadow-lg min-h-screen flex flex-col",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
@@ -40975,9 +40984,11 @@ var Sidebar = function Sidebar() {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
           className: "space-y-1",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("a", {
-              href: "#",
-              className: "flex items-center space-x-2 p-2 rounded-lg bg-indigo-600 transition-colors text-sm",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
+              onClick: function onClick() {
+                return handleNavigation('dashboard');
+              },
+              className: "w-full flex items-center space-x-2 p-2 rounded-lg transition-colors text-sm ".concat(activeMenu === 'dashboard' ? 'bg-indigo-600' : 'hover:bg-gray-800'),
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
                 className: "w-4 h-4",
                 fill: "currentColor",
@@ -40990,9 +41001,11 @@ var Sidebar = function Sidebar() {
               })]
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("a", {
-              href: "#",
-              className: "flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-800 transition-colors text-sm",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
+              onClick: function onClick() {
+                return handleNavigation('kategori-password');
+              },
+              className: "w-full flex items-center space-x-2 p-2 rounded-lg transition-colors text-sm ".concat(activeMenu === 'kategori-password' ? 'bg-indigo-600' : 'hover:bg-gray-800'),
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
                 className: "w-4 h-4",
                 fill: "currentColor",
@@ -41392,9 +41405,14 @@ if (token) {
   window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 }
 
-// Render React App
+// Render React App berdasarkan halaman
 if (document.getElementById('react-app')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Pages_Dashboard__WEBPACK_IMPORTED_MODULE_2__["default"], {}), document.getElementById('react-app'));
+  var currentPath = window.location.pathname;
+  if (currentPath === '/dashboard') {
+    react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Pages_Dashboard__WEBPACK_IMPORTED_MODULE_2__["default"], {}), document.getElementById('react-app'));
+  } else if (currentPath === '/kategori-password') {
+    react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(KategoriPasswordIndex, {}), document.getElementById('react-app'));
+  }
 }
 })();
 
