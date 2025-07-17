@@ -12,7 +12,13 @@ if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 }
 
-// Render React App
+// Render React App berdasarkan halaman
 if (document.getElementById('react-app')) {
-    ReactDOM.render(<Dashboard />, document.getElementById('react-app'));
+    const currentPath = window.location.pathname;
+    
+    if (currentPath === '/dashboard') {
+        ReactDOM.render(<Dashboard />, document.getElementById('react-app'));
+    } else if (currentPath === '/kategori-password') {
+        ReactDOM.render(<KategoriPasswordIndex />, document.getElementById('react-app'));
+    }
 }

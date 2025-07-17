@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Pages\ManagementPassword\KategoriPasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/dashboard-data', [DashboardController::class, 'getDashboardData']);
+Route::get('/kategori-password', [KategoriPasswordController::class, 'getData']);
+Route::post('/kategori-password', [KategoriPasswordController::class, 'store']);
+Route::put('/kategori-password/{id}', [KategoriPasswordController::class, 'update']);
+Route::delete('/kategori-password/{id}', [KategoriPasswordController::class, 'destroy']);
