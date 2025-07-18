@@ -1,7 +1,11 @@
-// filepath: c:\xampp\htdocs\Password-Saving-Application\resources\js\app.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Dashboard from './Pages/Dashboard';
+import KategoriPasswordIndex from './Pages/ManagementPassword/KategoriPassword/index';
+
+// Setup global React dan ReactDOM
+window.React = React;
+window.ReactDOM = ReactDOM;
 
 // Setup CSRF token untuk Axios
 window.axios = require('axios');
@@ -10,6 +14,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 let token = document.head.querySelector('meta[name="csrf-token"]');
 if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+    console.error('Token CSRF tidak ditemukan: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
 // Render React App berdasarkan halaman

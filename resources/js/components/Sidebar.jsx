@@ -18,7 +18,7 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                             <span className="text-xs font-bold">A</span>
                         </div>
                         <div>
-                            <p className="font-medium text-sm">Admin User</p>
+                            <p className="font-medium text-sm">Pengguna Admin</p>
                             <p className="text-xs text-gray-400">admin@example.com</p>
                         </div>
                     </div>
@@ -58,12 +58,12 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                 </nav>
             </div>
             
-            {/* System Status - Fixed at Bottom */}
+            {/* Status Sistem - Tetap di Bawah */}
             <div className="p-3">
                 <div className="p-2 bg-gray-800 rounded-lg">
                     <div className="flex items-center space-x-2 text-xs">
                         <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                        <span className="text-gray-300">System Status: </span>
+                        <span className="text-gray-300">Status Sistem: </span>
                         <span className="text-green-400 font-medium">Online</span>
                     </div>
                 </div>

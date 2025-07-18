@@ -7,6 +7,8 @@ const KategoriPasswordIndex = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
+    const [editId, setEditId] = useState(null);
     const [formData, setFormData] = useState({
         kp_kode: '',
         kp_nama: ''
@@ -22,12 +24,12 @@ const KategoriPasswordIndex = () => {
             const response = await axios.get('/api/kategori-password');
             setData(response.data);
         } catch (error) {
-            console.error('Error fetching data:', error);
-            // Data dummy untuk testing
+            console.error('Kesalahan saat mengambil data:', error);
+            // Data contoh untuk pengujian
             setData([
-                { m_kategori_password_id: 1, kp_kode: 'KP001', kp_nama: 'Social Media', created_at: '2025-01-15' },
+                { m_kategori_password_id: 1, kp_kode: 'KP001', kp_nama: 'Media Sosial', created_at: '2025-01-15' },
                 { m_kategori_password_id: 2, kp_kode: 'KP002', kp_nama: 'Email', created_at: '2025-01-15' },
-                { m_kategori_password_id: 3, kp_kode: 'KP003', kp_nama: 'Banking', created_at: '2025-01-15' }
+                { m_kategori_password_id: 3, kp_kode: 'KP003', kp_nama: 'Perbankan', created_at: '2025-01-15' }
             ]);
         }
         setLoading(false);
@@ -36,17 +38,35 @@ const KategoriPasswordIndex = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/kategori-password', formData);
+            let response;
+            if (isEdit) {
+                response = await axios.put(`/api/kategori-password/${editId}`, formData);
+            } else {
+                response = await axios.post('/api/kategori-password', formData);
+            }
+            
             if (response.data.success) {
                 setShowModal(false);
                 setFormData({ kp_kode: '', kp_nama: '' });
+                setIsEdit(false);
+                setEditId(null);
                 fetchData();
-                alert('Data berhasil disimpan!');
+                alert(isEdit ? 'Data berhasil diperbarui!' : 'Data berhasil disimpan!');
             }
         } catch (error) {
-            console.error('Error saving data:', error);
+            console.error('Kesalahan saat menyimpan data:', error);
             alert('Gagal menyimpan data!');
         }
+    };
+
+    const handleEdit = (item) => {
+        setFormData({
+            kp_kode: item.kp_kode,
+            kp_nama: item.kp_nama
+        });
+        setEditId(item.m_kategori_password_id);
+        setIsEdit(true);
+        setShowModal(true);
     };
 
     const handleDelete = async (id) => {
@@ -58,22 +78,29 @@ const KategoriPasswordIndex = () => {
                     alert('Data berhasil dihapus!');
                 }
             } catch (error) {
-                console.error('Error deleting data:', error);
+                console.error('Kesalahan saat menghapus data:', error);
                 alert('Gagal menghapus data!');
             }
         }
     };
 
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setFormData({ kp_kode: '', kp_nama: '' });
+        setIsEdit(false);
+        setEditId(null);
+    };
+
     return (
         <div className="min-h-screen flex">
-            <Sidebar />
+            <Sidebar activeMenu="kategori-password" />
             
             <div className="flex-1 flex flex-col">
                 <Header />
                 
                 <main className="flex-1 p-4 relative">
                     <div className="space-y-4 max-w-7xl">
-                        {/* Page Header */}
+                        {/* Header Halaman */}
                         <div className="bg-white rounded-lg shadow p-4">
                             <div className="flex items-center justify-between">
                                 <div>
@@ -92,7 +119,7 @@ const KategoriPasswordIndex = () => {
                             </div>
                         </div>
 
-                        {/* Data Table */}
+                        {/* Tabel Data */}
                         <div className="bg-white rounded-lg shadow">
                             <div className="p-4 border-b border-gray-200">
                                 <h2 className="text-lg font-semibold text-gray-900">Daftar Kategori</h2>
@@ -127,7 +154,10 @@ const KategoriPasswordIndex = () => {
                                                         {new Date(item.created_at).toLocaleDateString('id-ID')}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                                                        <button className="text-indigo-600 hover:text-indigo-900 transition-colors">
+                                                        <button 
+                                                            onClick={() => handleEdit(item)}
+                                                            className="text-indigo-600 hover:text-indigo-900 transition-colors"
+                                                        >
                                                             Edit
                                                         </button>
                                                         <button 
@@ -158,9 +188,11 @@ const KategoriPasswordIndex = () => {
                     <div className="bg-white rounded-lg shadow-lg w-full max-w-md mx-4">
                         <div className="p-6">
                             <div className="flex items-center justify-between mb-4">
-                                <h3 className="text-lg font-semibold text-gray-900">Tambah Kategori Password</h3>
+                                <h3 className="text-lg font-semibold text-gray-900">
+                                    {isEdit ? 'Edit' : 'Tambah'} Kategori Password
+                                </h3>
                                 <button 
-                                    onClick={() => setShowModal(false)}
+                                    onClick={handleCloseModal}
                                     className="text-gray-400 hover:text-gray-600"
                                 >
                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -189,7 +221,7 @@ const KategoriPasswordIndex = () => {
                                         value={formData.kp_nama}
                                         onChange={(e) => setFormData({...formData, kp_nama: e.target.value})}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                        placeholder="Contoh: Social Media"
+                                        placeholder="Contoh: Media Sosial"
                                         required
                                     />
                                 </div>
@@ -197,7 +229,7 @@ const KategoriPasswordIndex = () => {
                                 <div className="flex space-x-3 pt-4">
                                     <button
                                         type="button"
-                                        onClick={() => setShowModal(false)}
+                                        onClick={handleCloseModal}
                                         className="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
                                     >
                                         Batal
@@ -206,7 +238,7 @@ const KategoriPasswordIndex = () => {
                                         type="submit"
                                         className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
                                     >
-                                        Simpan
+                                        {isEdit ? 'Perbarui' : 'Simpan'}
                                     </button>
                                 </div>
                             </form>
