@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Pages\ManagementPassword\KategoriPasswordController;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::middleware('auth')->get('/hak-akses-user', function() {
+    $hakAkses = Session::get('available_hak_akses');
+    return response()->json($hakAkses ?: []);
 });
 
 Route::get('/dashboard-data', [DashboardController::class, 'getDashboardData']);

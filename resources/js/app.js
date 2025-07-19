@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Dashboard from './Pages/Dashboard';
 import KategoriPasswordIndex from './Pages/ManagementPassword/KategoriPassword/index';
+import Login from './Authentication/login';
+import PilihLevel from './Authentication/pilih-level';
 
 // Setup global React dan ReactDOM
 window.React = React;
@@ -22,9 +24,21 @@ if (token) {
 if (document.getElementById('react-app')) {
     const currentPath = window.location.pathname;
     
-    if (currentPath === '/dashboard') {
-        ReactDOM.render(<Dashboard />, document.getElementById('react-app'));
-    } else if (currentPath === '/kategori-password') {
-        ReactDOM.render(<KategoriPasswordIndex />, document.getElementById('react-app'));
+    switch(currentPath) {
+        case '/login':
+            ReactDOM.render(<Login />, document.getElementById('react-app'));
+            break;
+        case '/pilih-level':
+            ReactDOM.render(<PilihLevel />, document.getElementById('react-app'));
+            break;
+        case '/dashboard':
+            ReactDOM.render(<Dashboard />, document.getElementById('react-app'));
+            break;
+        case '/kategori-password':
+            ReactDOM.render(<KategoriPasswordIndex />, document.getElementById('react-app'));
+            break;
+        default:
+            // Redirect ke login jika halaman tidak dikenali
+            window.location.href = '/login';
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Pages\DashboardController;
 use App\Http\Controllers\Pages\ManagementPassword\KategoriPasswordController;
 use Illuminate\Support\Facades\Route;
@@ -15,5 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/kategori-password', [KategoriPasswordController::class, 'index'])->name('kategori-password');
+Route::get('/', function () {
+    return redirect()->route('login');
+});
+
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'postLogin']);
+Route::get('pilih-level', [AuthController::class, 'pilihLevel'])->middleware('auth');
+Route::post('pilih-level', [AuthController::class, 'postPilihLevel'])->middleware('auth');
+Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/kategori-password', [KategoriPasswordController::class, 'index'])->name('kategori-password');
+});
