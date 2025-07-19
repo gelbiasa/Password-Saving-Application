@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Pages\ManagementPassword;
 
-use App\Http\Controllers\Controller;
 use App\Models\ManagementPassword\KategoriPasswordModel;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class KategoriPasswordController extends Controller
 {
