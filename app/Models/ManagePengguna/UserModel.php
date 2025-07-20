@@ -66,12 +66,15 @@ class UserModel extends Authenticatable
     {
         return $this->belongsToMany(
             HakAksesModel::class,
-            'm_set_user_hak_akses',
+            'set_user_hak_akses',
             'fk_m_user',
             'fk_m_hak_akses',
-            $this->getKeyName(), // Menggunakan getKeyName() untuk primary key
+            'm_user_id',
             'm_hak_akses_id'
-        )->where('m_hak_akses.isDeleted', 0);
+        )
+        ->where('m_hak_akses.isDeleted', 0)
+        ->where('set_user_hak_akses.isDeleted', 0)
+        ->select('m_hak_akses.*'); // Pastikan data dari tabel m_hak_akses yang diambil
     }
 
     // Method untuk mendapatkan semua hak akses pengguna

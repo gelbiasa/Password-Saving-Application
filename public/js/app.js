@@ -41085,41 +41085,54 @@ var PilihLevel = function PilihLevel() {
     _useState6 = _slicedToArray(_useState5, 2),
     loading = _useState6[0],
     setLoading = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState8 = _slicedToArray(_useState7, 2),
+    fetchLoading = _useState8[0],
+    setFetchLoading = _useState8[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     fetchHakAkses();
   }, []);
   var fetchHakAkses = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-      var response, _t;
+      var response, _error$response, _t;
       return _regenerator().w(function (_context) {
         while (1) switch (_context.p = _context.n) {
           case 0:
-            _context.p = 0;
-            _context.n = 1;
+            setFetchLoading(true);
+            _context.p = 1;
+            _context.n = 2;
             return axios.get('/api/hak-akses-user');
-          case 1:
-            response = _context.v;
-            setHakAkses(response.data || []);
-            _context.n = 3;
-            break;
           case 2:
-            _context.p = 2;
+            response = _context.v;
+            console.log('Response hak akses:', response.data);
+            if (Array.isArray(response.data) && response.data.length > 0) {
+              setHakAkses(response.data);
+            } else {
+              console.error('Data hak akses kosong atau format salah');
+              alert('Tidak ada hak akses yang tersedia. Silakan login ulang.');
+              window.location.href = '/login';
+            }
+            _context.n = 4;
+            break;
+          case 3:
+            _context.p = 3;
             _t = _context.v;
             console.error('Error mengambil hak akses:', _t);
-            // Data contoh untuk development
-            setHakAkses([{
-              m_hak_akses_id: 1,
-              hak_akses_nama: 'Administrator',
-              hak_akses_kode: 'ADMIN'
-            }, {
-              m_hak_akses_id: 2,
-              hak_akses_nama: 'Staff',
-              hak_akses_kode: 'STAFF'
-            }]);
-          case 3:
+            if (((_error$response = _t.response) === null || _error$response === void 0 ? void 0 : _error$response.status) === 401) {
+              alert('Session expired. Silakan login ulang.');
+              window.location.href = '/login';
+            } else {
+              alert('Gagal mengambil data hak akses. Silakan login ulang.');
+              window.location.href = '/login';
+            }
+          case 4:
+            _context.p = 4;
+            setFetchLoading(false);
+            return _context.f(4);
+          case 5:
             return _context.a(2);
         }
-      }, _callee, null, [[0, 2]]);
+      }, _callee, null, [[1, 3, 4, 5]]);
     }));
     return function fetchHakAkses() {
       return _ref.apply(this, arguments);
@@ -41127,7 +41140,7 @@ var PilihLevel = function PilihLevel() {
   }();
   var handleSubmit = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(e) {
-      var response, _t2;
+      var response, _error$response2, _t2;
       return _regenerator().w(function (_context2) {
         while (1) switch (_context2.p = _context2.n) {
           case 0:
@@ -41142,24 +41155,28 @@ var PilihLevel = function PilihLevel() {
             setLoading(true);
             _context2.p = 2;
             _context2.n = 3;
-            return axios.post('/pilih-level', {
+            return axios.post('/api/set-hak-akses', {
               hak_akses_id: selectedLevel
             });
           case 3:
             response = _context2.v;
             if (response.data.success) {
               alert(response.data.message);
-              window.location.href = response.data.redirect;
+              window.location.href = '/dashboard';
+            } else {
+              alert(response.data.message || 'Gagal memilih hak akses');
             }
             _context2.n = 5;
             break;
           case 4:
             _context2.p = 4;
             _t2 = _context2.v;
-            if (_t2.response && _t2.response.data) {
-              alert(_t2.response.data.message);
+            console.error('Error setting hak akses:', _t2);
+            if (((_error$response2 = _t2.response) === null || _error$response2 === void 0 ? void 0 : _error$response2.status) === 401) {
+              alert('Session expired. Silakan login ulang.');
+              window.location.href = '/login';
             } else {
-              alert('Terjadi kesalahan saat memilih level!');
+              alert('Terjadi kesalahan saat memilih hak akses');
             }
           case 5:
             setLoading(false);
@@ -41177,6 +41194,20 @@ var PilihLevel = function PilihLevel() {
       window.location.href = '/logout';
     }
   };
+  if (fetchLoading) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "text-center",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "animate-spin rounded-full h-32 w-32 border-b-2 border-white mx-auto"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "mt-4 text-white text-lg",
+          children: "Memuat data hak akses..."
+        })]
+      })
+    });
+  }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
@@ -41196,9 +41227,9 @@ var PilihLevel = function PilihLevel() {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
           className: "mt-6 text-3xl font-extrabold text-white",
           children: "Pilih Level Akses"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("p", {
           className: "mt-2 text-sm text-indigo-100",
-          children: "Anda memiliki beberapa level akses. Silakan pilih level yang ingin digunakan."
+          children: ["Anda memiliki ", hakAkses.length, " level akses. Silakan pilih level yang ingin digunakan."]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
         className: "bg-white rounded-xl shadow-2xl p-8",
@@ -41212,31 +41243,40 @@ var PilihLevel = function PilihLevel() {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
               className: "space-y-3",
               children: hakAkses.map(function (item) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
                   className: "relative",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                    id: "level-".concat(item.m_hak_akses_id),
-                    name: "level",
-                    type: "radio",
-                    value: item.m_hak_akses_id,
-                    checked: selectedLevel == item.m_hak_akses_id,
-                    onChange: function onChange(e) {
-                      return setSelectedLevel(e.target.value);
-                    },
-                    className: "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
-                    htmlFor: "level-".concat(item.m_hak_akses_id),
-                    className: "ml-3 block text-sm font-medium text-gray-700 cursor-pointer",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-                      className: "flex items-center justify-between",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                        children: item.hak_akses_nama
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                        className: "text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full",
-                        children: item.hak_akses_kode
-                      })]
-                    })
-                  })]
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                    className: "flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-200",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                      id: "level-".concat(item.m_hak_akses_id),
+                      name: "level",
+                      type: "radio",
+                      value: item.m_hak_akses_id,
+                      checked: selectedLevel == item.m_hak_akses_id,
+                      onChange: function onChange(e) {
+                        return setSelectedLevel(e.target.value);
+                      },
+                      className: "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+                      htmlFor: "level-".concat(item.m_hak_akses_id),
+                      className: "ml-3 flex-1 cursor-pointer",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                        className: "flex items-center justify-between",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                            className: "text-sm font-medium text-gray-900",
+                            children: item.hak_akses_nama
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("p", {
+                            className: "text-xs text-gray-500 mt-1",
+                            children: ["Kode: ", item.hak_akses_kode]
+                          })]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                          className: "text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full",
+                          children: item.hak_akses_kode
+                        })]
+                      })
+                    })]
+                  })
                 }, item.m_hak_akses_id);
               })
             })]
