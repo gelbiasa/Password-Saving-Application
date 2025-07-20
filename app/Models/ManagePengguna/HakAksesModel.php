@@ -27,7 +27,7 @@ class HakAksesModel extends Model
     {
         return $this->belongsToMany(
             UserModel::class,
-            'm_set_user_hak_akses',
+            'set_user_hak_akses',
             'fk_m_hak_akses',
             'fk_m_user',
             'm_hak_akses_id',

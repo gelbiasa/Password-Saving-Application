@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -26,12 +27,12 @@ class AuthController extends Controller
                 'password' => 'required|string'
             ]);
 
-            // Cari user berdasarkan username - perbaiki akses data request
+            // Cari user berdasarkan username
             $user = UserModel::where('username', $request->input('username'))
                            ->where('isDeleted', 0)
                            ->first();
 
-            // Validasi user exists dan password benar - perbaiki akses data request
+            // Validasi user exists dan password benar
             if (!$user || !Hash::check($request->input('password'), $user->password)) {
                 return response()->json([
                     'success' => false,
@@ -50,8 +51,16 @@ class AuthController extends Controller
             // Login user
             Auth::login($user);
 
-            // Ambil hak akses user
-            $hakAkses = $user->getAllHakAkses();
+            // Ambil hak akses user dari database dengan relasi yang benar
+            $hakAkses = $user->hakAkses()
+                           ->where('m_hak_akses.isDeleted', 0)
+                           ->where('set_user_hak_akses.isDeleted', 0)
+                           ->get();
+            
+            // Log untuk debugging
+            Log::info('User login: ' . $user->username);
+            Log::info('Hak akses ditemukan: ' . $hakAkses->count());
+            Log::info('Detail hak akses:', $hakAkses->toArray());
 
             if ($hakAkses->isEmpty()) {
                 Auth::logout();
@@ -63,7 +72,18 @@ class AuthController extends Controller
 
             // Jika hanya memiliki 1 hak akses, langsung set session dan ke dashboard
             if ($hakAkses->count() == 1) {
-                Session::put('selected_hak_akses', $hakAkses->first());
+                $selectedHakAkses = $hakAkses->first();
+                Session::put('selected_hak_akses', [
+                    'm_hak_akses_id' => $selectedHakAkses->m_hak_akses_id,
+                    'hak_akses_kode' => $selectedHakAkses->hak_akses_kode,
+                    'hak_akses_nama' => $selectedHakAkses->hak_akses_nama
+                ]);
+                
+                Log::info('Auto select single hak akses:', [
+                    'm_hak_akses_id' => $selectedHakAkses->m_hak_akses_id,
+                    'hak_akses_nama' => $selectedHakAkses->hak_akses_nama
+                ]);
+                
                 return response()->json([
                     'success' => true,
                     'message' => 'Login berhasil!',
@@ -71,8 +91,19 @@ class AuthController extends Controller
                 ]);
             }
 
-            // Jika lebih dari 1 hak akses, ke halaman pilih level
-            Session::put('available_hak_akses', $hakAkses);
+            // Jika lebih dari 1 hak akses, format data untuk session
+            $hakAksesArray = $hakAkses->map(function($item) {
+                return [
+                    'm_hak_akses_id' => $item->m_hak_akses_id,
+                    'hak_akses_kode' => $item->hak_akses_kode,
+                    'hak_akses_nama' => $item->hak_akses_nama
+                ];
+            })->toArray();
+
+            Session::put('available_hak_akses', $hakAksesArray);
+            
+            Log::info('Multiple hak akses found, redirect to pilih-level:', $hakAksesArray);
+            
             return response()->json([
                 'success' => true,
                 'message' => 'Silakan pilih level hak akses!',
@@ -80,6 +111,8 @@ class AuthController extends Controller
             ]);
 
         } catch (\Exception $e) {
+            Log::error('Error dalam postLogin: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
             return response()->json([
                 'success' => false,
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage()
@@ -97,7 +130,7 @@ class AuthController extends Controller
 
         // Cek apakah ada hak akses yang tersedia
         $hakAkses = Session::get('available_hak_akses');
-        if (!$hakAkses || $hakAkses->isEmpty()) {
+        if (!$hakAkses || empty($hakAkses)) {
             return redirect('/login');
         }
 
@@ -119,16 +152,16 @@ class AuthController extends Controller
                 ], 401);
             }
 
-            $hakAkses = Session::get('available_hak_akses');
-            if (!$hakAkses) {
+            $hakAksesArray = Session::get('available_hak_akses');
+            if (!$hakAksesArray) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Data hak akses tidak ditemukan!'
                 ], 404);
             }
 
-            // Cari hak akses yang dipilih - perbaiki akses data request
-            $selectedHakAkses = $hakAkses->where('m_hak_akses_id', $request->input('hak_akses_id'))->first();
+            // Cari hak akses yang dipilih
+            $selectedHakAkses = collect($hakAksesArray)->where('m_hak_akses_id', $request->input('hak_akses_id'))->first();
             
             if (!$selectedHakAkses) {
                 return response()->json([
@@ -148,6 +181,7 @@ class AuthController extends Controller
             ]);
 
         } catch (\Exception $e) {
+            Log::error('Error dalam postPilihLevel: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage()

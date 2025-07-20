@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Pages\ManagementPassword\KategoriPasswordController;
 use Illuminate\Support\Facades\Session;
@@ -21,10 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth')->get('/hak-akses-user', function() {
-    $hakAkses = Session::get('available_hak_akses');
-    return response()->json($hakAkses ?: []);
-});
+Route::get('/hak-akses-user', [AuthController::class, 'getHakAksesUser'])->middleware('web');
+Route::post('/set-hak-akses', [AuthController::class, 'setHakAkses'])->middleware('web');
 
 Route::get('/dashboard-data', [DashboardController::class, 'getDashboardData']);
 Route::get('/kategori-password', [KategoriPasswordController::class, 'getData']);

@@ -10,8 +10,8 @@ class SetUserHakAksesModel extends Model
 {
     use TraitsModel;
 
-    protected $table = 'm_set_user_hak_akses';
-    protected $primaryKey = 'm_set_user_hak_akses_id';
+    protected $table = 'set_user_hak_akses';
+    protected $primaryKey = 'set_user_hak_akses_id';
     protected $fillable = [
         'fk_m_hak_akses',
         'fk_m_user'

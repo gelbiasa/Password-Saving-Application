@@ -4,22 +4,36 @@ const PilihLevel = () => {
     const [hakAkses, setHakAkses] = useState([]);
     const [selectedLevel, setSelectedLevel] = useState('');
     const [loading, setLoading] = useState(false);
+    const [fetchLoading, setFetchLoading] = useState(true);
 
     useEffect(() => {
         fetchHakAkses();
     }, []);
 
     const fetchHakAkses = async () => {
+        setFetchLoading(true);
         try {
             const response = await axios.get('/api/hak-akses-user');
-            setHakAkses(response.data || []);
+            console.log('Response hak akses:', response.data);
+            
+            if (Array.isArray(response.data) && response.data.length > 0) {
+                setHakAkses(response.data);
+            } else {
+                console.error('Data hak akses kosong atau format salah');
+                alert('Tidak ada hak akses yang tersedia. Silakan login ulang.');
+                window.location.href = '/login';
+            }
         } catch (error) {
             console.error('Error mengambil hak akses:', error);
-            // Data contoh untuk development
-            setHakAkses([
-                { m_hak_akses_id: 1, hak_akses_nama: 'Administrator', hak_akses_kode: 'ADMIN' },
-                { m_hak_akses_id: 2, hak_akses_nama: 'Staff', hak_akses_kode: 'STAFF' }
-            ]);
+            if (error.response?.status === 401) {
+                alert('Session expired. Silakan login ulang.');
+                window.location.href = '/login';
+            } else {
+                alert('Gagal mengambil data hak akses. Silakan login ulang.');
+                window.location.href = '/login';
+            }
+        } finally {
+            setFetchLoading(false);
         }
     };
 
@@ -34,19 +48,23 @@ const PilihLevel = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post('/pilih-level', {
+            const response = await axios.post('/api/set-hak-akses', {
                 hak_akses_id: selectedLevel
             });
-            
+
             if (response.data.success) {
                 alert(response.data.message);
-                window.location.href = response.data.redirect;
+                window.location.href = '/dashboard';
+            } else {
+                alert(response.data.message || 'Gagal memilih hak akses');
             }
         } catch (error) {
-            if (error.response && error.response.data) {
-                alert(error.response.data.message);
+            console.error('Error setting hak akses:', error);
+            if (error.response?.status === 401) {
+                alert('Session expired. Silakan login ulang.');
+                window.location.href = '/login';
             } else {
-                alert('Terjadi kesalahan saat memilih level!');
+                alert('Terjadi kesalahan saat memilih hak akses');
             }
         }
         
@@ -58,6 +76,17 @@ const PilihLevel = () => {
             window.location.href = '/logout';
         }
     };
+
+    if (fetchLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-white mx-auto"></div>
+                    <p className="mt-4 text-white text-lg">Memuat data hak akses...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -73,7 +102,7 @@ const PilihLevel = () => {
                         Pilih Level Akses
                     </h2>
                     <p className="mt-2 text-sm text-indigo-100">
-                        Anda memiliki beberapa level akses. Silakan pilih level yang ingin digunakan.
+                        Anda memiliki {hakAkses.length} level akses. Silakan pilih level yang ingin digunakan.
                     </p>
                 </div>
 
@@ -87,26 +116,35 @@ const PilihLevel = () => {
                             <div className="space-y-3">
                                 {hakAkses.map((item) => (
                                     <div key={item.m_hak_akses_id} className="relative">
-                                        <input
-                                            id={`level-${item.m_hak_akses_id}`}
-                                            name="level"
-                                            type="radio"
-                                            value={item.m_hak_akses_id}
-                                            checked={selectedLevel == item.m_hak_akses_id}
-                                            onChange={(e) => setSelectedLevel(e.target.value)}
-                                            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
-                                        />
-                                        <label 
-                                            htmlFor={`level-${item.m_hak_akses_id}`} 
-                                            className="ml-3 block text-sm font-medium text-gray-700 cursor-pointer"
-                                        >
-                                            <div className="flex items-center justify-between">
-                                                <span>{item.hak_akses_nama}</span>
-                                                <span className="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">
-                                                    {item.hak_akses_kode}
-                                                </span>
-                                            </div>
-                                        </label>
+                                        <div className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+                                            <input
+                                                id={`level-${item.m_hak_akses_id}`}
+                                                name="level"
+                                                type="radio"
+                                                value={item.m_hak_akses_id}
+                                                checked={selectedLevel == item.m_hak_akses_id}
+                                                onChange={(e) => setSelectedLevel(e.target.value)}
+                                                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                                            />
+                                            <label 
+                                                htmlFor={`level-${item.m_hak_akses_id}`} 
+                                                className="ml-3 flex-1 cursor-pointer"
+                                            >
+                                                <div className="flex items-center justify-between">
+                                                    <div>
+                                                        <span className="text-sm font-medium text-gray-900">
+                                                            {item.hak_akses_nama}
+                                                        </span>
+                                                        <p className="text-xs text-gray-500 mt-1">
+                                                            Kode: {item.hak_akses_kode}
+                                                        </p>
+                                                    </div>
+                                                    <span className="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">
+                                                        {item.hak_akses_kode}
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
