@@ -44,7 +44,7 @@ const Dashboard = () => {
                             <div className="flex items-center justify-between">
                                 <div>
                                     <h1 className="text-xl font-bold text-gray-900">Dashboard</h1>
-                                    <p className="text-gray-600 mt-1 text-sm">Welcome back! Here's your password security overview.</p>
+                                    <p className="text-gray-600 mt-1 text-sm">Welcome back to Gelbiasa Password Saving Application! Here's your password security overview.</p>
                                 </div>
                                 <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-lg flex items-center space-x-2 transition-colors text-sm">
                                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
