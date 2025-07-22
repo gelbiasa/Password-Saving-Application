@@ -1,10 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Header = () => {
+    const [userData, setUserData] = useState({
+        nama_pengguna: 'Loading...',
+        email_pengguna: 'Loading...',
+        foto_profil: '/foto-profile/default-picture.jpg',
+        hak_akses: null
+    });
+
+    useEffect(() => {
+        fetchCurrentUser();
+    }, []);
+
+    const fetchCurrentUser = async () => {
+        try {
+            const response = await axios.get('/api/current-user');
+            if (response.data.success) {
+                setUserData(response.data.data);
+            }
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+            setUserData({
+                nama_pengguna: 'User',
+                email_pengguna: 'user@example.com',
+                foto_profil: '/foto-profile/default-picture.jpg',
+                hak_akses: null
+            });
+        }
+    };
+
     const handleLogout = () => {
         if (confirm('Apakah Anda yakin ingin keluar?')) {
             window.location.href = '/logout';
         }
+    };
+
+    const getInitials = (name) => {
+        if (!name) return 'U';
+        return name.split(' ').map(word => word.charAt(0)).join('').substring(0, 2).toUpperCase();
     };
 
     return (
@@ -20,13 +53,32 @@ const Header = () => {
                 </div>
                 
                 <nav className="flex items-center space-x-3">
-                    <div className="relative">
-                        <button className="flex items-center space-x-2 text-white hover:text-indigo-300 transition-colors text-sm">
-                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path>
-                            </svg>
-                            <span>Administrator</span>
-                        </button>
+                    <div className="relative flex items-center space-x-2">
+                        <div className="w-6 h-6 bg-indigo-600 rounded-full flex items-center justify-center overflow-hidden relative">
+                            {userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? (
+                                <img 
+                                    src={userData.foto_profil} 
+                                    alt="Profile" 
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => {
+                                        e.target.style.display = 'none';
+                                        e.target.nextSibling.style.display = 'flex';
+                                    }}
+                                />
+                            ) : null}
+                            <span 
+                                className="text-xs font-bold absolute inset-0 flex items-center justify-center"
+                                style={{ display: userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? 'none' : 'flex' }}
+                            >
+                                {getInitials(userData.nama_pengguna)}
+                            </span>
+                        </div>
+                        <div className="flex flex-col text-right">
+                            <span className="text-sm font-medium">{userData.nama_pengguna}</span>
+                            {userData.hak_akses && (
+                                <span className="text-xs text-indigo-300">{userData.hak_akses.nama}</span>
+                            )}
+                        </div>
                     </div>
                     
                     <button 

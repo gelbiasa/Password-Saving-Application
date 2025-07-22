@@ -33,7 +33,7 @@ class AuthController extends Controller
                            ->first();
 
             // Validasi user exists dan password benar
-            if (!$user || !Hash::check($request->input('password'), $user->password)) {
+            if (!$user || !Hash::check($request->input('password'), $user->getAttribute('password'))) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Username atau password salah!'
@@ -58,7 +58,7 @@ class AuthController extends Controller
                            ->get();
             
             // Log untuk debugging
-            Log::info('User login: ' . $user->username);
+            Log::info('User login: ' . $user->getAttribute('username'));
             Log::info('Hak akses ditemukan: ' . $hakAkses->count());
             Log::info('Detail hak akses:', $hakAkses->toArray());
 

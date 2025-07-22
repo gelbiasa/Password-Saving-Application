@@ -99,4 +99,46 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    // Tambahkan method baru untuk mendapatkan data user yang login
+    public function getCurrentUser()
+    {
+        try {
+            if (!Auth::check()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User tidak terautentikasi'
+                ], 401);
+            }
+
+            $user = Auth::user();
+            $selectedHakAkses = Session::get('selected_hak_akses');
+
+            // Format foto profil URL
+            $fotoProfile = $user->foto_profil 
+                ? asset('storage/foto-profile/' . $user->foto_profil)
+                : asset('images/default-picture.jpg');
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'nama_pengguna' => $user->nama_pengguna,
+                    'email_pengguna' => $user->email_pengguna,
+                    'foto_profil' => $fotoProfile,
+                    'username' => $user->username,
+                    'hak_akses' => $selectedHakAkses ? [
+                        'kode' => $selectedHakAkses['hak_akses_kode'],
+                        'nama' => $selectedHakAkses['hak_akses_nama']
+                    ] : null
+                ]
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Error dalam getCurrentUser: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }

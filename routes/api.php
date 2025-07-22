@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/hak-akses-user', [AuthController::class, 'getHakAksesUser'])->middleware('web');
 Route::post('/set-hak-akses', [AuthController::class, 'setHakAkses'])->middleware('web');
+Route::get('/current-user', [AuthController::class, 'getCurrentUser'])->middleware('web'); // Route baru
 
 Route::get('/dashboard-data', [DashboardController::class, 'getDashboardData']);
 Route::get('/kategori-password', [KategoriPasswordController::class, 'getData']);
