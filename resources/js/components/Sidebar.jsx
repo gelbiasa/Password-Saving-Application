@@ -1,6 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Sidebar = ({ activeMenu = 'dashboard' }) => {
+    const [userData, setUserData] = useState({
+        nama_pengguna: 'Loading...',
+        email_pengguna: 'Loading...',
+        foto_profil: '/foto-profile/default-picture.jpg',
+        hak_akses: null
+    });
+
+    useEffect(() => {
+        fetchCurrentUser();
+    }, []);
+
+    const fetchCurrentUser = async () => {
+        try {
+            const response = await axios.get('/api/current-user');
+            if (response.data.success) {
+                setUserData(response.data.data);
+            }
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+            // Set default values jika error
+            setUserData({
+                nama_pengguna: 'User',
+                email_pengguna: 'user@example.com',
+                foto_profil: '/foto-profile/default-picture.jpg',
+                hak_akses: null
+            });
+        }
+    };
+
     const handleNavigation = (page) => {
         if (page === 'dashboard') {
             window.location.href = '/dashboard';
@@ -9,17 +38,49 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
         }
     };
 
+    // Fungsi untuk mendapatkan inisial nama
+    const getInitials = (name) => {
+        if (!name) return 'U';
+        return name.split(' ').map(word => word.charAt(0)).join('').substring(0, 2).toUpperCase();
+    };
+
     return (
         <aside className="bg-gray-900 text-white w-56 shadow-lg min-h-screen flex flex-col">
             <div className="p-3 flex-1">
                 <div className="mb-6">
                     <div className="flex items-center space-x-2 p-2 bg-gray-800 rounded-lg">
-                        <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center">
-                            <span className="text-xs font-bold">A</span>
+                        <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center overflow-hidden relative">
+                            {userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? (
+                                <img 
+                                    src={userData.foto_profil} 
+                                    alt="Profile" 
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => {
+                                        // Jika gambar gagal dimuat, tampilkan inisial
+                                        e.target.style.display = 'none';
+                                        e.target.nextSibling.style.display = 'flex';
+                                    }}
+                                />
+                            ) : null}
+                            <span 
+                                className="text-xs font-bold absolute inset-0 flex items-center justify-center"
+                                style={{ display: userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? 'none' : 'flex' }}
+                            >
+                                {getInitials(userData.nama_pengguna)}
+                            </span>
                         </div>
-                        <div>
-                            <p className="font-medium text-sm">Pengguna Admin</p>
-                            <p className="text-xs text-gray-400">admin@example.com</p>
+                        <div className="flex-1 min-w-0">
+                            <p className="font-medium text-sm truncate" title={userData.nama_pengguna}>
+                                {userData.nama_pengguna}
+                            </p>
+                            <p className="text-xs text-gray-400 truncate" title={userData.email_pengguna}>
+                                {userData.email_pengguna}
+                            </p>
+                            {userData.hak_akses && (
+                                <p className="text-xs text-indigo-300 truncate" title={userData.hak_akses.nama}>
+                                    {userData.hak_akses.nama}
+                                </p>
+                            )}
                         </div>
                     </div>
                 </div>
