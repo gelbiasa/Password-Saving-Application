@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import SuccessMessage from '../Feedback-Message/success';
+import ErrorMessage from '../Feedback-Message/error';
+import { useNotification } from '../Hooks/useNotification';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -7,6 +10,7 @@ const Login = () => {
     });
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const { notification, showSuccess, showError, hideNotification } = useNotification();
 
     const handleChange = (e) => {
         setFormData({
@@ -23,14 +27,20 @@ const Login = () => {
             const response = await axios.post('/login', formData);
             
             if (response.data.success) {
-                alert(response.data.message);
-                window.location.href = response.data.redirect;
+                showSuccess(response.data.message, 'Login Berhasil!');
+                setTimeout(() => {
+                    window.location.href = response.data.redirect;
+                }, 2000);
             }
         } catch (error) {
             if (error.response && error.response.data) {
-                alert(error.response.data.message);
+                showError(
+                    error.response.data.message, 
+                    'Login Gagal!',
+                    () => handleSubmit(e) // Retry function
+                );
             } else {
-                alert('Terjadi kesalahan saat login!');
+                showError('Terjadi kesalahan saat login!', 'Kesalahan Jaringan!');
             }
         }
         
@@ -174,6 +184,25 @@ const Login = () => {
                     </p>
                 </div>
             </div>
+            {/* Notification Components */}
+            {notification.type === 'success' && (
+                <SuccessMessage
+                    message={notification.message}
+                    title={notification.title}
+                    isVisible={notification.isVisible}
+                    onClose={hideNotification}
+                />
+            )}
+            
+            {notification.type === 'error' && (
+                <ErrorMessage
+                    message={notification.message}
+                    title={notification.title}
+                    isVisible={notification.isVisible}
+                    onClose={hideNotification}
+                    onRetry={notification.onRetry}
+                />
+            )}
         </div>
     );
 };
