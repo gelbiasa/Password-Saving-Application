@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import SuccessMessage from '../Feedback-Message/success';
+import ErrorMessage from '../Feedback-Message/error';
+import { useNotification } from '../Hooks/useNotification';
 
 const PilihLevel = () => {
     const [hakAkses, setHakAkses] = useState([]);
     const [selectedLevel, setSelectedLevel] = useState('');
     const [loading, setLoading] = useState(false);
     const [fetchLoading, setFetchLoading] = useState(true);
+    const { notification, showSuccess, showError, hideNotification } = useNotification();
 
     useEffect(() => {
         fetchHakAkses();
@@ -18,19 +22,29 @@ const PilihLevel = () => {
             
             if (Array.isArray(response.data) && response.data.length > 0) {
                 setHakAkses(response.data);
+                showSuccess('Data hak akses berhasil dimuat!', 'Berhasil!');
             } else {
                 console.error('Data hak akses kosong atau format salah');
-                alert('Tidak ada hak akses yang tersedia. Silakan login ulang.');
-                window.location.href = '/login';
+                showError(
+                    'Tidak ada hak akses yang tersedia. Silakan login ulang.', 
+                    'Data Tidak Ditemukan!',
+                    () => window.location.href = '/login'
+                );
             }
         } catch (error) {
             console.error('Error mengambil hak akses:', error);
             if (error.response?.status === 401) {
-                alert('Session expired. Silakan login ulang.');
-                window.location.href = '/login';
+                showError(
+                    'Session expired. Silakan login ulang.', 
+                    'Session Expired!',
+                    () => window.location.href = '/login'
+                );
             } else {
-                alert('Gagal mengambil data hak akses. Silakan login ulang.');
-                window.location.href = '/login';
+                showError(
+                    'Gagal mengambil data hak akses. Silakan login ulang.', 
+                    'Kesalahan Jaringan!',
+                    () => fetchHakAkses()
+                );
             }
         } finally {
             setFetchLoading(false);
@@ -41,7 +55,7 @@ const PilihLevel = () => {
         e.preventDefault();
         
         if (!selectedLevel) {
-            alert('Silakan pilih level hak akses!');
+            showError('Silakan pilih level hak akses terlebih dahulu!', 'Pilihan Belum Dipilih!');
             return;
         }
 
@@ -53,18 +67,31 @@ const PilihLevel = () => {
             });
 
             if (response.data.success) {
-                alert(response.data.message);
-                window.location.href = '/dashboard';
+                showSuccess(response.data.message || 'Hak akses berhasil dipilih!', 'Berhasil!');
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 2000);
             } else {
-                alert(response.data.message || 'Gagal memilih hak akses');
+                showError(
+                    response.data.message || 'Gagal memilih hak akses', 
+                    'Gagal Memproses!',
+                    () => handleSubmit(e)
+                );
             }
         } catch (error) {
             console.error('Error setting hak akses:', error);
             if (error.response?.status === 401) {
-                alert('Session expired. Silakan login ulang.');
-                window.location.href = '/login';
+                showError(
+                    'Session expired. Silakan login ulang.', 
+                    'Session Expired!',
+                    () => window.location.href = '/login'
+                );
             } else {
-                alert('Terjadi kesalahan saat memilih hak akses');
+                showError(
+                    'Terjadi kesalahan saat memilih hak akses. Silakan coba lagi.', 
+                    'Kesalahan Sistem!',
+                    () => handleSubmit(e)
+                );
             }
         }
         
@@ -72,8 +99,26 @@ const PilihLevel = () => {
     };
 
     const handleLogout = () => {
-        if (confirm('Apakah Anda yakin ingin keluar?')) {
-            window.location.href = '/logout';
+        showError(
+            'Apakah Anda yakin ingin keluar dari sistem?', 
+            'Konfirmasi Logout',
+            () => {
+                showSuccess('Anda berhasil keluar dari sistem!', 'Logout Berhasil!');
+                setTimeout(() => {
+                    window.location.href = '/logout';
+                }, 1500);
+            }
+        );
+    };
+
+    const handleLevelChange = (levelId) => {
+        setSelectedLevel(levelId);
+        const selectedItem = hakAkses.find(item => item.m_hak_akses_id == levelId);
+        if (selectedItem) {
+            showSuccess(
+                `Level "${selectedItem.hak_akses_nama}" telah dipilih!`, 
+                'Level Dipilih!'
+            );
         }
     };
 
@@ -155,7 +200,7 @@ const PilihLevel = () => {
                                                 type="radio"
                                                 value={item.m_hak_akses_id}
                                                 checked={selectedLevel == item.m_hak_akses_id}
-                                                onChange={(e) => setSelectedLevel(e.target.value)}
+                                                onChange={(e) => handleLevelChange(e.target.value)}
                                                 className="h-4 w-4 text-amber-500 focus:ring-amber-500 focus:ring-2 border-amber-400 bg-gray-800"
                                             />
                                             <label 
@@ -261,6 +306,26 @@ const PilihLevel = () => {
                     </p>
                 </div>
             </div>
+
+            {/* Notification Components */}
+            {notification.type === 'success' && (
+                <SuccessMessage
+                    message={notification.message}
+                    title={notification.title}
+                    isVisible={notification.isVisible}
+                    onClose={hideNotification}
+                />
+            )}
+            
+            {notification.type === 'error' && (
+                <ErrorMessage
+                    message={notification.message}
+                    title={notification.title}
+                    isVisible={notification.isVisible}
+                    onClose={hideNotification}
+                    onRetry={notification.onRetry}
+                />
+            )}
         </div>
     );
 };
