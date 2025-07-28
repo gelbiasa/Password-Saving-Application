@@ -41538,37 +41538,31 @@ __webpack_require__.r(__webpack_exports__);
 var Footer = function Footer() {
   var currentYear = new Date().getFullYear();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("footer", {
-    className: "absolute bottom-4 left-6 right-6 bg-white/95 backdrop-blur-sm border border-gray-200 rounded-lg shadow-lg max-w-5xl mx-auto",
+    className: "absolute bottom-4 left-6 right-6 bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl border border-amber-500/20 ring-1 ring-amber-400/10 rounded-2xl shadow-2xl shadow-black/50 max-w-5xl mx-auto",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "px-4 py-2",
+      className: "px-6 py-4",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
         className: "flex flex-col md:flex-row justify-between items-center",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "flex items-center space-x-4 mb-1 md:mb-0",
+          className: "flex items-center space-x-4 mb-2 md:mb-0",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("p", {
-            className: "text-gray-600 text-xs",
+            className: "text-amber-200/80 text-sm font-medium",
             children: ["\xA9 ", currentYear, " Password Manager. All rights reserved."]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "flex items-center space-x-4",
+          className: "flex items-center space-x-6",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-            className: "flex items-center space-x-1 text-xs text-gray-500",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
-              className: "w-3 h-3 text-green-500",
-              fill: "currentColor",
-              viewBox: "0 0 20 20",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
-                fillRule: "evenodd",
-                d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z",
-                clipRule: "evenodd"
-              })
+            className: "flex items-center space-x-2 text-sm text-amber-300/80",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+              className: "w-3 h-3 bg-gradient-to-br from-green-400 to-green-600 rounded-full shadow-lg shadow-green-500/30 animate-pulse"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              className: "font-medium",
               children: "Secure Connection"
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-            className: "flex items-center space-x-1 text-xs text-gray-500",
+            className: "flex items-center space-x-2 text-sm text-amber-300/80",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
-              className: "w-3 h-3",
+              className: "w-3 h-3 text-amber-400",
               fill: "currentColor",
               viewBox: "0 0 20 20",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
@@ -41577,16 +41571,23 @@ var Footer = function Footer() {
                 clipRule: "evenodd"
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              className: "font-medium",
               children: "v1.0.0"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
-            href: "#",
-            className: "text-xs text-indigo-600 hover:text-indigo-800 transition-colors",
-            children: "Privacy Policy"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
-            href: "#",
-            className: "text-xs text-indigo-600 hover:text-indigo-800 transition-colors",
-            children: "Terms of Service"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "flex items-center space-x-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
+              href: "#",
+              className: "text-sm text-amber-400 hover:text-amber-300 transition-colors duration-200 font-medium hover:underline",
+              children: "Privacy Policy"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              className: "text-amber-500/50",
+              children: "|"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
+              href: "#",
+              className: "text-sm text-amber-400 hover:text-amber-300 transition-colors duration-200 font-medium hover:underline",
+              children: "Terms of Service"
+            })]
           })]
         })]
       })
@@ -41887,7 +41888,6 @@ var Sidebar = function Sidebar(_ref) {
             _context.p = 2;
             _t = _context.v;
             console.error('Error fetching user data:', _t);
-            // Set default values jika error
             setUserData({
               nama_pengguna: 'User',
               email_pengguna: 'user@example.com',
@@ -41910,8 +41910,6 @@ var Sidebar = function Sidebar(_ref) {
       window.location.href = '/kategori-password';
     }
   };
-
-  // Fungsi untuk mendapatkan inisial nama
   var getInitials = function getInitials(name) {
     if (!name) return 'U';
     return name.split(' ').map(function (word) {
@@ -41919,26 +41917,46 @@ var Sidebar = function Sidebar(_ref) {
     }).join('').substring(0, 2).toUpperCase();
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("aside", {
-    className: "bg-gray-900 text-white w-56 shadow-lg min-h-screen flex flex-col",
+    className: "bg-gradient-to-b from-gray-900 via-black to-amber-900 text-white w-56 shadow-2xl min-h-screen flex flex-col border-r border-amber-500/20",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "p-3 flex-1",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "mb-6 p-3 bg-gradient-to-br from-gray-800/80 via-black/80 to-gray-700/80 backdrop-blur-xl rounded-xl border border-amber-500/20 ring-1 ring-amber-400/10",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "flex items-center space-x-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+            className: "w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/30",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+              className: "w-4 h-4 text-black",
+              fill: "currentColor",
+              viewBox: "0 0 20 20",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+                fillRule: "evenodd",
+                d: "M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z",
+                clipRule: "evenodd"
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
+            className: "text-sm font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
+            children: "Password Manager"
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
         className: "mb-6",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "flex items-center space-x-2 p-2 bg-gray-800 rounded-lg",
+          className: "flex items-center space-x-2 p-3 bg-gradient-to-br from-gray-800/60 via-black/60 to-gray-700/60 backdrop-blur-xl rounded-xl border border-amber-500/20 ring-1 ring-amber-400/10",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-            className: "w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center overflow-hidden relative",
+            className: "w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center overflow-hidden relative shadow-lg shadow-amber-500/30",
             children: [userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
               src: userData.foto_profil,
               alt: "Profile",
               className: "w-full h-full object-cover",
               onError: function onError(e) {
-                // Jika gambar gagal dimuat, tampilkan inisial
                 e.target.style.display = 'none';
                 e.target.nextSibling.style.display = 'flex';
               }
             }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-              className: "text-xs font-bold absolute inset-0 flex items-center justify-center",
+              className: "text-xs font-bold absolute inset-0 flex items-center justify-center text-black",
               style: {
                 display: userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? 'none' : 'flex'
               },
@@ -41947,15 +41965,15 @@ var Sidebar = function Sidebar(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
             className: "flex-1 min-w-0",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-              className: "font-medium text-sm truncate",
+              className: "font-medium text-sm truncate text-amber-100",
               title: userData.nama_pengguna,
               children: userData.nama_pengguna
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-              className: "text-xs text-gray-400 truncate",
+              className: "text-xs text-amber-300/70 truncate",
               title: userData.email_pengguna,
               children: userData.email_pengguna
             }), userData.hak_akses && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-              className: "text-xs text-indigo-300 truncate",
+              className: "text-xs text-amber-400 truncate",
               title: userData.hak_akses.nama,
               children: userData.hak_akses.nama
             })]
@@ -41964,22 +41982,28 @@ var Sidebar = function Sidebar(_ref) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("nav", {
         className: "flex-1",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
-          className: "space-y-1",
+          className: "space-y-2",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
               onClick: function onClick() {
                 return handleNavigation('dashboard');
               },
-              className: "w-full flex items-center space-x-2 p-2 rounded-lg transition-colors text-sm ".concat(activeMenu === 'dashboard' ? 'bg-indigo-600' : 'hover:bg-gray-800'),
+              className: "w-full flex items-center space-x-3 p-3 rounded-xl transition-all duration-300 text-sm group ".concat(activeMenu === 'dashboard' ? 'bg-gradient-to-r from-amber-500/20 to-yellow-600/20 border border-amber-400/30 shadow-lg shadow-amber-500/25 text-amber-100' : 'hover:bg-gradient-to-r hover:from-amber-500/10 hover:to-yellow-600/10 hover:border-amber-400/20 border border-transparent text-amber-200/80 hover:text-amber-100'),
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
-                className: "w-4 h-4",
+                className: "w-4 h-4 ".concat(activeMenu === 'dashboard' ? 'text-amber-400' : 'text-amber-300/70 group-hover:text-amber-400'),
                 fill: "currentColor",
                 viewBox: "0 0 20 20",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
                   d: "M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                className: "font-medium",
                 children: "Dashboard"
+              }), activeMenu === 'dashboard' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                className: "ml-auto",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                  className: "w-2 h-2 bg-amber-400 rounded-full animate-pulse"
+                })
               })]
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
@@ -41987,9 +42011,9 @@ var Sidebar = function Sidebar(_ref) {
               onClick: function onClick() {
                 return handleNavigation('kategori-password');
               },
-              className: "w-full flex items-center space-x-2 p-2 rounded-lg transition-colors text-sm ".concat(activeMenu === 'kategori-password' ? 'bg-indigo-600' : 'hover:bg-gray-800'),
+              className: "w-full flex items-center space-x-3 p-3 rounded-xl transition-all duration-300 text-sm group ".concat(activeMenu === 'kategori-password' ? 'bg-gradient-to-r from-amber-500/20 to-yellow-600/20 border border-amber-400/30 shadow-lg shadow-amber-500/25 text-amber-100' : 'hover:bg-gradient-to-r hover:from-amber-500/10 hover:to-yellow-600/10 hover:border-amber-400/20 border border-transparent text-amber-200/80 hover:text-amber-100'),
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
-                className: "w-4 h-4",
+                className: "w-4 h-4 ".concat(activeMenu === 'kategori-password' ? 'text-amber-400' : 'text-amber-300/70 group-hover:text-amber-400'),
                 fill: "currentColor",
                 viewBox: "0 0 20 20",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
@@ -41998,10 +42022,16 @@ var Sidebar = function Sidebar(_ref) {
                   clipRule: "evenodd"
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                className: "font-medium",
                 children: "Kategori Password"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                className: "ml-auto bg-indigo-600 text-xs px-1.5 py-0.5 rounded-full",
+                className: "ml-auto bg-gradient-to-r from-amber-400 to-yellow-500 text-black text-xs px-2 py-0.5 rounded-full font-semibold shadow-lg",
                 children: "25"
+              }), activeMenu === 'kategori-password' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                className: "ml-2",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                  className: "w-2 h-2 bg-amber-400 rounded-full animate-pulse"
+                })
               })]
             })
           })]
@@ -42010,16 +42040,16 @@ var Sidebar = function Sidebar(_ref) {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
       className: "p-3",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "p-2 bg-gray-800 rounded-lg",
+        className: "p-3 bg-gradient-to-br from-gray-800/60 via-black/60 to-gray-700/60 backdrop-blur-xl rounded-xl border border-amber-500/20 ring-1 ring-amber-400/10",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "flex items-center space-x-2 text-xs",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-            className: "w-2 h-2 bg-green-400 rounded-full"
+            className: "w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-            className: "text-gray-300",
-            children: "Status Sistem: "
+            className: "text-amber-200/80",
+            children: "Status: "
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-            className: "text-green-400 font-medium",
+            className: "text-green-400 font-semibold",
             children: "Online"
           })]
         })
