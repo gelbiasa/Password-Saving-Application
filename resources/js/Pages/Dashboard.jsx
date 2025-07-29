@@ -37,40 +37,48 @@ const Dashboard = () => {
             <div className="flex-1 flex flex-col">
                 <Header />
                 
-                <main className="flex-1 p-4 relative">
-                    <div className="space-y-4 max-w-7xl">
-                        {/* Page Header */}
-                        <div className="bg-white rounded-lg shadow p-4">
+                {/* Background terang abu-abu biru */}
+                <main className="flex-1 p-6 bg-gradient-to-br from-slate-100 via-blue-100 to-gray-100 relative">
+                    {/* Decorative elements untuk background terang */}
+                    <div className="absolute top-10 right-10 w-72 h-72 bg-gradient-to-r from-blue-100/40 to-slate-200/40 rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-l from-slate-100/30 to-blue-100/30 rounded-full blur-3xl"></div>
+                    
+                    <div className="space-y-6 max-w-7xl relative z-10">
+                        {/* Page Header - Background putih dengan shadow lebih halus */}
+                        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/50 p-6">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <h1 className="text-xl font-bold text-gray-900">Dashboard</h1>
-                                    <p className="text-gray-600 mt-1 text-sm">Welcome back to Gelbiasa Password Saving Application! Here's your password security overview.</p>
+                                    <h1 className="text-2xl font-bold text-slate-800">Dashboard</h1>
+                                    <p className="text-slate-600 mt-2 text-sm font-medium">
+                                        Selamat datang kembali di Password Manager! Berikut adalah ringkasan keamanan password Anda.
+                                    </p>
                                 </div>
-                                <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-lg flex items-center space-x-2 transition-colors text-sm">
+                                {/* Button Add Password dengan tema black-gold */}
+                                <button className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 hover:from-amber-500 hover:via-yellow-600 hover:to-amber-700 text-black px-4 py-3 rounded-xl flex items-center space-x-2 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 font-semibold text-sm">
                                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                         <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd"></path>
                                     </svg>
-                                    <span>Add Password</span>
+                                    <span>Tambah Password</span>
                                 </button>
                             </div>
                         </div>
 
                         {/* Statistics Cards */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <StatCard 
-                                title="Total Passwords"
+                                title="Total Password"
                                 value={data.totalPasswords}
-                                color="indigo"
+                                color="blue"
                                 icon="lock"
                             />
                             <StatCard 
-                                title="Weak Passwords"
+                                title="Password Lemah"
                                 value={data.weakPasswords}
                                 color="red"
                                 icon="warning"
                             />
                             <StatCard 
-                                title="Strong Passwords"
+                                title="Password Kuat"
                                 value={data.strongPasswords}
                                 color="green"
                                 icon="check"
@@ -80,7 +88,7 @@ const Dashboard = () => {
                         {/* Recent Activity */}
                         <RecentActivity />
                         
-                        {/* Add padding bottom to make space for floating footer */}
+                        {/* Add padding bottom untuk footer */}
                         <div className="pb-16"></div>
                     </div>
                     
@@ -92,12 +100,27 @@ const Dashboard = () => {
     );
 };
 
-// Component untuk kartu statistik
+// Component untuk kartu statistik - diperbarui dengan tema terang
 const StatCard = ({ title, value, color, icon }) => {
     const colorClasses = {
-        indigo: 'bg-indigo-100 text-indigo-600',
-        red: 'bg-red-100 text-red-600',
-        green: 'bg-green-100 text-green-600'
+        blue: {
+            bg: 'bg-blue-50/80',
+            icon: 'bg-blue-100 text-blue-600',
+            text: 'text-blue-600',
+            border: 'border-blue-100'
+        },
+        red: {
+            bg: 'bg-red-50/80',
+            icon: 'bg-red-100 text-red-600',
+            text: 'text-red-600',
+            border: 'border-red-100'
+        },
+        green: {
+            bg: 'bg-green-50/80',
+            icon: 'bg-green-100 text-green-600',
+            text: 'text-green-600',
+            border: 'border-green-100'
+        }
     };
 
     const iconPaths = {
@@ -107,44 +130,58 @@ const StatCard = ({ title, value, color, icon }) => {
     };
 
     return (
-        <div className="bg-white p-4 rounded-lg shadow">
+        <div className={`bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border ${colorClasses[color].border} hover:scale-105 group`}>
             <div className="flex items-center">
                 <div className="flex-shrink-0">
-                    <div className={`w-8 h-8 ${colorClasses[color]} rounded-lg flex items-center justify-center`}>
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <div className={`w-12 h-12 ${colorClasses[color].icon} rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-300`}>
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d={iconPaths[icon]} clipRule="evenodd"></path>
                         </svg>
                     </div>
                 </div>
-                <div className="ml-3">
-                    <h3 className="text-sm font-semibold text-gray-900">{title}</h3>
-                    <p className={`text-2xl font-bold text-${color}-600`}>{value}</p>
+                <div className="ml-4">
+                    <h3 className="text-sm font-semibold text-slate-700 group-hover:text-slate-800 transition-colors duration-300">
+                        {title}
+                    </h3>
+                    <p className={`text-3xl font-bold ${colorClasses[color].text} group-hover:scale-105 transition-transform duration-300`}>
+                        {value}
+                    </p>
                 </div>
             </div>
         </div>
     );
 };
 
-// Component untuk recent activity
+// Component untuk recent activity - diperbarui dengan tema terang
 const RecentActivity = () => {
     const activities = [
-        { text: "Password for Gmail updated", time: "2 hours ago", color: "green" },
-        { text: "New password added for Facebook", time: "1 day ago", color: "indigo" },
-        { text: "Weak password detected for Instagram", time: "3 days ago", color: "yellow" }
+        { text: "Password Gmail diperbarui", time: "2 jam yang lalu", color: "green" },
+        { text: "Password baru ditambahkan untuk Facebook", time: "1 hari yang lalu", color: "blue" },
+        { text: "Password lemah terdeteksi untuk Instagram", time: "3 hari yang lalu", color: "yellow" }
     ];
 
+    const activityColors = {
+        green: 'bg-green-400',
+        blue: 'bg-blue-400',
+        yellow: 'bg-yellow-400'
+    };
+
     return (
-        <div className="bg-white rounded-lg shadow">
-            <div className="p-4 border-b border-gray-200">
-                <h2 className="text-lg font-semibold text-gray-900">Recent Activity</h2>
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/50">
+            <div className="p-6 border-b border-slate-200/50">
+                <h2 className="text-xl font-bold text-slate-800">Aktivitas Terbaru</h2>
             </div>
-            <div className="p-4">
-                <div className="space-y-3">
+            <div className="p-6">
+                <div className="space-y-4">
                     {activities.map((activity, index) => (
-                        <div key={index} className="flex items-center space-x-3">
-                            <div className={`w-2 h-2 bg-${activity.color}-400 rounded-full`}></div>
-                            <span className="text-sm text-gray-600">{activity.text}</span>
-                            <span className="text-xs text-gray-400 ml-auto">{activity.time}</span>
+                        <div key={index} className="flex items-center space-x-4 p-3 rounded-xl bg-slate-50/50 hover:bg-slate-100/50 transition-colors duration-300 group">
+                            <div className={`w-3 h-3 ${activityColors[activity.color]} rounded-full shadow-sm animate-pulse`}></div>
+                            <span className="text-sm text-slate-700 group-hover:text-slate-800 transition-colors duration-300 flex-1 font-medium">
+                                {activity.text}
+                            </span>
+                            <span className="text-xs text-slate-500 group-hover:text-slate-600 transition-colors duration-300 font-medium">
+                                {activity.time}
+                            </span>
                         </div>
                     ))}
                 </div>
