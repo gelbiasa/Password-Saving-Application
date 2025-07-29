@@ -42527,23 +42527,27 @@ var Dashboard = function Dashboard() {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "flex-1 flex flex-col",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Header__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("main", {
-        className: "flex-1 p-4 relative",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "space-y-4 max-w-7xl",
+        className: "flex-1 p-6 bg-gradient-to-br from-slate-100 via-blue-100 to-gray-100 relative",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "absolute top-10 right-10 w-72 h-72 bg-gradient-to-r from-blue-100/40 to-slate-200/40 rounded-full blur-3xl"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-l from-slate-100/30 to-blue-100/30 rounded-full blur-3xl"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "space-y-6 max-w-7xl relative z-10",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-            className: "bg-white rounded-lg shadow p-4",
+            className: "bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/50 p-6",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
               className: "flex items-center justify-between",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
-                  className: "text-xl font-bold text-gray-900",
+                  className: "text-2xl font-bold text-slate-800",
                   children: "Dashboard"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-                  className: "text-gray-600 mt-1 text-sm",
-                  children: "Welcome back to Gelbiasa Password Saving Application! Here's your password security overview."
+                  className: "text-slate-600 mt-2 text-sm font-medium",
+                  children: "Selamat datang kembali di Password Manager! Berikut adalah ringkasan keamanan password Anda."
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-                className: "bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-lg flex items-center space-x-2 transition-colors text-sm",
+                className: "bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 hover:from-amber-500 hover:via-yellow-600 hover:to-amber-700 text-black px-4 py-3 rounded-xl flex items-center space-x-2 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 font-semibold text-sm",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
                   className: "w-4 h-4",
                   fill: "currentColor",
@@ -42554,24 +42558,24 @@ var Dashboard = function Dashboard() {
                     clipRule: "evenodd"
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-                  children: "Add Password"
+                  children: "Tambah Password"
                 })]
               })]
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "grid grid-cols-1 md:grid-cols-3 gap-4",
+            className: "grid grid-cols-1 md:grid-cols-3 gap-6",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(StatCard, {
-              title: "Total Passwords",
+              title: "Total Password",
               value: data.totalPasswords,
-              color: "indigo",
+              color: "blue",
               icon: "lock"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(StatCard, {
-              title: "Weak Passwords",
+              title: "Password Lemah",
               value: data.weakPasswords,
               color: "red",
               icon: "warning"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(StatCard, {
-              title: "Strong Passwords",
+              title: "Password Kuat",
               value: data.strongPasswords,
               color: "green",
               icon: "check"
@@ -42585,16 +42589,31 @@ var Dashboard = function Dashboard() {
   });
 };
 
-// Component untuk kartu statistik
+// Component untuk kartu statistik - diperbarui dengan tema terang
 var StatCard = function StatCard(_ref2) {
   var title = _ref2.title,
     value = _ref2.value,
     color = _ref2.color,
     icon = _ref2.icon;
   var colorClasses = {
-    indigo: 'bg-indigo-100 text-indigo-600',
-    red: 'bg-red-100 text-red-600',
-    green: 'bg-green-100 text-green-600'
+    blue: {
+      bg: 'bg-blue-50/80',
+      icon: 'bg-blue-100 text-blue-600',
+      text: 'text-blue-600',
+      border: 'border-blue-100'
+    },
+    red: {
+      bg: 'bg-red-50/80',
+      icon: 'bg-red-100 text-red-600',
+      text: 'text-red-600',
+      border: 'border-red-100'
+    },
+    green: {
+      bg: 'bg-green-50/80',
+      icon: 'bg-green-100 text-green-600',
+      text: 'text-green-600',
+      border: 'border-green-100'
+    }
   };
   var iconPaths = {
     lock: "M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z",
@@ -42602,15 +42621,15 @@ var StatCard = function StatCard(_ref2) {
     check: "M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-    className: "bg-white p-4 rounded-lg shadow",
+    className: "bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border ".concat(colorClasses[color].border, " hover:scale-105 group"),
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "flex items-center",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "flex-shrink-0",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "w-8 h-8 ".concat(colorClasses[color], " rounded-lg flex items-center justify-center"),
+          className: "w-12 h-12 ".concat(colorClasses[color].icon, " rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-300"),
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
-            className: "w-4 h-4",
+            className: "w-6 h-6",
             fill: "currentColor",
             viewBox: "0 0 20 20",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
@@ -42621,12 +42640,12 @@ var StatCard = function StatCard(_ref2) {
           })
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "ml-3",
+        className: "ml-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
-          className: "text-sm font-semibold text-gray-900",
+          className: "text-sm font-semibold text-slate-700 group-hover:text-slate-800 transition-colors duration-300",
           children: title
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-          className: "text-2xl font-bold text-".concat(color, "-600"),
+          className: "text-3xl font-bold ".concat(colorClasses[color].text, " group-hover:scale-105 transition-transform duration-300"),
           children: value
         })]
       })]
@@ -42634,43 +42653,48 @@ var StatCard = function StatCard(_ref2) {
   });
 };
 
-// Component untuk recent activity
+// Component untuk recent activity - diperbarui dengan tema terang
 var RecentActivity = function RecentActivity() {
   var activities = [{
-    text: "Password for Gmail updated",
-    time: "2 hours ago",
+    text: "Password Gmail diperbarui",
+    time: "2 jam yang lalu",
     color: "green"
   }, {
-    text: "New password added for Facebook",
-    time: "1 day ago",
-    color: "indigo"
+    text: "Password baru ditambahkan untuk Facebook",
+    time: "1 hari yang lalu",
+    color: "blue"
   }, {
-    text: "Weak password detected for Instagram",
-    time: "3 days ago",
+    text: "Password lemah terdeteksi untuk Instagram",
+    time: "3 hari yang lalu",
     color: "yellow"
   }];
+  var activityColors = {
+    green: 'bg-green-400',
+    blue: 'bg-blue-400',
+    yellow: 'bg-yellow-400'
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    className: "bg-white rounded-lg shadow",
+    className: "bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/50",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      className: "p-4 border-b border-gray-200",
+      className: "p-6 border-b border-slate-200/50",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
-        className: "text-lg font-semibold text-gray-900",
-        children: "Recent Activity"
+        className: "text-xl font-bold text-slate-800",
+        children: "Aktivitas Terbaru"
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      className: "p-4",
+      className: "p-6",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-        className: "space-y-3",
+        className: "space-y-4",
         children: activities.map(function (activity, index) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "flex items-center space-x-3",
+            className: "flex items-center space-x-4 p-3 rounded-xl bg-slate-50/50 hover:bg-slate-100/50 transition-colors duration-300 group",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              className: "w-2 h-2 bg-".concat(activity.color, "-400 rounded-full")
+              className: "w-3 h-3 ".concat(activityColors[activity.color], " rounded-full shadow-sm animate-pulse")
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-              className: "text-sm text-gray-600",
+              className: "text-sm text-slate-700 group-hover:text-slate-800 transition-colors duration-300 flex-1 font-medium",
               children: activity.text
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-              className: "text-xs text-gray-400 ml-auto",
+              className: "text-xs text-slate-500 group-hover:text-slate-600 transition-colors duration-300 font-medium",
               children: activity.time
             })]
           }, index);
