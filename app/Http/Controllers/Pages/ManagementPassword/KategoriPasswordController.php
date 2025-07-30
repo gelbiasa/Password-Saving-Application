@@ -30,6 +30,16 @@ class KategoriPasswordController extends Controller
         }
     }
 
+    public function getDeletedData()
+    {
+        try {
+            $data = $this->model->getDeletedData();
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -57,6 +67,13 @@ class KategoriPasswordController extends Controller
     public function destroy($id)
     {
         $result = $this->model->deleteData($id);
+        
+        return response()->json($result);
+    }
+
+    public function restore($id)
+    {
+        $result = $this->model->restoreData($id);
         
         return response()->json($result);
     }
