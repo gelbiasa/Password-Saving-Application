@@ -28,11 +28,5 @@ Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    Route::get('/kategori-password', [KategoriPasswordController::class, 'getData']);
-    Route::get('/kategori-password/deleted', [KategoriPasswordController::class, 'getDeletedData']);
-    Route::post('/kategori-password', [KategoriPasswordController::class, 'store']);
-    Route::put('/kategori-password/{id}', [KategoriPasswordController::class, 'update']);
-    Route::delete('/kategori-password/{id}', [KategoriPasswordController::class, 'destroy']);
-    Route::post('/kategori-password/{id}/restore', [KategoriPasswordController::class, 'restore']);
+    Route::get('/kategori-password', [KategoriPasswordController::class, 'index'])->name('kategori-password');
 });
