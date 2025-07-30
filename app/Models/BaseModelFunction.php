@@ -32,10 +32,9 @@ trait BaseModelFunction
             $user = Auth::user();
             $aliasUser = '';
             
-            if ($user && method_exists($user, 'generateAlias')) {
+            if ($user) {
+                // Gunakan method generateAlias dari trait ini
                 $aliasUser = $model->generateAlias($user->nama_pengguna ?? $user->username ?? '');
-            } elseif ($user) {
-                $aliasUser = $user->nama_pengguna ?? $user->username ?? 'System';
             } else {
                 $aliasUser = 'System';
             }
@@ -53,10 +52,9 @@ trait BaseModelFunction
             $user = Auth::user();
             $aliasUser = '';
             
-            if ($user && method_exists($user, 'generateAlias')) {
-                $aliasUser = $model->generateAlias($user->nama_pengguna ?? '');
-            } elseif ($user) {
-                $aliasUser = $user->nama_pengguna ?? $user->username ?? 'System';
+            if ($user) {
+                // Gunakan method generateAlias dari trait ini
+                $aliasUser = $model->generateAlias($user->nama_pengguna ?? $user->username ?? '');
             } else {
                 $aliasUser = 'System';
             }
@@ -73,10 +71,9 @@ trait BaseModelFunction
             $user = Auth::user();
             $aliasUser = '';
             
-            if ($user && method_exists($user, 'generateAlias')) {
-                $aliasUser = $model->generateAlias($user->nama_pengguna ?? '');
-            } elseif ($user) {
-                $aliasUser = $user->nama_pengguna ?? $user->username ?? 'System';
+            if ($user) {
+                // Gunakan method generateAlias dari trait ini
+                $aliasUser = $model->generateAlias($user->nama_pengguna ?? $user->username ?? '');
             } else {
                 $aliasUser = 'System';
             }
@@ -106,25 +103,16 @@ trait BaseModelFunction
     }
 
     /**
-     * Method untuk force delete (hard delete)
-     */
-    public function forceDelete()
-    {
-        return parent::delete();
-    }
-
-    /**
      * Method untuk restore data yang sudah di-soft delete
      */
-    public function restore()
+    public function customRestore()
     {
         $user = Auth::user();
         $aliasUser = '';
         
-        if ($user && method_exists($user, 'generateAlias')) {
+        if ($user) {
+            // Gunakan method generateAlias dari trait ini
             $aliasUser = $this->generateAlias($user->nama_pengguna ?? $user->username ?? '');
-        } elseif ($user) {
-            $aliasUser = $user->nama_pengguna ?? $user->username ?? 'System';
         } else {
             $aliasUser = 'System';
         }
