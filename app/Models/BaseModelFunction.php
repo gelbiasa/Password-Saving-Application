@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 trait BaseModelFunction
 {
     protected $commonFields = [
@@ -17,6 +20,140 @@ trait BaseModelFunction
     public function getCommonFields()
     {
         return $this->commonFields;
+    }
+
+    /**
+     * Boot function untuk handle common fields secara otomatis
+     */
+    protected static function bootBaseModelFunction()
+    {
+        // Event ketika data dibuat (creating)
+        static::creating(function ($model) {
+            $user = Auth::user();
+            $aliasUser = '';
+            
+            if ($user && method_exists($user, 'generateAlias')) {
+                $aliasUser = $model->generateAlias($user->nama_pengguna ?? $user->username ?? '');
+            } elseif ($user) {
+                $aliasUser = $user->nama_pengguna ?? $user->username ?? 'System';
+            } else {
+                $aliasUser = 'System';
+            }
+            
+            // Set timezone Asia/Jakarta
+            $waktuSekarang = Carbon::now('Asia/Jakarta');
+            
+            $model->created_at = $waktuSekarang;
+            $model->created_by = $aliasUser;
+            $model->isDeleted = 0;
+        });
+
+        // Event ketika data diupdate (updating)
+        static::updating(function ($model) {
+            $user = Auth::user();
+            $aliasUser = '';
+            
+            if ($user && method_exists($user, 'generateAlias')) {
+                $aliasUser = $model->generateAlias($user->nama_pengguna ?? '');
+            } elseif ($user) {
+                $aliasUser = $user->nama_pengguna ?? $user->username ?? 'System';
+            } else {
+                $aliasUser = 'System';
+            }
+            
+            // Set timezone Asia/Jakarta
+            $waktuSekarang = Carbon::now('Asia/Jakarta');
+            
+            $model->updated_at = $waktuSekarang;
+            $model->updated_by = $aliasUser;
+        });
+
+        // Event ketika data dihapus (deleting)
+        static::deleting(function ($model) {
+            $user = Auth::user();
+            $aliasUser = '';
+            
+            if ($user && method_exists($user, 'generateAlias')) {
+                $aliasUser = $model->generateAlias($user->nama_pengguna ?? '');
+            } elseif ($user) {
+                $aliasUser = $user->nama_pengguna ?? $user->username ?? 'System';
+            } else {
+                $aliasUser = 'System';
+            }
+            
+            // Set timezone Asia/Jakarta
+            $waktuSekarang = Carbon::now('Asia/Jakarta');
+            
+            // Soft delete - update isDeleted menjadi 1
+            $model->isDeleted = 1;
+            $model->deleted_at = $waktuSekarang;
+            $model->deleted_by = $aliasUser;
+            
+            // Simpan perubahan tanpa trigger event lagi
+            $model->saveQuietly();
+            
+            // Return false agar delete asli tidak terjadi (karena kita pakai soft delete)
+            return false;
+        });
+    }
+
+    /**
+     * Override delete method untuk soft delete
+     */
+    public function delete()
+    {
+        return static::deleting($this);
+    }
+
+    /**
+     * Method untuk force delete (hard delete)
+     */
+    public function forceDelete()
+    {
+        return parent::delete();
+    }
+
+    /**
+     * Method untuk restore data yang sudah di-soft delete
+     */
+    public function restore()
+    {
+        $user = Auth::user();
+        $aliasUser = '';
+        
+        if ($user && method_exists($user, 'generateAlias')) {
+            $aliasUser = $this->generateAlias($user->nama_pengguna ?? $user->username ?? '');
+        } elseif ($user) {
+            $aliasUser = $user->nama_pengguna ?? $user->username ?? 'System';
+        } else {
+            $aliasUser = 'System';
+        }
+        
+        $waktuSekarang = Carbon::now('Asia/Jakarta');
+        
+        $this->isDeleted = 0;
+        $this->deleted_at = null;
+        $this->deleted_by = null;
+        $this->updated_at = $waktuSekarang;
+        $this->updated_by = $aliasUser;
+        
+        return $this->save();
+    }
+
+    /**
+     * Scope untuk mengambil data yang tidak dihapus
+     */
+    public function scopeNotDeleted($query)
+    {
+        return $query->where('isDeleted', 0);
+    }
+
+    /**
+     * Scope untuk mengambil data yang sudah dihapus
+     */
+    public function scopeOnlyDeleted($query)
+    {
+        return $query->where('isDeleted', 1);
     }
 
     /**
