@@ -27,7 +27,11 @@ Route::post('/set-hak-akses', [AuthController::class, 'setHakAkses'])->middlewar
 Route::get('/current-user', [AuthController::class, 'getCurrentUser'])->middleware('web'); // Route baru
 
 Route::get('/dashboard-data', [DashboardController::class, 'getDashboardData']);
-Route::get('/kategori-password', [KategoriPasswordController::class, 'getData']);
-Route::post('/kategori-password', [KategoriPasswordController::class, 'store']);
-Route::put('/kategori-password/{id}', [KategoriPasswordController::class, 'update']);
-Route::delete('/kategori-password/{id}', [KategoriPasswordController::class, 'destroy']);
+Route::middleware('web')->group(function () {
+    Route::get('/kategori-password', [KategoriPasswordController::class, 'getData']);
+    Route::get('/kategori-password/deleted', [KategoriPasswordController::class, 'getDeletedData']);
+    Route::post('/kategori-password', [KategoriPasswordController::class, 'store']);
+    Route::put('/kategori-password/{id}', [KategoriPasswordController::class, 'update']);
+    Route::delete('/kategori-password/{id}', [KategoriPasswordController::class, 'destroy']);
+    Route::post('/kategori-password/{id}/restore', [KategoriPasswordController::class, 'restore']);
+});
