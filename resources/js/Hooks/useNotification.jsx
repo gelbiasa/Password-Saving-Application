@@ -6,7 +6,12 @@ export const useNotification = () => {
         message: '',
         title: '',
         isVisible: false,
-        onRetry: null
+        onRetry: null,
+        onConfirm: null,
+        userName: '',
+        itemName: '',
+        confirmText: '',
+        cancelText: ''
     });
 
     const showSuccess = useCallback((message, title = 'Berhasil!') => {
@@ -15,7 +20,12 @@ export const useNotification = () => {
             message,
             title,
             isVisible: true,
-            onRetry: null
+            onRetry: null,
+            onConfirm: null,
+            userName: '',
+            itemName: '',
+            confirmText: '',
+            cancelText: ''
         });
     }, []);
 
@@ -25,7 +35,57 @@ export const useNotification = () => {
             message,
             title,
             isVisible: true,
-            onRetry
+            onRetry,
+            onConfirm: null,
+            userName: '',
+            itemName: '',
+            confirmText: '',
+            cancelText: ''
+        });
+    }, []);
+
+    const showWarning = useCallback((message, title = 'Peringatan!', onConfirm = null, confirmText = 'Ya, Lanjutkan', cancelText = 'Batal') => {
+        setNotification({
+            type: 'warning',
+            message,
+            title,
+            isVisible: true,
+            onRetry: null,
+            onConfirm,
+            confirmText,
+            cancelText,
+            userName: '',
+            itemName: ''
+        });
+    }, []);
+
+    const showLogout = useCallback((message = 'Apakah Anda yakin ingin keluar dari sistem?', title = 'Konfirmasi Logout', onConfirm = null, userName = 'User') => {
+        setNotification({
+            type: 'logout',
+            message,
+            title,
+            isVisible: true,
+            onRetry: null,
+            onConfirm,
+            userName,
+            itemName: '',
+            confirmText: '',
+            cancelText: ''
+        });
+    }, []);
+
+    const showDelete = useCallback((message = 'Data yang dihapus tidak dapat dikembalikan!', title = 'Konfirmasi Hapus', onConfirm = null, itemName = 'item ini') => {
+        setNotification({
+            type: 'delete',
+            message,
+            title,
+            isVisible: true,
+            onRetry: null,
+            onConfirm,
+            itemName,
+            userName: '',
+            confirmText: '',
+            cancelText: ''
         });
     }, []);
 
@@ -40,6 +100,9 @@ export const useNotification = () => {
         notification,
         showSuccess,
         showError,
+        showWarning,
+        showLogout,
+        showDelete,
         hideNotification
     };
 };

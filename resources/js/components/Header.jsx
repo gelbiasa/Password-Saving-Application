@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SuccessMessage from '../Feedback-Message/success';
 import ErrorMessage from '../Feedback-Message/error';
+import LogoutMessage from '../Feedback-Message/logout';
 import { useNotification } from '../Hooks/useNotification';
 
 const Header = () => {
@@ -10,7 +11,7 @@ const Header = () => {
         foto_profil: '/foto-profile/default-picture.jpg',
         hak_akses: null
     });
-    const { notification, showSuccess, showError, hideNotification } = useNotification();
+    const { notification, showSuccess, showError, showLogout, hideNotification } = useNotification();
 
     useEffect(() => {
         fetchCurrentUser();
@@ -34,13 +35,14 @@ const Header = () => {
     };
 
     const handleLogout = () => {
-        showError(
-            'Apakah Anda yakin ingin keluar dari sistem? Semua sesi aktif akan berakhir.',
+        showLogout(
+            'Semua sesi aktif akan berakhir dan Anda perlu login kembali untuk mengakses aplikasi.',
             'Konfirmasi Logout',
             () => {
-                // Jika user mengklik "Coba Lagi" (dalam konteks ini artinya "Ya, Logout")
+                // Proses logout setelah konfirmasi
                 performLogout();
-            }
+            },
+            userData.nama_pengguna || 'User'
         );
     };
 
@@ -49,7 +51,7 @@ const Header = () => {
             // Tampilkan loading message
             showSuccess('Sedang memproses logout...', 'Memproses...');
             
-            // Simulate logout process
+            // Simulate logout process (replace with actual API call)
             await new Promise(resolve => setTimeout(resolve, 1000));
             
             // Tampilkan success message
@@ -152,6 +154,17 @@ const Header = () => {
                     isVisible={notification.isVisible}
                     onClose={hideNotification}
                     onRetry={notification.onRetry}
+                />
+            )}
+
+            {notification.type === 'logout' && (
+                <LogoutMessage
+                    message={notification.message}
+                    title={notification.title}
+                    isVisible={notification.isVisible}
+                    onClose={hideNotification}
+                    onConfirm={notification.onConfirm}
+                    userName={notification.userName}
                 />
             )}
         </>
