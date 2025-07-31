@@ -41105,8 +41105,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Feedback_Message_success__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Feedback-Message/success */ "./resources/js/Feedback-Message/success.jsx");
 /* harmony import */ var _Feedback_Message_error__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Feedback-Message/error */ "./resources/js/Feedback-Message/error.jsx");
-/* harmony import */ var _Hooks_useNotification__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Hooks/useNotification */ "./resources/js/Hooks/useNotification.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Feedback_Message_logout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Feedback-Message/logout */ "./resources/js/Feedback-Message/logout.jsx");
+/* harmony import */ var _Hooks_useNotification__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Hooks/useNotification */ "./resources/js/Hooks/useNotification.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { if (r) i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n;else { var o = function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); }; o("next", 0), o("throw", 1), o("return", 2); } }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -41117,6 +41118,7 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
 
 
 
@@ -41139,26 +41141,61 @@ var PilihLevel = function PilihLevel() {
     _useState8 = _slicedToArray(_useState7, 2),
     fetchLoading = _useState8[0],
     setFetchLoading = _useState8[1];
-  var _useNotification = (0,_Hooks_useNotification__WEBPACK_IMPORTED_MODULE_3__.useNotification)(),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('User'),
+    _useState0 = _slicedToArray(_useState9, 2),
+    currentUser = _useState0[0],
+    setCurrentUser = _useState0[1];
+  var _useNotification = (0,_Hooks_useNotification__WEBPACK_IMPORTED_MODULE_4__.useNotification)(),
     notification = _useNotification.notification,
     showSuccess = _useNotification.showSuccess,
     showError = _useNotification.showError,
+    showLogout = _useNotification.showLogout,
     hideNotification = _useNotification.hideNotification;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     _fetchHakAkses();
+    fetchCurrentUser();
   }, []);
-  var _fetchHakAkses = /*#__PURE__*/function () {
+  var fetchCurrentUser = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-      var response, _error$response, _t;
+      var response, _t;
       return _regenerator().w(function (_context) {
         while (1) switch (_context.p = _context.n) {
           case 0:
+            _context.p = 0;
+            _context.n = 1;
+            return axios.get('/api/current-user');
+          case 1:
+            response = _context.v;
+            if (response.data.success && response.data.data.nama_pengguna) {
+              setCurrentUser(response.data.data.nama_pengguna);
+            }
+            _context.n = 3;
+            break;
+          case 2:
+            _context.p = 2;
+            _t = _context.v;
+            console.error('Error fetching current user:', _t);
+          case 3:
+            return _context.a(2);
+        }
+      }, _callee, null, [[0, 2]]);
+    }));
+    return function fetchCurrentUser() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+  var _fetchHakAkses = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var response, _error$response, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
             setFetchLoading(true);
-            _context.p = 1;
-            _context.n = 2;
+            _context2.p = 1;
+            _context2.n = 2;
             return axios.get('/api/hak-akses-user');
           case 2:
-            response = _context.v;
+            response = _context2.v;
             console.log('Response hak akses:', response.data);
             if (Array.isArray(response.data) && response.data.length > 0) {
               setHakAkses(response.data);
@@ -41169,13 +41206,13 @@ var PilihLevel = function PilihLevel() {
                 return window.location.href = '/login';
               });
             }
-            _context.n = 4;
+            _context2.n = 4;
             break;
           case 3:
-            _context.p = 3;
-            _t = _context.v;
-            console.error('Error mengambil hak akses:', _t);
-            if (((_error$response = _t.response) === null || _error$response === void 0 ? void 0 : _error$response.status) === 401) {
+            _context2.p = 3;
+            _t2 = _context2.v;
+            console.error('Error mengambil hak akses:', _t2);
+            if (((_error$response = _t2.response) === null || _error$response === void 0 ? void 0 : _error$response.status) === 401) {
               showError('Session expired. Silakan login ulang.', 'Session Expired!', function () {
                 return window.location.href = '/login';
               });
@@ -41185,40 +41222,40 @@ var PilihLevel = function PilihLevel() {
               });
             }
           case 4:
-            _context.p = 4;
+            _context2.p = 4;
             setFetchLoading(false);
-            return _context.f(4);
+            return _context2.f(4);
           case 5:
-            return _context.a(2);
+            return _context2.a(2);
         }
-      }, _callee, null, [[1, 3, 4, 5]]);
+      }, _callee2, null, [[1, 3, 4, 5]]);
     }));
     return function fetchHakAkses() {
-      return _ref.apply(this, arguments);
+      return _ref2.apply(this, arguments);
     };
   }();
   var _handleSubmit = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(e) {
-      var response, _error$response2, _t2;
-      return _regenerator().w(function (_context2) {
-        while (1) switch (_context2.p = _context2.n) {
+    var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(e) {
+      var response, _error$response2, _t3;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.p = _context3.n) {
           case 0:
             e.preventDefault();
             if (selectedLevel) {
-              _context2.n = 1;
+              _context3.n = 1;
               break;
             }
             showError('Silakan pilih level hak akses terlebih dahulu!', 'Pilihan Belum Dipilih!');
-            return _context2.a(2);
+            return _context3.a(2);
           case 1:
             setLoading(true);
-            _context2.p = 2;
-            _context2.n = 3;
+            _context3.p = 2;
+            _context3.n = 3;
             return axios.post('/api/set-hak-akses', {
               hak_akses_id: selectedLevel
             });
           case 3:
-            response = _context2.v;
+            response = _context3.v;
             if (response.data.success) {
               showSuccess(response.data.message || 'Hak akses berhasil dipilih!', 'Berhasil!');
               setTimeout(function () {
@@ -41229,13 +41266,13 @@ var PilihLevel = function PilihLevel() {
                 return _handleSubmit(e);
               });
             }
-            _context2.n = 5;
+            _context3.n = 5;
             break;
           case 4:
-            _context2.p = 4;
-            _t2 = _context2.v;
-            console.error('Error setting hak akses:', _t2);
-            if (((_error$response2 = _t2.response) === null || _error$response2 === void 0 ? void 0 : _error$response2.status) === 401) {
+            _context3.p = 4;
+            _t3 = _context3.v;
+            console.error('Error setting hak akses:', _t3);
+            if (((_error$response2 = _t3.response) === null || _error$response2 === void 0 ? void 0 : _error$response2.status) === 401) {
               showError('Session expired. Silakan login ulang.', 'Session Expired!', function () {
                 return window.location.href = '/login';
               });
@@ -41247,22 +41284,61 @@ var PilihLevel = function PilihLevel() {
           case 5:
             setLoading(false);
           case 6:
-            return _context2.a(2);
+            return _context3.a(2);
         }
-      }, _callee2, null, [[2, 4]]);
+      }, _callee3, null, [[2, 4]]);
     }));
     return function handleSubmit(_x) {
-      return _ref2.apply(this, arguments);
+      return _ref3.apply(this, arguments);
     };
   }();
   var handleLogout = function handleLogout() {
-    showError('Apakah Anda yakin ingin keluar dari sistem?', 'Konfirmasi Logout', function () {
-      showSuccess('Anda berhasil keluar dari sistem!', 'Logout Berhasil!');
-      setTimeout(function () {
-        window.location.href = '/logout';
-      }, 1500);
-    });
+    showLogout('Semua sesi aktif akan berakhir dan Anda perlu login kembali untuk mengakses aplikasi.', 'Konfirmasi Logout', function () {
+      // Proses logout setelah konfirmasi
+      _performLogout();
+    }, currentUser);
   };
+  var _performLogout = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      var _t4;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.p = _context4.n) {
+          case 0:
+            _context4.p = 0;
+            // Tampilkan processing message
+            showSuccess('Sedang memproses logout...', 'Memproses...');
+
+            // Simulate logout process
+            _context4.n = 1;
+            return new Promise(function (resolve) {
+              return setTimeout(resolve, 1000);
+            });
+          case 1:
+            // Tampilkan success message
+            showSuccess("Terima kasih ".concat(currentUser, "! Anda berhasil keluar dari sistem."), 'Logout Berhasil!');
+
+            // Redirect setelah delay
+            setTimeout(function () {
+              window.location.href = '/logout';
+            }, 2000);
+            _context4.n = 3;
+            break;
+          case 2:
+            _context4.p = 2;
+            _t4 = _context4.v;
+            console.error('Error during logout:', _t4);
+            showError('Terjadi kesalahan saat logout. Silakan coba lagi.', 'Logout Gagal!', function () {
+              return _performLogout();
+            });
+          case 3:
+            return _context4.a(2);
+        }
+      }, _callee4, null, [[0, 2]]);
+    }));
+    return function performLogout() {
+      return _ref4.apply(this, arguments);
+    };
+  }();
   var handleLevelChange = function handleLevelChange(levelId) {
     setSelectedLevel(levelId);
     var selectedItem = hakAkses.find(function (item) {
@@ -41273,38 +41349,38 @@ var PilihLevel = function PilihLevel() {
     }
   };
   if (fetchLoading) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-amber-900"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "absolute inset-0 bg-gradient-to-tr from-transparent via-amber-500/10 to-yellow-400/20"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "absolute top-10 left-10 w-72 h-72 bg-gradient-to-r from-amber-400/20 to-yellow-600/20 rounded-full blur-3xl animate-pulse"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "absolute bottom-10 right-10 w-96 h-96 bg-gradient-to-l from-amber-500/15 to-orange-600/15 rounded-full blur-3xl animate-pulse delay-1000"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "text-center relative z-10",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           className: "mx-auto h-16 w-16 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center shadow-2xl shadow-amber-500/50 ring-4 ring-amber-400/30 animate-spin",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
             className: "h-8 w-8 text-black",
             fill: "currentColor",
             viewBox: "0 0 20 20",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
               fillRule: "evenodd",
               d: "M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z",
               clipRule: "evenodd"
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
           className: "mt-6 text-xl font-semibold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
           children: "Memuat data hak akses..."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           className: "mt-4 flex justify-center",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "w-48 h-1 bg-gray-800 rounded-full overflow-hidden",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
               className: "w-full h-full bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 animate-pulse"
             })
           })
@@ -41312,59 +41388,59 @@ var PilihLevel = function PilihLevel() {
       })]
     });
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: "min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-amber-900"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "absolute inset-0 bg-gradient-to-tr from-transparent via-amber-500/10 to-yellow-400/20"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "absolute top-10 left-10 w-72 h-72 bg-gradient-to-r from-amber-400/20 to-yellow-600/20 rounded-full blur-3xl animate-pulse"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "absolute bottom-10 right-10 w-96 h-96 bg-gradient-to-l from-amber-500/15 to-orange-600/15 rounded-full blur-3xl animate-pulse delay-1000"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-yellow-400/10 to-amber-600/10 rounded-full blur-2xl animate-pulse delay-500"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "max-w-lg w-full space-y-8 relative z-10",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "text-center",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           className: "mx-auto h-20 w-20 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center shadow-2xl shadow-amber-500/50 ring-4 ring-amber-400/30",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
             className: "h-10 w-10 text-black",
             fill: "currentColor",
             viewBox: "0 0 20 20",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
               d: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
           className: "mt-6 text-4xl font-extrabold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
           children: "Pilih Level Akses"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
           className: "mt-3 text-sm text-amber-100/80 font-medium",
-          children: ["Anda memiliki ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          children: ["Anda memiliki ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
             className: "text-amber-300 font-bold",
             children: hakAkses.length
           }), " level akses. Silakan pilih level yang ingin digunakan."]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/50 p-8 border border-amber-500/20 ring-1 ring-amber-400/10",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("form", {
           className: "space-y-6",
           onSubmit: _handleSubmit,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
               className: "block text-sm font-semibold text-amber-300 mb-4",
               children: "Level Hak Akses Tersedia:"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
               className: "space-y-3",
               children: hakAkses.map(function (item) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                   className: "relative group",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
                     className: "flex items-center p-4 border rounded-xl transition-all duration-300 cursor-pointer ".concat(selectedLevel == item.m_hak_akses_id ? 'border-amber-500 bg-gradient-to-r from-amber-500/20 to-yellow-600/20 shadow-lg shadow-amber-500/25' : 'border-amber-500/30 bg-gray-800/50 hover:border-amber-400/50 hover:bg-gradient-to-r hover:from-amber-500/10 hover:to-yellow-600/10'),
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
                       id: "level-".concat(item.m_hak_akses_id),
                       name: "level",
                       type: "radio",
@@ -41374,35 +41450,35 @@ var PilihLevel = function PilihLevel() {
                         return handleLevelChange(e.target.value);
                       },
                       className: "h-4 w-4 text-amber-500 focus:ring-amber-500 focus:ring-2 border-amber-400 bg-gray-800"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
                       htmlFor: "level-".concat(item.m_hak_akses_id),
                       className: "ml-4 flex-1 cursor-pointer",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
                         className: "flex items-center justify-between",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
                           className: "flex-1",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                             className: "text-sm font-semibold ".concat(selectedLevel == item.m_hak_akses_id ? 'text-amber-200' : 'text-amber-100 group-hover:text-amber-200'),
                             children: item.hak_akses_nama
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
                             className: "text-xs mt-1 ".concat(selectedLevel == item.m_hak_akses_id ? 'text-amber-300/80' : 'text-amber-400/60 group-hover:text-amber-300/80'),
                             children: ["Kode: ", item.hak_akses_kode]
                           })]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                           className: "ml-4",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                             className: "text-xs px-3 py-1.5 rounded-full font-medium ".concat(selectedLevel == item.m_hak_akses_id ? 'bg-gradient-to-r from-amber-400 to-yellow-500 text-black shadow-lg' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'),
                             children: item.hak_akses_kode
                           })
                         })]
                       })
-                    }), selectedLevel == item.m_hak_akses_id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                    }), selectedLevel == item.m_hak_akses_id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                       className: "ml-3",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
                         className: "h-5 w-5 text-amber-400",
                         fill: "currentColor",
                         viewBox: "0 0 20 20",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
                           fillRule: "evenodd",
                           d: "M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z",
                           clipRule: "evenodd"
@@ -41413,66 +41489,66 @@ var PilihLevel = function PilihLevel() {
                 }, item.m_hak_akses_id);
               })
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             className: "flex space-x-4 pt-4",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
               type: "button",
               onClick: handleLogout,
               className: "flex-1 py-4 px-6 border border-amber-500/30 rounded-xl text-sm font-semibold text-amber-200 bg-gray-800/50 hover:bg-gray-700/50 hover:border-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-300 backdrop-blur-sm",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
                 className: "flex items-center justify-center space-x-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
                   className: "h-4 w-4",
                   fill: "currentColor",
                   viewBox: "0 0 20 20",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
                     fillRule: "evenodd",
                     d: "M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z",
                     clipRule: "evenodd"
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                   children: "Keluar"
                 })]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
               type: "submit",
               disabled: loading || !selectedLevel,
               className: "flex-1 py-4 px-6 border border-transparent text-sm font-bold rounded-xl text-black bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 hover:from-amber-500 hover:via-yellow-600 hover:to-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40",
-              children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
                 className: "flex items-center justify-center space-x-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("svg", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("svg", {
                   className: "animate-spin h-5 w-5 text-black",
                   xmlns: "http://www.w3.org/2000/svg",
                   fill: "none",
                   viewBox: "0 0 24 24",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("circle", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("circle", {
                     className: "opacity-25",
                     cx: "12",
                     cy: "12",
                     r: "10",
                     stroke: "currentColor",
                     strokeWidth: "4"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
                     className: "opacity-75",
                     fill: "currentColor",
                     d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                   className: "font-bold",
                   children: "Memproses..."
                 })]
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
                 className: "flex items-center justify-center space-x-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
                   className: "h-4 w-4 text-black/80",
                   fill: "currentColor",
                   viewBox: "0 0 20 20",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
                     fillRule: "evenodd",
                     d: "M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z",
                     clipRule: "evenodd"
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                   className: "font-bold tracking-wide",
                   children: "LANJUTKAN"
                 })]
@@ -41480,38 +41556,45 @@ var PilihLevel = function PilihLevel() {
             })]
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "text-center",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "relative",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "absolute inset-0 flex items-center",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
               className: "w-full border-t border-amber-500/30"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "relative flex justify-center text-sm",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
               className: "px-4 bg-gradient-to-r from-transparent via-gray-900 to-transparent text-amber-300/80 font-medium",
               children: "Password Manager v1.0"
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
           className: "mt-4 text-sm text-amber-200/60 font-medium",
           children: "\xA9 2025 Password Manager. Semua hak dilindungi undang-undang."
         })]
       })]
-    }), notification.type === 'success' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Feedback_Message_success__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    }), notification.type === 'success' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Feedback_Message_success__WEBPACK_IMPORTED_MODULE_1__["default"], {
       message: notification.message,
       title: notification.title,
       isVisible: notification.isVisible,
       onClose: hideNotification
-    }), notification.type === 'error' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Feedback_Message_error__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    }), notification.type === 'error' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Feedback_Message_error__WEBPACK_IMPORTED_MODULE_2__["default"], {
       message: notification.message,
       title: notification.title,
       isVisible: notification.isVisible,
       onClose: hideNotification,
       onRetry: notification.onRetry
+    }), notification.type === 'logout' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Feedback_Message_logout__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      message: notification.message,
+      title: notification.title,
+      isVisible: notification.isVisible,
+      onClose: hideNotification,
+      onConfirm: notification.onConfirm,
+      userName: notification.userName
     })]
   });
 };
@@ -41613,8 +41696,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Feedback_Message_success__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Feedback-Message/success */ "./resources/js/Feedback-Message/success.jsx");
 /* harmony import */ var _Feedback_Message_error__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Feedback-Message/error */ "./resources/js/Feedback-Message/error.jsx");
-/* harmony import */ var _Hooks_useNotification__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Hooks/useNotification */ "./resources/js/Hooks/useNotification.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Feedback_Message_logout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Feedback-Message/logout */ "./resources/js/Feedback-Message/logout.jsx");
+/* harmony import */ var _Hooks_useNotification__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Hooks/useNotification */ "./resources/js/Hooks/useNotification.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { if (r) i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n;else { var o = function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); }; o("next", 0), o("throw", 1), o("return", 2); } }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -41630,6 +41714,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
+
 var Header = function Header() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       nama_pengguna: 'Loading...',
@@ -41640,10 +41725,11 @@ var Header = function Header() {
     _useState2 = _slicedToArray(_useState, 2),
     userData = _useState2[0],
     setUserData = _useState2[1];
-  var _useNotification = (0,_Hooks_useNotification__WEBPACK_IMPORTED_MODULE_3__.useNotification)(),
+  var _useNotification = (0,_Hooks_useNotification__WEBPACK_IMPORTED_MODULE_4__.useNotification)(),
     notification = _useNotification.notification,
     showSuccess = _useNotification.showSuccess,
     showError = _useNotification.showError,
+    showLogout = _useNotification.showLogout,
     hideNotification = _useNotification.hideNotification;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     fetchCurrentUser();
@@ -41684,10 +41770,10 @@ var Header = function Header() {
     };
   }();
   var handleLogout = function handleLogout() {
-    showError('Apakah Anda yakin ingin keluar dari sistem? Semua sesi aktif akan berakhir.', 'Konfirmasi Logout', function () {
-      // Jika user mengklik "Coba Lagi" (dalam konteks ini artinya "Ya, Logout")
+    showLogout('Semua sesi aktif akan berakhir dan Anda perlu login kembali untuk mengakses aplikasi.', 'Konfirmasi Logout', function () {
+      // Proses logout setelah konfirmasi
       _performLogout();
-    });
+    }, userData.nama_pengguna || 'User');
   };
   var _performLogout = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
@@ -41699,7 +41785,7 @@ var Header = function Header() {
             // Tampilkan loading message
             showSuccess('Sedang memproses logout...', 'Memproses...');
 
-            // Simulate logout process
+            // Simulate logout process (replace with actual API call)
             _context2.n = 1;
             return new Promise(function (resolve) {
               return setTimeout(resolve, 1000);
@@ -41737,36 +41823,36 @@ var Header = function Header() {
       return word.charAt(0);
     }).join('').substring(0, 2).toUpperCase();
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("header", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("header", {
       className: "bg-gradient-to-r from-gray-900 via-black to-amber-900 text-white p-3 shadow-2xl border-b border-amber-500/20",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "flex justify-between items-center px-4",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "flex items-center space-x-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "w-7 h-7 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/30",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
               className: "w-4 h-4 text-black",
               fill: "currentColor",
               viewBox: "0 0 20 20",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
                 fillRule: "evenodd",
                 d: "M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z",
                 clipRule: "evenodd"
               })
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
             className: "text-lg font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
             children: "Password Manager"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("nav", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("nav", {
           className: "flex items-center space-x-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             className: "relative flex items-center space-x-2",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
               className: "w-6 h-6 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center overflow-hidden relative shadow-lg shadow-amber-500/30",
-              children: [userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+              children: [userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
                 src: userData.foto_profil,
                 alt: "Profile",
                 className: "w-full h-full object-cover",
@@ -41774,52 +41860,59 @@ var Header = function Header() {
                   e.target.style.display = 'none';
                   e.target.nextSibling.style.display = 'flex';
                 }
-              }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                 className: "text-xs font-bold absolute inset-0 flex items-center justify-center text-black",
                 style: {
                   display: userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? 'none' : 'flex'
                 },
                 children: getInitials(userData.nama_pengguna)
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
               className: "flex flex-col text-right",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                 className: "text-sm font-medium text-amber-100",
                 children: userData.nama_pengguna
-              }), userData.hak_akses && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              }), userData.hak_akses && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                 className: "text-xs text-amber-300",
                 children: userData.hak_akses.nama
               })]
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
             onClick: handleLogout,
             className: "bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-black px-3 py-1.5 rounded-lg transition-all duration-200 flex items-center space-x-2 text-sm font-semibold transform hover:scale-105 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
               className: "w-3 h-3",
               fill: "currentColor",
               viewBox: "0 0 20 20",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
                 fillRule: "evenodd",
                 d: "M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z",
                 clipRule: "evenodd"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
               children: "Keluar"
             })]
           })]
         })]
       })
-    }), notification.type === 'success' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Feedback_Message_success__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    }), notification.type === 'success' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Feedback_Message_success__WEBPACK_IMPORTED_MODULE_1__["default"], {
       message: notification.message,
       title: notification.title,
       isVisible: notification.isVisible,
       onClose: hideNotification
-    }), notification.type === 'error' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Feedback_Message_error__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    }), notification.type === 'error' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Feedback_Message_error__WEBPACK_IMPORTED_MODULE_2__["default"], {
       message: notification.message,
       title: notification.title,
       isVisible: notification.isVisible,
       onClose: hideNotification,
       onRetry: notification.onRetry
+    }), notification.type === 'logout' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Feedback_Message_logout__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      message: notification.message,
+      title: notification.title,
+      isVisible: notification.isVisible,
+      onClose: hideNotification,
+      onConfirm: notification.onConfirm,
+      userName: notification.userName
     })]
   });
 };
@@ -42222,6 +42315,178 @@ var ErrorMessage = function ErrorMessage(_ref) {
 
 /***/ }),
 
+/***/ "./resources/js/Feedback-Message/logout.jsx":
+/*!**************************************************!*\
+  !*** ./resources/js/Feedback-Message/logout.jsx ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+
+var LogoutMessage = function LogoutMessage(_ref) {
+  var _ref$message = _ref.message,
+    message = _ref$message === void 0 ? "Apakah Anda yakin ingin keluar dari sistem?" : _ref$message,
+    _ref$title = _ref.title,
+    title = _ref$title === void 0 ? "Konfirmasi Logout" : _ref$title,
+    _ref$userName = _ref.userName,
+    userName = _ref$userName === void 0 ? "User" : _ref$userName,
+    _ref$isVisible = _ref.isVisible,
+    isVisible = _ref$isVisible === void 0 ? false : _ref$isVisible,
+    _ref$onClose = _ref.onClose,
+    onClose = _ref$onClose === void 0 ? function () {} : _ref$onClose,
+    _ref$onConfirm = _ref.onConfirm,
+    onConfirm = _ref$onConfirm === void 0 ? null : _ref$onConfirm,
+    _ref$autoClose = _ref.autoClose,
+    autoClose = _ref$autoClose === void 0 ? false : _ref$autoClose,
+    _ref$duration = _ref.duration,
+    duration = _ref$duration === void 0 ? 10000 : _ref$duration;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(isVisible),
+    _useState2 = _slicedToArray(_useState, 2),
+    show = _useState2[0],
+    setShow = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(100),
+    _useState4 = _slicedToArray(_useState3, 2),
+    progress = _useState4[0],
+    setProgress = _useState4[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setShow(isVisible);
+    if (isVisible && autoClose) {
+      setProgress(100);
+
+      // Progress bar animation
+      var progressInterval = setInterval(function () {
+        setProgress(function (prev) {
+          if (prev <= 0) {
+            clearInterval(progressInterval);
+            return 0;
+          }
+          return prev - 100 / (duration / 100);
+        });
+      }, 100);
+
+      // Auto close
+      var closeTimer = setTimeout(function () {
+        setShow(false);
+        onClose();
+      }, duration);
+      return function () {
+        clearInterval(progressInterval);
+        clearTimeout(closeTimer);
+      };
+    }
+  }, [isVisible, autoClose, duration, onClose]);
+  var handleClose = function handleClose() {
+    setShow(false);
+    onClose();
+  };
+  var handleConfirm = function handleConfirm() {
+    if (onConfirm) {
+      onConfirm();
+    }
+    handleClose();
+  };
+  if (!show) return null;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "fixed inset-0 z-50 flex items-start justify-center pt-20 px-4",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute inset-0 bg-black/40 backdrop-blur-sm",
+      onClick: handleClose
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "relative bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl shadow-amber-500/20 border border-amber-500/30 ring-1 ring-amber-400/20 p-6 max-w-md w-full transform transition-all duration-500 animate-bounce-in",
+      children: [autoClose && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "absolute top-0 left-0 right-0 h-1 bg-gray-800 rounded-t-2xl overflow-hidden",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "h-full bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 transition-all duration-100 ease-linear",
+          style: {
+            width: "".concat(progress, "%")
+          }
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+        onClick: handleClose,
+        className: "absolute top-4 right-4 p-1 rounded-full bg-gray-800/50 hover:bg-gray-700/50 transition-colors duration-200 group",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+          className: "w-4 h-4 text-gray-400 group-hover:text-gray-300",
+          fill: "currentColor",
+          viewBox: "0 0 20 20",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+            fillRule: "evenodd",
+            d: "M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z",
+            clipRule: "evenodd"
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "flex items-start space-x-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "flex-shrink-0",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+            className: "w-12 h-12 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/30 animate-pulse",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+              className: "w-6 h-6 text-black",
+              fill: "currentColor",
+              viewBox: "0 0 20 20",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+                fillRule: "evenodd",
+                d: "M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z",
+                clipRule: "evenodd"
+              })
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "flex-1 min-w-0",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+            className: "text-lg font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-1",
+            children: title
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+            className: "text-sm text-amber-100/90 leading-relaxed mb-2",
+            children: message
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+            className: "bg-gradient-to-r from-amber-500/10 to-yellow-600/10 rounded-lg p-3 border border-amber-500/20",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("p", {
+              className: "text-xs text-amber-200/80",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                className: "font-semibold text-amber-300",
+                children: ["Halo ", userName, "!"]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), "Semua sesi aktif akan berakhir dan Anda perlu login kembali untuk mengakses aplikasi."]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "mt-4 flex space-x-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+              onClick: handleClose,
+              className: "px-4 py-2 bg-gradient-to-r from-gray-600 to-gray-700 text-white text-xs font-semibold rounded-lg hover:from-gray-700 hover:to-gray-800 transition-all duration-200 transform hover:scale-105 shadow-lg shadow-gray-500/25",
+              children: "Batal"
+            }), onConfirm && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+              onClick: handleConfirm,
+              className: "px-4 py-2 bg-gradient-to-r from-amber-500 to-yellow-600 text-black text-xs font-semibold rounded-lg hover:from-amber-600 hover:to-yellow-700 transition-all duration-200 transform hover:scale-105 shadow-lg shadow-amber-500/25",
+              children: "Ya, Logout"
+            })]
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "absolute -top-2 -left-2 w-4 h-4 bg-amber-400/30 rounded-full blur-sm"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "absolute -bottom-1 -right-1 w-3 h-3 bg-yellow-500/20 rounded-full blur-sm"
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LogoutMessage);
+
+/***/ }),
+
 /***/ "./resources/js/Feedback-Message/success.jsx":
 /*!***************************************************!*\
   !*** ./resources/js/Feedback-Message/success.jsx ***!
@@ -42403,7 +42668,12 @@ var useNotification = function useNotification() {
       message: '',
       title: '',
       isVisible: false,
-      onRetry: null
+      onRetry: null,
+      onConfirm: null,
+      userName: '',
+      itemName: '',
+      confirmText: '',
+      cancelText: ''
     }),
     _useState2 = _slicedToArray(_useState, 2),
     notification = _useState2[0],
@@ -42415,7 +42685,12 @@ var useNotification = function useNotification() {
       message: message,
       title: title,
       isVisible: true,
-      onRetry: null
+      onRetry: null,
+      onConfirm: null,
+      userName: '',
+      itemName: '',
+      confirmText: '',
+      cancelText: ''
     });
   }, []);
   var showError = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (message) {
@@ -42426,7 +42701,66 @@ var useNotification = function useNotification() {
       message: message,
       title: title,
       isVisible: true,
-      onRetry: onRetry
+      onRetry: onRetry,
+      onConfirm: null,
+      userName: '',
+      itemName: '',
+      confirmText: '',
+      cancelText: ''
+    });
+  }, []);
+  var showWarning = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (message) {
+    var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Peringatan!';
+    var onConfirm = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    var confirmText = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'Ya, Lanjutkan';
+    var cancelText = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 'Batal';
+    setNotification({
+      type: 'warning',
+      message: message,
+      title: title,
+      isVisible: true,
+      onRetry: null,
+      onConfirm: onConfirm,
+      confirmText: confirmText,
+      cancelText: cancelText,
+      userName: '',
+      itemName: ''
+    });
+  }, []);
+  var showLogout = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
+    var message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Apakah Anda yakin ingin keluar dari sistem?';
+    var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Konfirmasi Logout';
+    var onConfirm = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    var userName = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'User';
+    setNotification({
+      type: 'logout',
+      message: message,
+      title: title,
+      isVisible: true,
+      onRetry: null,
+      onConfirm: onConfirm,
+      userName: userName,
+      itemName: '',
+      confirmText: '',
+      cancelText: ''
+    });
+  }, []);
+  var showDelete = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
+    var message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Data yang dihapus tidak dapat dikembalikan!';
+    var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Konfirmasi Hapus';
+    var onConfirm = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    var itemName = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'item ini';
+    setNotification({
+      type: 'delete',
+      message: message,
+      title: title,
+      isVisible: true,
+      onRetry: null,
+      onConfirm: onConfirm,
+      itemName: itemName,
+      userName: '',
+      confirmText: '',
+      cancelText: ''
     });
   }, []);
   var hideNotification = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
@@ -42440,6 +42774,9 @@ var useNotification = function useNotification() {
     notification: notification,
     showSuccess: showSuccess,
     showError: showError,
+    showWarning: showWarning,
+    showLogout: showLogout,
+    showDelete: showDelete,
     hideNotification: hideNotification
   };
 };

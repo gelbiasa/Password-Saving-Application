@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SuccessMessage from '../Feedback-Message/success';
 import ErrorMessage from '../Feedback-Message/error';
+import LogoutMessage from '../Feedback-Message/logout';
 import { useNotification } from '../Hooks/useNotification';
 
 const PilihLevel = () => {
@@ -8,11 +9,24 @@ const PilihLevel = () => {
     const [selectedLevel, setSelectedLevel] = useState('');
     const [loading, setLoading] = useState(false);
     const [fetchLoading, setFetchLoading] = useState(true);
-    const { notification, showSuccess, showError, hideNotification } = useNotification();
+    const [currentUser, setCurrentUser] = useState('User');
+    const { notification, showSuccess, showError, showLogout, hideNotification } = useNotification();
 
     useEffect(() => {
         fetchHakAkses();
+        fetchCurrentUser();
     }, []);
+
+    const fetchCurrentUser = async () => {
+        try {
+            const response = await axios.get('/api/current-user');
+            if (response.data.success && response.data.data.nama_pengguna) {
+                setCurrentUser(response.data.data.nama_pengguna);
+            }
+        } catch (error) {
+            console.error('Error fetching current user:', error);
+        }
+    };
 
     const fetchHakAkses = async () => {
         setFetchLoading(true);
@@ -99,16 +113,44 @@ const PilihLevel = () => {
     };
 
     const handleLogout = () => {
-        showError(
-            'Apakah Anda yakin ingin keluar dari sistem?', 
+        showLogout(
+            'Semua sesi aktif akan berakhir dan Anda perlu login kembali untuk mengakses aplikasi.',
             'Konfirmasi Logout',
             () => {
-                showSuccess('Anda berhasil keluar dari sistem!', 'Logout Berhasil!');
-                setTimeout(() => {
-                    window.location.href = '/logout';
-                }, 1500);
-            }
+                // Proses logout setelah konfirmasi
+                performLogout();
+            },
+            currentUser
         );
+    };
+
+    const performLogout = async () => {
+        try {
+            // Tampilkan processing message
+            showSuccess('Sedang memproses logout...', 'Memproses...');
+            
+            // Simulate logout process
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Tampilkan success message
+            showSuccess(
+                `Terima kasih ${currentUser}! Anda berhasil keluar dari sistem.`,
+                'Logout Berhasil!'
+            );
+            
+            // Redirect setelah delay
+            setTimeout(() => {
+                window.location.href = '/logout';
+            }, 2000);
+            
+        } catch (error) {
+            console.error('Error during logout:', error);
+            showError(
+                'Terjadi kesalahan saat logout. Silakan coba lagi.',
+                'Logout Gagal!',
+                () => performLogout()
+            );
+        }
     };
 
     const handleLevelChange = (levelId) => {
@@ -324,6 +366,17 @@ const PilihLevel = () => {
                     isVisible={notification.isVisible}
                     onClose={hideNotification}
                     onRetry={notification.onRetry}
+                />
+            )}
+
+            {notification.type === 'logout' && (
+                <LogoutMessage
+                    message={notification.message}
+                    title={notification.title}
+                    isVisible={notification.isVisible}
+                    onClose={hideNotification}
+                    onConfirm={notification.onConfirm}
+                    userName={notification.userName}
                 />
             )}
         </div>
