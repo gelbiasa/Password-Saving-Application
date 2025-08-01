@@ -44,46 +44,46 @@ const DeleteButton = ({
             disabled={disabled || loading}
             className={`
                 relative overflow-hidden group
-                bg-gradient-to-r from-gray-900 via-black to-red-900 
-                hover:from-gray-800 hover:via-gray-900 hover:to-red-800
-                text-red-100 font-semibold rounded-xl
+                bg-gradient-to-r from-slate-100 via-gray-200 to-red-100 
+                hover:from-slate-200 hover:via-gray-300 hover:to-red-200
+                text-red-700 font-semibold rounded-xl
                 transition-all duration-300 transform hover:scale-105
                 shadow-lg shadow-red-500/25 hover:shadow-red-500/40
-                border border-red-500/30 hover:border-red-400/50
+                border border-red-300 hover:border-red-400
                 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
                 hover:animate-pulse
                 ${sizeClasses[size]} ${className}
             `}
         >
             {/* Animated background gradient */}
-            <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-rose-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-200/60 to-red-200/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             
             {/* Danger shine effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-400/30 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-300/50 to-red-300/60 -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
             
             {/* Content */}
             <div className="relative flex items-center justify-center space-x-2">
                 {loading ? (
-                    <svg className={`animate-spin ${iconSizes[size]} text-red-400`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className={`animate-spin ${iconSizes[size]} text-red-600`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
                 ) : (
-                    <svg className={`${iconSizes[size]} text-red-400 group-hover:text-red-300 transition-colors duration-300`} fill="currentColor" viewBox="0 0 20 20">
+                    <svg className={`${iconSizes[size]} text-red-600 group-hover:text-red-700 transition-colors duration-300`} fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d={iconPaths[icon]} clipRule="evenodd"></path>
                     </svg>
                 )}
                 
                 {showText && (
-                    <span className="group-hover:text-red-200 transition-colors duration-300">
+                    <span className="group-hover:text-red-800 transition-colors duration-300">
                         {loading ? "Menghapus..." : text}
                     </span>
                 )}
             </div>
 
             {/* Warning decorative dots */}
-            <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-400/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-ping"></div>
-            <div className="absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-red-500/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-ping delay-150"></div>
+            <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-400/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-ping"></div>
+            <div className="absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-slate-400/70 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-ping delay-150"></div>
         </button>
     );
 };

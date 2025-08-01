@@ -43898,15 +43898,15 @@ var CreateButton = function CreateButton(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
     onClick: onClick,
     disabled: disabled || loading,
-    className: "\n                relative overflow-hidden group\n                bg-gradient-to-r from-gray-900 via-black to-green-900 \n                hover:from-gray-800 hover:via-gray-900 hover:to-green-800\n                text-green-100 font-semibold rounded-xl\n                transition-all duration-300 transform hover:scale-105\n                shadow-lg shadow-green-500/25 hover:shadow-green-500/40\n                border border-green-500/30 hover:border-green-400/50\n                disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none\n                ".concat(sizeClasses[size], " ").concat(className, "\n            "),
+    className: "\n                relative overflow-hidden group\n                bg-gradient-to-r from-slate-100 via-gray-200 to-green-100 \n                hover:from-slate-200 hover:via-gray-300 hover:to-green-200\n                text-green-700 font-semibold rounded-xl\n                transition-all duration-300 transform hover:scale-105\n                shadow-lg shadow-green-500/25 hover:shadow-green-500/40\n                border border-green-300 hover:border-green-400\n                disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none\n                ".concat(sizeClasses[size], " ").concat(className, "\n            "),
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "absolute inset-0 bg-gradient-to-r from-green-500/20 to-emerald-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      className: "absolute inset-0 bg-gradient-to-r from-slate-200/60 to-green-200/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "absolute inset-0 bg-gradient-to-r from-transparent via-green-400/20 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
+      className: "absolute inset-0 bg-gradient-to-r from-transparent via-slate-300/50 to-green-300/50 -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "relative flex items-center justify-center space-x-2",
       children: [loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
-        className: "animate-spin ".concat(iconSizes[size], " text-green-400"),
+        className: "animate-spin ".concat(iconSizes[size], " text-green-600"),
         xmlns: "http://www.w3.org/2000/svg",
         fill: "none",
         viewBox: "0 0 24 24",
@@ -43923,7 +43923,7 @@ var CreateButton = function CreateButton(_ref) {
           d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
         })]
       }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
-        className: "".concat(iconSizes[size], " text-green-400 group-hover:text-green-300 transition-colors duration-300"),
+        className: "".concat(iconSizes[size], " text-green-600 group-hover:text-green-700 transition-colors duration-300"),
         fill: "currentColor",
         viewBox: "0 0 20 20",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
@@ -43932,13 +43932,13 @@ var CreateButton = function CreateButton(_ref) {
           clipRule: "evenodd"
         })
       }), showText && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-        className: "group-hover:text-green-200 transition-colors duration-300",
+        className: "group-hover:text-green-800 transition-colors duration-300",
         children: loading ? "Memproses..." : text
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "absolute -top-1 -right-1 w-2 h-2 bg-green-400/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"
+      className: "absolute -top-1 -right-1 w-2 h-2 bg-green-400/70 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-green-500/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-150"
+      className: "absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-slate-400/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-150"
     })]
   });
 };
@@ -44007,15 +44007,15 @@ var DeleteButton = function DeleteButton(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
     onClick: handleClick,
     disabled: disabled || loading,
-    className: "\n                relative overflow-hidden group\n                bg-gradient-to-r from-gray-900 via-black to-red-900 \n                hover:from-gray-800 hover:via-gray-900 hover:to-red-800\n                text-red-100 font-semibold rounded-xl\n                transition-all duration-300 transform hover:scale-105\n                shadow-lg shadow-red-500/25 hover:shadow-red-500/40\n                border border-red-500/30 hover:border-red-400/50\n                disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none\n                hover:animate-pulse\n                ".concat(sizeClasses[size], " ").concat(className, "\n            "),
+    className: "\n                relative overflow-hidden group\n                bg-gradient-to-r from-slate-100 via-gray-200 to-red-100 \n                hover:from-slate-200 hover:via-gray-300 hover:to-red-200\n                text-red-700 font-semibold rounded-xl\n                transition-all duration-300 transform hover:scale-105\n                shadow-lg shadow-red-500/25 hover:shadow-red-500/40\n                border border-red-300 hover:border-red-400\n                disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none\n                hover:animate-pulse\n                ".concat(sizeClasses[size], " ").concat(className, "\n            "),
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "absolute inset-0 bg-gradient-to-r from-red-500/20 to-rose-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      className: "absolute inset-0 bg-gradient-to-r from-slate-200/60 to-red-200/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "absolute inset-0 bg-gradient-to-r from-transparent via-red-400/30 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
+      className: "absolute inset-0 bg-gradient-to-r from-transparent via-slate-300/50 to-red-300/60 -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "relative flex items-center justify-center space-x-2",
       children: [loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
-        className: "animate-spin ".concat(iconSizes[size], " text-red-400"),
+        className: "animate-spin ".concat(iconSizes[size], " text-red-600"),
         xmlns: "http://www.w3.org/2000/svg",
         fill: "none",
         viewBox: "0 0 24 24",
@@ -44032,7 +44032,7 @@ var DeleteButton = function DeleteButton(_ref) {
           d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
         })]
       }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
-        className: "".concat(iconSizes[size], " text-red-400 group-hover:text-red-300 transition-colors duration-300"),
+        className: "".concat(iconSizes[size], " text-red-600 group-hover:text-red-700 transition-colors duration-300"),
         fill: "currentColor",
         viewBox: "0 0 20 20",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
@@ -44041,13 +44041,13 @@ var DeleteButton = function DeleteButton(_ref) {
           clipRule: "evenodd"
         })
       }), showText && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-        className: "group-hover:text-red-200 transition-colors duration-300",
+        className: "group-hover:text-red-800 transition-colors duration-300",
         children: loading ? "Menghapus..." : text
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "absolute -top-1 -right-1 w-2 h-2 bg-red-400/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-ping"
+      className: "absolute -top-1 -right-1 w-2 h-2 bg-red-400/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-ping"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-red-500/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-ping delay-150"
+      className: "absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-slate-400/70 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-ping delay-150"
     })]
   });
 };
@@ -44105,15 +44105,15 @@ var ShowButton = function ShowButton(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
     onClick: onClick,
     disabled: disabled || loading,
-    className: "\n                relative overflow-hidden group\n                bg-gradient-to-r from-gray-900 via-black to-blue-900 \n                hover:from-gray-800 hover:via-gray-900 hover:to-blue-800\n                text-blue-100 font-semibold rounded-xl\n                transition-all duration-300 transform hover:scale-105\n                shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40\n                border border-blue-500/30 hover:border-blue-400/50\n                disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none\n                ".concat(sizeClasses[size], " ").concat(className, "\n            "),
+    className: "\n                relative overflow-hidden group\n                bg-gradient-to-r from-slate-100 via-gray-200 to-blue-100 \n                hover:from-slate-200 hover:via-gray-300 hover:to-blue-200\n                text-blue-700 font-semibold rounded-xl\n                transition-all duration-300 transform hover:scale-105\n                shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40\n                border border-blue-300 hover:border-blue-400\n                disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none\n                ".concat(sizeClasses[size], " ").concat(className, "\n            "),
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      className: "absolute inset-0 bg-gradient-to-r from-slate-200/60 to-blue-200/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/20 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
+      className: "absolute inset-0 bg-gradient-to-r from-transparent via-slate-300/50 to-blue-300/50 -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "relative flex items-center justify-center space-x-2",
       children: [loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
-        className: "animate-spin ".concat(iconSizes[size], " text-blue-400"),
+        className: "animate-spin ".concat(iconSizes[size], " text-blue-600"),
         xmlns: "http://www.w3.org/2000/svg",
         fill: "none",
         viewBox: "0 0 24 24",
@@ -44130,7 +44130,7 @@ var ShowButton = function ShowButton(_ref) {
           d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
         })]
       }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
-        className: "".concat(iconSizes[size], " text-blue-400 group-hover:text-blue-300 transition-colors duration-300"),
+        className: "".concat(iconSizes[size], " text-blue-600 group-hover:text-blue-700 transition-colors duration-300"),
         fill: "currentColor",
         viewBox: "0 0 20 20",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
@@ -44139,13 +44139,13 @@ var ShowButton = function ShowButton(_ref) {
           clipRule: "evenodd"
         })
       }), showText && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-        className: "group-hover:text-blue-200 transition-colors duration-300",
+        className: "group-hover:text-blue-800 transition-colors duration-300",
         children: loading ? "Memuat..." : text
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "absolute -top-1 -right-1 w-2 h-2 bg-blue-400/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"
+      className: "absolute -top-1 -right-1 w-2 h-2 bg-blue-400/70 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-blue-500/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-150"
+      className: "absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-slate-400/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-150"
     })]
   });
 };
@@ -44203,15 +44203,15 @@ var UpdateButton = function UpdateButton(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
     onClick: onClick,
     disabled: disabled || loading,
-    className: "\n                relative overflow-hidden group\n                bg-gradient-to-r from-gray-900 via-black to-orange-900 \n                hover:from-gray-800 hover:via-gray-900 hover:to-orange-800\n                text-orange-100 font-semibold rounded-xl\n                transition-all duration-300 transform hover:scale-105\n                shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40\n                border border-orange-500/30 hover:border-orange-400/50\n                disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none\n                ".concat(sizeClasses[size], " ").concat(className, "\n            "),
+    className: "\n                relative overflow-hidden group\n                bg-gradient-to-r from-slate-100 via-gray-200 to-orange-100 \n                hover:from-slate-200 hover:via-gray-300 hover:to-orange-200\n                text-orange-700 font-semibold rounded-xl\n                transition-all duration-300 transform hover:scale-105\n                shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40\n                border border-orange-300 hover:border-orange-400\n                disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none\n                ".concat(sizeClasses[size], " ").concat(className, "\n            "),
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "absolute inset-0 bg-gradient-to-r from-orange-500/20 to-amber-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      className: "absolute inset-0 bg-gradient-to-r from-slate-200/60 to-orange-200/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "absolute inset-0 bg-gradient-to-r from-transparent via-orange-400/20 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
+      className: "absolute inset-0 bg-gradient-to-r from-transparent via-slate-300/50 to-orange-300/50 -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "relative flex items-center justify-center space-x-2",
       children: [loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
-        className: "animate-spin ".concat(iconSizes[size], " text-orange-400"),
+        className: "animate-spin ".concat(iconSizes[size], " text-orange-600"),
         xmlns: "http://www.w3.org/2000/svg",
         fill: "none",
         viewBox: "0 0 24 24",
@@ -44228,7 +44228,7 @@ var UpdateButton = function UpdateButton(_ref) {
           d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
         })]
       }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
-        className: "".concat(iconSizes[size], " text-orange-400 group-hover:text-orange-300 transition-colors duration-300"),
+        className: "".concat(iconSizes[size], " text-orange-600 group-hover:text-orange-700 transition-colors duration-300"),
         fill: "currentColor",
         viewBox: "0 0 20 20",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
@@ -44237,13 +44237,13 @@ var UpdateButton = function UpdateButton(_ref) {
           clipRule: "evenodd"
         })
       }), showText && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-        className: "group-hover:text-orange-200 transition-colors duration-300",
+        className: "group-hover:text-orange-800 transition-colors duration-300",
         children: loading ? "Memproses..." : text
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "absolute -top-1 -right-1 w-2 h-2 bg-orange-400/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"
+      className: "absolute -top-1 -right-1 w-2 h-2 bg-orange-400/70 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-orange-500/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-150"
+      className: "absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-slate-400/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-150"
     })]
   });
 };
