@@ -42154,6 +42154,197 @@ var Sidebar = function Sidebar(_ref) {
 
 /***/ }),
 
+/***/ "./resources/js/Feedback-Message/delete.jsx":
+/*!**************************************************!*\
+  !*** ./resources/js/Feedback-Message/delete.jsx ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+
+var DeleteMessage = function DeleteMessage(_ref) {
+  var _ref$message = _ref.message,
+    message = _ref$message === void 0 ? "Data yang dihapus tidak dapat dikembalikan!" : _ref$message,
+    _ref$title = _ref.title,
+    title = _ref$title === void 0 ? "Konfirmasi Hapus" : _ref$title,
+    _ref$itemName = _ref.itemName,
+    itemName = _ref$itemName === void 0 ? "item ini" : _ref$itemName,
+    _ref$isVisible = _ref.isVisible,
+    isVisible = _ref$isVisible === void 0 ? false : _ref$isVisible,
+    _ref$onClose = _ref.onClose,
+    onClose = _ref$onClose === void 0 ? function () {} : _ref$onClose,
+    _ref$onConfirm = _ref.onConfirm,
+    onConfirm = _ref$onConfirm === void 0 ? null : _ref$onConfirm,
+    _ref$autoClose = _ref.autoClose,
+    autoClose = _ref$autoClose === void 0 ? false : _ref$autoClose,
+    _ref$duration = _ref.duration,
+    duration = _ref$duration === void 0 ? 10000 : _ref$duration;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(isVisible),
+    _useState2 = _slicedToArray(_useState, 2),
+    show = _useState2[0],
+    setShow = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(100),
+    _useState4 = _slicedToArray(_useState3, 2),
+    progress = _useState4[0],
+    setProgress = _useState4[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setShow(isVisible);
+    if (isVisible && autoClose) {
+      setProgress(100);
+
+      // Progress bar animation
+      var progressInterval = setInterval(function () {
+        setProgress(function (prev) {
+          if (prev <= 0) {
+            clearInterval(progressInterval);
+            return 0;
+          }
+          return prev - 100 / (duration / 100);
+        });
+      }, 100);
+
+      // Auto close
+      var closeTimer = setTimeout(function () {
+        setShow(false);
+        onClose();
+      }, duration);
+      return function () {
+        clearInterval(progressInterval);
+        clearTimeout(closeTimer);
+      };
+    }
+  }, [isVisible, autoClose, duration, onClose]);
+  var handleClose = function handleClose() {
+    setShow(false);
+    onClose();
+  };
+  var handleConfirm = function handleConfirm() {
+    if (onConfirm) {
+      onConfirm();
+    }
+    handleClose();
+  };
+  if (!show) return null;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "fixed inset-0 z-50 flex items-start justify-center pt-20 px-4",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute inset-0 bg-black/50 backdrop-blur-sm",
+      onClick: handleClose
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "relative bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl shadow-red-500/30 border border-red-500/40 ring-1 ring-red-400/30 p-6 max-w-md w-full transform transition-all duration-500 animate-shake",
+      children: [autoClose && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "absolute top-0 left-0 right-0 h-1 bg-gray-800 rounded-t-2xl overflow-hidden",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "h-full bg-gradient-to-r from-red-400 via-red-500 to-red-600 transition-all duration-100 ease-linear",
+          style: {
+            width: "".concat(progress, "%")
+          }
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+        onClick: handleClose,
+        className: "absolute top-4 right-4 p-1 rounded-full bg-gray-800/50 hover:bg-gray-700/50 transition-colors duration-200 group",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+          className: "w-4 h-4 text-gray-400 group-hover:text-gray-300",
+          fill: "currentColor",
+          viewBox: "0 0 20 20",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+            fillRule: "evenodd",
+            d: "M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z",
+            clipRule: "evenodd"
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "flex items-start space-x-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "flex-shrink-0",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+            className: "w-12 h-12 bg-gradient-to-br from-red-500 to-red-700 rounded-full flex items-center justify-center shadow-lg shadow-red-500/40 animate-pulse",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
+              className: "w-6 h-6 text-white",
+              fill: "currentColor",
+              viewBox: "0 0 20 20",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+                fillRule: "evenodd",
+                d: "M9 2a1 1 0 000 2h2a1 1 0 100-2H9z",
+                clipRule: "evenodd"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+                fillRule: "evenodd",
+                d: "M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z",
+                clipRule: "evenodd"
+              })]
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "flex-1 min-w-0",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+            className: "text-lg font-bold bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent mb-1",
+            children: title
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("p", {
+            className: "text-sm text-red-100/90 leading-relaxed mb-3",
+            children: ["Apakah Anda yakin ingin menghapus ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+              className: "font-semibold text-red-200",
+              children: ["\"", itemName, "\""]
+            }), "?"]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+            className: "bg-gradient-to-r from-red-500/20 to-red-600/20 rounded-lg p-3 border border-red-500/30 mb-4",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+              className: "flex items-start space-x-2",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+                className: "w-4 h-4 text-red-400 mt-0.5 flex-shrink-0",
+                fill: "currentColor",
+                viewBox: "0 0 20 20",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+                  fillRule: "evenodd",
+                  d: "M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z",
+                  clipRule: "evenodd"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("p", {
+                className: "text-xs text-red-200/90 leading-relaxed",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                  className: "font-semibold",
+                  children: "Peringatan:"
+                }), " ", message]
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "flex space-x-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+              onClick: handleClose,
+              className: "px-4 py-2 bg-gradient-to-r from-gray-600 to-gray-700 text-white text-xs font-semibold rounded-lg hover:from-gray-700 hover:to-gray-800 transition-all duration-200 transform hover:scale-105 shadow-lg shadow-gray-500/25 flex-1",
+              children: "Batal"
+            }), onConfirm && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+              onClick: handleConfirm,
+              className: "px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-semibold rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 transform hover:scale-105 shadow-lg shadow-red-500/30 flex-1",
+              children: "Ya, Hapus"
+            })]
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "absolute -top-2 -left-2 w-4 h-4 bg-red-400/40 rounded-full blur-sm"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "absolute -bottom-1 -right-1 w-3 h-3 bg-red-500/30 rounded-full blur-sm"
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DeleteMessage);
+
+/***/ }),
+
 /***/ "./resources/js/Feedback-Message/error.jsx":
 /*!*************************************************!*\
   !*** ./resources/js/Feedback-Message/error.jsx ***!
@@ -42866,38 +43057,24 @@ var Dashboard = function Dashboard() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Header__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("main", {
         className: "flex-1 p-6 bg-gradient-to-br from-slate-100 via-blue-100 to-gray-100 relative",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "absolute top-10 right-10 w-72 h-72 bg-gradient-to-r from-blue-100/40 to-slate-200/40 rounded-full blur-3xl"
+          className: "absolute top-10 right-10 w-72 h-72 bg-gradient-to-r from-amber-500/10 to-yellow-500/10 rounded-full blur-3xl"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-l from-slate-100/30 to-blue-100/30 rounded-full blur-3xl"
+          className: "absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-l from-amber-600/10 to-yellow-600/10 rounded-full blur-3xl"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "space-y-6 max-w-7xl relative z-10",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-            className: "bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/50 p-6",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "bg-gradient-to-r from-gray-900 via-black to-gray-800 rounded-xl shadow-2xl border border-amber-500/20 p-6",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
               className: "flex items-center justify-between",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
-                  className: "text-2xl font-bold text-slate-800",
+                  className: "text-2xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
                   children: "Dashboard"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-                  className: "text-slate-600 mt-2 text-sm font-medium",
+                  className: "text-amber-100/80 mt-2 text-sm",
                   children: "Selamat datang kembali di Password Manager! Berikut adalah ringkasan keamanan password Anda."
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-                className: "bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 hover:from-amber-500 hover:via-yellow-600 hover:to-amber-700 text-black px-4 py-3 rounded-xl flex items-center space-x-2 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 font-semibold text-sm",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
-                  className: "w-4 h-4",
-                  fill: "currentColor",
-                  viewBox: "0 0 20 20",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
-                    fillRule: "evenodd",
-                    d: "M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z",
-                    clipRule: "evenodd"
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-                  children: "Tambah Password"
-                })]
-              })]
+              })
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
             className: "grid grid-cols-1 md:grid-cols-3 gap-6",
@@ -42926,7 +43103,7 @@ var Dashboard = function Dashboard() {
   });
 };
 
-// Component untuk kartu statistik - diperbarui dengan tema terang
+// Component untuk kartu statistik - dengan tema hitam emas
 var StatCard = function StatCard(_ref2) {
   var title = _ref2.title,
     value = _ref2.value,
@@ -42934,22 +43111,25 @@ var StatCard = function StatCard(_ref2) {
     icon = _ref2.icon;
   var colorClasses = {
     blue: {
-      bg: 'bg-blue-50/80',
-      icon: 'bg-blue-100 text-blue-600',
-      text: 'text-blue-600',
-      border: 'border-blue-100'
+      bg: 'bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95',
+      icon: 'bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/30',
+      text: 'bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent',
+      border: 'border-blue-500/20',
+      hover: 'hover:border-blue-400/40'
     },
     red: {
-      bg: 'bg-red-50/80',
-      icon: 'bg-red-100 text-red-600',
-      text: 'text-red-600',
-      border: 'border-red-100'
+      bg: 'bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95',
+      icon: 'bg-gradient-to-br from-red-600 to-red-700 text-white shadow-lg shadow-red-500/30',
+      text: 'bg-gradient-to-r from-red-400 to-red-500 bg-clip-text text-transparent',
+      border: 'border-red-500/20',
+      hover: 'hover:border-red-400/40'
     },
     green: {
-      bg: 'bg-green-50/80',
-      icon: 'bg-green-100 text-green-600',
-      text: 'text-green-600',
-      border: 'border-green-100'
+      bg: 'bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95',
+      icon: 'bg-gradient-to-br from-green-600 to-green-700 text-white shadow-lg shadow-green-500/30',
+      text: 'bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent',
+      border: 'border-green-500/20',
+      hover: 'hover:border-green-400/40'
     }
   };
   var iconPaths = {
@@ -42957,14 +43137,14 @@ var StatCard = function StatCard(_ref2) {
     warning: "M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z",
     check: "M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-    className: "bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border ".concat(colorClasses[color].border, " hover:scale-105 group"),
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    className: "".concat(colorClasses[color].bg, " backdrop-blur-xl p-6 rounded-xl shadow-2xl transition-all duration-300 border ").concat(colorClasses[color].border, " ").concat(colorClasses[color].hover, " hover:scale-105 group"),
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "flex items-center",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "flex-shrink-0",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "w-12 h-12 ".concat(colorClasses[color].icon, " rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-300"),
+          className: "w-12 h-12 ".concat(colorClasses[color].icon, " rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"),
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
             className: "w-6 h-6",
             fill: "currentColor",
@@ -42979,18 +43159,22 @@ var StatCard = function StatCard(_ref2) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "ml-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
-          className: "text-sm font-semibold text-slate-700 group-hover:text-slate-800 transition-colors duration-300",
+          className: "text-sm font-semibold text-amber-300 group-hover:text-amber-200 transition-colors duration-300",
           children: title
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
           className: "text-3xl font-bold ".concat(colorClasses[color].text, " group-hover:scale-105 transition-transform duration-300"),
           children: value
         })]
       })]
-    })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "absolute -top-1 -right-1 w-2 h-2 bg-amber-400/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-amber-500/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-150"
+    })]
   });
 };
 
-// Component untuk recent activity - diperbarui dengan tema terang
+// Component untuk recent activity - dengan tema hitam emas
 var RecentActivity = function RecentActivity() {
   var activities = [{
     text: "Password Gmail diperbarui",
@@ -43006,16 +43190,16 @@ var RecentActivity = function RecentActivity() {
     color: "yellow"
   }];
   var activityColors = {
-    green: 'bg-green-400',
-    blue: 'bg-blue-400',
-    yellow: 'bg-yellow-400'
+    green: 'bg-green-500 shadow-green-500/50',
+    blue: 'bg-blue-500 shadow-blue-500/50',
+    yellow: 'bg-yellow-500 shadow-yellow-500/50'
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    className: "bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/50",
+    className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-amber-500/20",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      className: "p-6 border-b border-slate-200/50",
+      className: "p-6 border-b border-amber-500/20",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
-        className: "text-xl font-bold text-slate-800",
+        className: "text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
         children: "Aktivitas Terbaru"
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
@@ -43024,14 +43208,14 @@ var RecentActivity = function RecentActivity() {
         className: "space-y-4",
         children: activities.map(function (activity, index) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "flex items-center space-x-4 p-3 rounded-xl bg-slate-50/50 hover:bg-slate-100/50 transition-colors duration-300 group",
+            className: "flex items-center space-x-4 p-4 rounded-xl bg-gradient-to-r from-gray-800/50 to-gray-700/50 hover:from-gray-700/60 hover:to-gray-600/60 transition-all duration-300 group border border-amber-500/10 hover:border-amber-400/20",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              className: "w-3 h-3 ".concat(activityColors[activity.color], " rounded-full shadow-sm animate-pulse")
+              className: "w-3 h-3 ".concat(activityColors[activity.color], " rounded-full shadow-lg animate-pulse")
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-              className: "text-sm text-slate-700 group-hover:text-slate-800 transition-colors duration-300 flex-1 font-medium",
+              className: "text-sm text-amber-100 group-hover:text-amber-50 transition-colors duration-300 flex-1 font-medium",
               children: activity.text
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-              className: "text-xs text-slate-500 group-hover:text-slate-600 transition-colors duration-300 font-medium",
+              className: "text-xs text-amber-300/80 group-hover:text-amber-200 transition-colors duration-300 font-medium",
               children: activity.time
             })]
           }, index);
@@ -43060,7 +43244,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Components/Header */ "./resources/js/Components/Header.jsx");
 /* harmony import */ var _Components_Sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Components/Sidebar */ "./resources/js/Components/Sidebar.jsx");
 /* harmony import */ var _Components_Footer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Components/Footer */ "./resources/js/Components/Footer.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Feedback_Message_success__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../Feedback-Message/success */ "./resources/js/Feedback-Message/success.jsx");
+/* harmony import */ var _Feedback_Message_error__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../Feedback-Message/error */ "./resources/js/Feedback-Message/error.jsx");
+/* harmony import */ var _Feedback_Message_delete__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../Feedback-Message/delete */ "./resources/js/Feedback-Message/delete.jsx");
+/* harmony import */ var _button_create__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../button/create */ "./resources/js/button/create.jsx");
+/* harmony import */ var _button_update__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../button/update */ "./resources/js/button/update.jsx");
+/* harmony import */ var _button_show__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../button/show */ "./resources/js/button/show.jsx");
+/* harmony import */ var _button_delete__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../button/delete */ "./resources/js/button/delete.jsx");
+/* harmony import */ var _Hooks_useNotification__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../Hooks/useNotification */ "./resources/js/Hooks/useNotification.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -43077,6 +43269,14 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+
+
+
+
+
+
+
 
 
 
@@ -43103,19 +43303,31 @@ var KategoriPasswordIndex = function KategoriPasswordIndex() {
     _useState0 = _slicedToArray(_useState9, 2),
     editId = _useState0[0],
     setEditId = _useState0[1];
-  var _useState1 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+  var _useState1 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState10 = _slicedToArray(_useState1, 2),
+    saveLoading = _useState10[0],
+    setSaveLoading = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       kp_kode: '',
       kp_nama: ''
     }),
-    _useState10 = _slicedToArray(_useState1, 2),
-    formData = _useState10[0],
-    setFormData = _useState10[1];
+    _useState12 = _slicedToArray(_useState11, 2),
+    formData = _useState12[0],
+    setFormData = _useState12[1];
+
+  // Use notification hook
+  var _useNotification = (0,_Hooks_useNotification__WEBPACK_IMPORTED_MODULE_11__.useNotification)(),
+    notification = _useNotification.notification,
+    showSuccess = _useNotification.showSuccess,
+    showError = _useNotification.showError,
+    showDelete = _useNotification.showDelete,
+    hideNotification = _useNotification.hideNotification;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    fetchData();
+    _fetchData();
   }, []);
-  var fetchData = /*#__PURE__*/function () {
+  var _fetchData = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-      var response, _t;
+      var response, responseData, errorMessage, _error$response$data, _t;
       return _regenerator().w(function (_context) {
         while (1) switch (_context.p = _context.n) {
           case 0:
@@ -43125,87 +43337,136 @@ var KategoriPasswordIndex = function KategoriPasswordIndex() {
             return axios.get('/api/kategori-password');
           case 2:
             response = _context.v;
-            setData(response.data);
+            if (!(response.status === 200)) {
+              _context.n = 3;
+              break;
+            }
+            // Handle different response structures
+
+            if (response.data.success) {
+              responseData = response.data.data || [];
+            } else if (Array.isArray(response.data)) {
+              responseData = response.data;
+            } else {
+              responseData = [];
+            }
+            setData(responseData);
             _context.n = 4;
             break;
           case 3:
-            _context.p = 3;
+            throw new Error("HTTP ".concat(response.status, ": ").concat(response.statusText));
+          case 4:
+            _context.n = 6;
+            break;
+          case 5:
+            _context.p = 5;
             _t = _context.v;
             console.error('Kesalahan saat mengambil data:', _t);
-            // Data contoh untuk pengujian
-            setData([{
-              m_kategori_password_id: 1,
-              kp_kode: 'KP001',
-              kp_nama: 'Media Sosial',
-              created_at: '2025-01-15'
-            }, {
-              m_kategori_password_id: 2,
-              kp_kode: 'KP002',
-              kp_nama: 'Email',
-              created_at: '2025-01-15'
-            }, {
-              m_kategori_password_id: 3,
-              kp_kode: 'KP003',
-              kp_nama: 'Perbankan',
-              created_at: '2025-01-15'
-            }]);
-          case 4:
+
+            // Determine error message based on error type
+            errorMessage = 'Gagal memuat data kategori password.';
+            if (_t.code === 'ERR_NETWORK') {
+              errorMessage = 'Tidak dapat terhubung ke server. Periksa koneksi internet Anda.';
+            } else if (_t.response) {
+              // Server responded with error status
+              errorMessage = "Server Error ".concat(_t.response.status, ": ").concat(((_error$response$data = _t.response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.message) || 'Terjadi kesalahan pada server.');
+            } else if (_t.request) {
+              // Request was made but no response received
+              errorMessage = 'Server tidak merespons. Silakan coba lagi nanti.';
+            }
+            showError(errorMessage + ' Menggunakan data contoh.', 'Gagal Memuat Data', function () {
+              return _fetchData();
+            } // Retry function
+            );
+          case 6:
+            _context.p = 6;
             setLoading(false);
-          case 5:
+            return _context.f(6);
+          case 7:
             return _context.a(2);
         }
-      }, _callee, null, [[1, 3]]);
+      }, _callee, null, [[1, 5, 6, 7]]);
     }));
     return function fetchData() {
       return _ref.apply(this, arguments);
     };
   }();
-  var handleSubmit = /*#__PURE__*/function () {
+  var _handleSubmit = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(e) {
-      var response, _t2;
+      var response, payload, _error$response, errorMessage, _t2;
       return _regenerator().w(function (_context2) {
         while (1) switch (_context2.p = _context2.n) {
           case 0:
             e.preventDefault();
-            _context2.p = 1;
-            if (!isEdit) {
-              _context2.n = 3;
+
+            // Validasi form
+            if (!(!formData.kp_kode.trim() || !formData.kp_nama.trim())) {
+              _context2.n = 1;
               break;
             }
-            _context2.n = 2;
-            return axios.put("/api/kategori-password/".concat(editId), formData);
-          case 2:
-            response = _context2.v;
-            _context2.n = 5;
-            break;
-          case 3:
-            _context2.n = 4;
-            return axios.post('/api/kategori-password', formData);
-          case 4:
-            response = _context2.v;
-          case 5:
-            if (response.data.success) {
-              setShowModal(false);
-              setFormData({
-                kp_kode: '',
-                kp_nama: ''
-              });
-              setIsEdit(false);
-              setEditId(null);
-              fetchData();
-              alert(isEdit ? 'Data berhasil diperbarui!' : 'Data berhasil disimpan!');
+            showError('Semua field harus diisi!', 'Validasi Gagal');
+            return _context2.a(2);
+          case 1:
+            setSaveLoading(true);
+            _context2.p = 2;
+            payload = {
+              kp_kode: formData.kp_kode.trim(),
+              kp_nama: formData.kp_nama.trim()
+            };
+            if (!isEdit) {
+              _context2.n = 4;
+              break;
             }
-            _context2.n = 7;
+            _context2.n = 3;
+            return axios.put("/api/kategori-password/".concat(editId), payload);
+          case 3:
+            response = _context2.v;
+            _context2.n = 6;
             break;
+          case 4:
+            _context2.n = 5;
+            return axios.post('/api/kategori-password', payload);
+          case 5:
+            response = _context2.v;
           case 6:
-            _context2.p = 6;
+            if (!response.data.success) {
+              _context2.n = 7;
+              break;
+            }
+            // Success feedback
+            showSuccess("Kategori \"".concat(formData.kp_nama, "\" berhasil ").concat(isEdit ? 'diperbarui' : 'disimpan', "!"), "".concat(isEdit ? 'Update' : 'Simpan', " Berhasil!"));
+
+            // Reset form and close modal
+            handleCloseModal();
+
+            // Refresh data
+            setTimeout(function () {
+              _fetchData();
+            }, 1000);
+            _context2.n = 8;
+            break;
+          case 7:
+            throw new Error(response.data.message || 'Operasi gagal');
+          case 8:
+            _context2.n = 10;
+            break;
+          case 9:
+            _context2.p = 9;
             _t2 = _context2.v;
             console.error('Kesalahan saat menyimpan data:', _t2);
-            alert('Gagal menyimpan data!');
-          case 7:
+
+            // Error feedback with retry option
+            errorMessage = ((_error$response = _t2.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || "Gagal ".concat(isEdit ? 'memperbarui' : 'menyimpan', " data kategori password. Silakan coba lagi.");
+            showError(errorMessage, "".concat(isEdit ? 'Update' : 'Simpan', " Gagal!"), function () {
+              return _handleSubmit(e);
+            } // Retry function
+            );
+          case 10:
+            setSaveLoading(false);
+          case 11:
             return _context2.a(2);
         }
-      }, _callee2, null, [[1, 6]]);
+      }, _callee2, null, [[2, 9]]);
     }));
     return function handleSubmit(_x) {
       return _ref2.apply(this, arguments);
@@ -43220,38 +43481,62 @@ var KategoriPasswordIndex = function KategoriPasswordIndex() {
     setIsEdit(true);
     setShowModal(true);
   };
-  var handleDelete = /*#__PURE__*/function () {
+  var handleDelete = function handleDelete(item) {
+    // Show delete confirmation with item details
+    showDelete('Data kategori password yang dihapus tidak dapat dikembalikan dan akan mempengaruhi semua password yang menggunakan kategori ini!', 'Konfirmasi Hapus Kategori', function () {
+      return _performDelete(item.m_kategori_password_id);
+    }, // Confirm action
+    "".concat(item.kp_nama, " (").concat(item.kp_kode, ")") // Item name
+    );
+  };
+  var _performDelete = /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(id) {
-      var response, _t3;
+      var response, _error$response2, errorMessage, _t3;
       return _regenerator().w(function (_context3) {
         while (1) switch (_context3.p = _context3.n) {
           case 0:
-            if (!confirm('Apakah Anda yakin ingin menghapus data ini?')) {
-              _context3.n = 4;
+            _context3.p = 0;
+            // Show processing message
+            showSuccess('Sedang menghapus data...', 'Memproses...');
+            _context3.n = 1;
+            return axios["delete"]("/api/kategori-password/".concat(id));
+          case 1:
+            response = _context3.v;
+            if (!response.data.success) {
+              _context3.n = 2;
               break;
             }
-            _context3.p = 1;
-            _context3.n = 2;
-            return axios["delete"]("/api/kategori-password/".concat(id));
-          case 2:
-            response = _context3.v;
-            if (response.data.success) {
-              fetchData();
-              alert('Data berhasil dihapus!');
-            }
-            _context3.n = 4;
+            // Success message
+            showSuccess('Kategori password berhasil dihapus!', 'Hapus Berhasil!');
+
+            // Refresh data
+            setTimeout(function () {
+              _fetchData();
+            }, 1000);
+            _context3.n = 3;
             break;
+          case 2:
+            throw new Error(response.data.message || 'Gagal menghapus data');
           case 3:
-            _context3.p = 3;
+            _context3.n = 5;
+            break;
+          case 4:
+            _context3.p = 4;
             _t3 = _context3.v;
             console.error('Kesalahan saat menghapus data:', _t3);
-            alert('Gagal menghapus data!');
-          case 4:
+
+            // Error feedback with retry option
+            errorMessage = ((_error$response2 = _t3.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || 'Gagal menghapus data kategori password. Silakan coba lagi.';
+            showError(errorMessage, 'Hapus Gagal!', function () {
+              return _performDelete(id);
+            } // Retry function
+            );
+          case 5:
             return _context3.a(2);
         }
-      }, _callee3, null, [[1, 3]]);
+      }, _callee3, null, [[0, 4]]);
     }));
-    return function handleDelete(_x2) {
+    return function performDelete(_x2) {
       return _ref3.apply(this, arguments);
     };
   }();
@@ -43263,155 +43548,188 @@ var KategoriPasswordIndex = function KategoriPasswordIndex() {
     });
     setIsEdit(false);
     setEditId(null);
+    setSaveLoading(false);
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+  var handleShowDetail = function handleShowDetail(item) {
+    showSuccess("Kode: ".concat(item.kp_kode, "\nNama: ").concat(item.kp_nama, "\nDibuat: ").concat(new Date(item.created_at).toLocaleDateString('id-ID')), "Detail ".concat(item.kp_nama));
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
     className: "min-h-screen flex",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Components_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], {
       activeMenu: "kategori-password"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
       className: "flex-1 flex flex-col",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Header__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("main", {
-        className: "flex-1 p-4 relative",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Components_Header__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("main", {
+        className: "flex-1 p-4 bg-gradient-to-br from-slate-100 via-blue-100 to-gray-100 relative",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
           className: "space-y-4 max-w-7xl",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-            className: "bg-white rounded-lg shadow p-4",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+            className: "bg-gradient-to-r from-gray-900 via-black to-gray-800 rounded-xl shadow-2xl p-6 border border-amber-500/20",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
               className: "flex items-center justify-between",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
-                  className: "text-xl font-bold text-gray-900",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h1", {
+                  className: "text-2xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
                   children: "Kategori Password"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-                  className: "text-gray-600 mt-1 text-sm",
-                  children: "Kelola kategori untuk mengorganisir password Anda."
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("p", {
+                  className: "text-amber-100/80 mt-2 text-sm",
+                  children: "Kelola kategori untuk mengorganisir password Anda dengan mudah dan terstruktur."
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_button_create__WEBPACK_IMPORTED_MODULE_7__["default"], {
+                text: "Tambah Kategori",
                 onClick: function onClick() {
                   return setShowModal(true);
                 },
-                className: "bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-lg flex items-center space-x-2 transition-colors text-sm",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
-                  className: "w-4 h-4",
-                  fill: "currentColor",
-                  viewBox: "0 0 20 20",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
-                    fillRule: "evenodd",
-                    d: "M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z",
-                    clipRule: "evenodd"
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-                  children: "Tambah Kategori"
-                })]
+                size: "medium"
               })]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "bg-white rounded-lg shadow",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              className: "p-4 border-b border-gray-200",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
-                className: "text-lg font-semibold text-gray-900",
-                children: "Daftar Kategori"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+            className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-amber-500/20",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+              className: "p-6 border-b border-amber-500/20",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("h2", {
+                className: "text-xl font-semibold bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent",
+                children: ["Daftar Kategori (", data.length, " kategori)"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
               className: "overflow-x-auto",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                className: "min-w-full divide-y divide-gray-200",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
-                  className: "bg-gray-50",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                      className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("table", {
+                className: "min-w-full divide-y divide-amber-500/20",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("thead", {
+                  className: "bg-gradient-to-r from-gray-800 to-gray-900",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("tr", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("th", {
+                      className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
                       children: "No"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                      className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("th", {
+                      className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
                       children: "Kode"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                      className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("th", {
+                      className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
                       children: "Nama Kategori"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                      className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("th", {
+                      className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
                       children: "Tanggal Dibuat"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                      className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("th", {
+                      className: "px-6 py-4 text-center text-xs font-semibold text-amber-300 uppercase tracking-wider",
                       children: "Aksi"
                     })]
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
-                  className: "bg-white divide-y divide-gray-200",
-                  children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("tbody", {
+                  className: "divide-y divide-amber-500/10",
+                  children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("tr", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("td", {
                       colSpan: "5",
-                      className: "px-6 py-4 text-center text-gray-500",
-                      children: "Memuat data..."
+                      className: "px-6 py-8 text-center",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+                        className: "flex items-center justify-center space-x-3",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+                          className: "w-6 h-6 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full animate-spin flex items-center justify-center",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+                            className: "w-3 h-3 bg-black rounded-full"
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+                          className: "text-amber-200",
+                          children: "Memuat data..."
+                        })]
+                      })
                     })
-                  }) : data.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                  }) : data.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("tr", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("td", {
                       colSpan: "5",
-                      className: "px-6 py-4 text-center text-gray-500",
-                      children: "Tidak ada data"
+                      className: "px-6 py-8 text-center",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+                        className: "text-amber-300/60",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("svg", {
+                          className: "w-12 h-12 mx-auto mb-3 opacity-50",
+                          fill: "currentColor",
+                          viewBox: "0 0 20 20",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("path", {
+                            fillRule: "evenodd",
+                            d: "M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z",
+                            clipRule: "evenodd"
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("p", {
+                          children: "Belum ada kategori password yang dibuat"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("p", {
+                          className: "text-xs mt-1",
+                          children: "Klik tombol \"Tambah Kategori\" untuk mulai menambahkan"
+                        })]
+                      })
                     })
                   }) : data.map(function (item, index) {
-                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                      className: "hover:bg-gray-50",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                        className: "px-6 py-4 whitespace-nowrap text-sm text-gray-900",
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("tr", {
+                      className: "hover:bg-gradient-to-r hover:from-amber-500/5 hover:to-yellow-500/5 transition-all duration-200",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("td", {
+                        className: "px-6 py-4 whitespace-nowrap text-sm text-amber-100",
                         children: index + 1
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                        className: "px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900",
-                        children: item.kp_kode
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                        className: "px-6 py-4 whitespace-nowrap text-sm text-gray-900",
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("td", {
+                        className: "px-6 py-4 whitespace-nowrap",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+                          className: "text-sm font-medium bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent",
+                          children: item.kp_kode
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("td", {
+                        className: "px-6 py-4 whitespace-nowrap text-sm text-amber-100 font-medium",
                         children: item.kp_nama
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                        className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500",
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("td", {
+                        className: "px-6 py-4 whitespace-nowrap text-sm text-amber-200/80",
                         children: new Date(item.created_at).toLocaleDateString('id-ID')
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                        className: "px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-                          onClick: function onClick() {
-                            return handleEdit(item);
-                          },
-                          className: "text-indigo-600 hover:text-indigo-900 transition-colors",
-                          children: "Edit"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-                          onClick: function onClick() {
-                            return handleDelete(item.m_kategori_password_id);
-                          },
-                          className: "text-red-600 hover:text-red-900 transition-colors",
-                          children: "Hapus"
-                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("td", {
+                        className: "px-6 py-4 whitespace-nowrap",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+                          className: "flex justify-center space-x-2",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_button_show__WEBPACK_IMPORTED_MODULE_9__["default"], {
+                            size: "small",
+                            showText: false,
+                            onClick: function onClick() {
+                              return handleShowDetail(item);
+                            }
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_button_update__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                            size: "small",
+                            showText: false,
+                            onClick: function onClick() {
+                              return handleEdit(item);
+                            }
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_button_delete__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                            size: "small",
+                            showText: false,
+                            onClick: function onClick() {
+                              return handleDelete(item);
+                            }
+                          })]
+                        })
                       })]
                     }, item.m_kategori_password_id);
                   })
                 })]
               })
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
             className: "pb-16"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Footer__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Components_Footer__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
       })]
-    }), showModal && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-        className: "bg-white rounded-lg shadow-lg w-full max-w-md mx-4",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    }), showModal && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      className: "fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-40",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-md mx-4 border border-amber-500/20",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
           className: "p-6",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "flex items-center justify-between mb-4",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h3", {
-              className: "text-lg font-semibold text-gray-900",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+            className: "flex items-center justify-between mb-6",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("h3", {
+              className: "text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
               children: [isEdit ? 'Edit' : 'Tambah', " Kategori Password"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("button", {
               onClick: handleCloseModal,
-              className: "text-gray-400 hover:text-gray-600",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
+              className: "text-amber-400 hover:text-amber-300 transition-colors duration-200 p-1 rounded-full hover:bg-amber-500/10",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("svg", {
                 className: "w-6 h-6",
                 fill: "none",
                 stroke: "currentColor",
                 viewBox: "0 0 24 24",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("path", {
                   strokeLinecap: "round",
                   strokeLinejoin: "round",
                   strokeWidth: "2",
@@ -43419,14 +43737,14 @@ var KategoriPasswordIndex = function KategoriPasswordIndex() {
                 })
               })
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
-            onSubmit: handleSubmit,
-            className: "space-y-4",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                className: "block text-sm font-medium text-gray-700 mb-1",
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("form", {
+            onSubmit: _handleSubmit,
+            className: "space-y-6",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
+                className: "block text-sm font-semibold text-amber-300 mb-2",
                 children: "Kode Kategori"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("input", {
                 type: "text",
                 value: formData.kp_kode,
                 onChange: function onChange(e) {
@@ -43434,15 +43752,16 @@ var KategoriPasswordIndex = function KategoriPasswordIndex() {
                     kp_kode: e.target.value
                   }));
                 },
-                className: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500",
+                className: "w-full px-4 py-3 bg-gray-800/50 border border-amber-500/30 rounded-xl text-amber-100 placeholder-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-400/50 transition-all duration-200",
                 placeholder: "Contoh: KP001",
-                required: true
+                required: true,
+                disabled: saveLoading
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                className: "block text-sm font-medium text-gray-700 mb-1",
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
+                className: "block text-sm font-semibold text-amber-300 mb-2",
                 children: "Nama Kategori"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("input", {
                 type: "text",
                 value: formData.kp_nama,
                 onChange: function onChange(e) {
@@ -43450,30 +43769,478 @@ var KategoriPasswordIndex = function KategoriPasswordIndex() {
                     kp_nama: e.target.value
                   }));
                 },
-                className: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500",
+                className: "w-full px-4 py-3 bg-gray-800/50 border border-amber-500/30 rounded-xl text-amber-100 placeholder-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-400/50 transition-all duration-200",
                 placeholder: "Contoh: Media Sosial",
-                required: true
+                required: true,
+                disabled: saveLoading
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
               className: "flex space-x-3 pt-4",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("button", {
                 type: "button",
                 onClick: handleCloseModal,
-                className: "flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors",
+                disabled: saveLoading,
+                className: "flex-1 px-6 py-3 border border-amber-500/30 rounded-xl text-amber-200 hover:bg-amber-500/10 hover:border-amber-400/50 transition-all duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed",
                 children: "Batal"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("button", {
                 type: "submit",
-                className: "flex-1 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors",
-                children: isEdit ? 'Perbarui' : 'Simpan'
+                disabled: saveLoading || !formData.kp_kode.trim() || !formData.kp_nama.trim(),
+                className: "flex-1 px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-black rounded-xl font-bold transition-all duration-200 transform hover:scale-105 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none",
+                children: saveLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+                  className: "flex items-center justify-center space-x-2",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("svg", {
+                    className: "animate-spin h-4 w-4",
+                    xmlns: "http://www.w3.org/2000/svg",
+                    fill: "none",
+                    viewBox: "0 0 24 24",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("circle", {
+                      className: "opacity-25",
+                      cx: "12",
+                      cy: "12",
+                      r: "10",
+                      stroke: "currentColor",
+                      strokeWidth: "4"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("path", {
+                      className: "opacity-75",
+                      fill: "currentColor",
+                      d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    })]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+                    children: "Menyimpan..."
+                  })]
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+                  children: isEdit ? 'Perbarui' : 'Simpan'
+                })
               })]
             })]
           })]
         })
       })
+    }), notification && notification.type === 'success' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Feedback_Message_success__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      message: notification.message,
+      title: notification.title,
+      isVisible: notification.isVisible,
+      onClose: hideNotification
+    }), notification && notification.type === 'error' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Feedback_Message_error__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      message: notification.message,
+      title: notification.title,
+      isVisible: notification.isVisible,
+      onClose: hideNotification,
+      onRetry: notification.onRetry
+    }), notification && notification.type === 'delete' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Feedback_Message_delete__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      message: notification.message,
+      title: notification.title,
+      isVisible: notification.isVisible,
+      onClose: hideNotification,
+      onConfirm: notification.onConfirm,
+      itemName: notification.itemName
     })]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (KategoriPasswordIndex);
+
+/***/ }),
+
+/***/ "./resources/js/button/create.jsx":
+/*!****************************************!*\
+  !*** ./resources/js/button/create.jsx ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+var CreateButton = function CreateButton(_ref) {
+  var _ref$onClick = _ref.onClick,
+    onClick = _ref$onClick === void 0 ? function () {} : _ref$onClick,
+    _ref$text = _ref.text,
+    text = _ref$text === void 0 ? "Tambah Data" : _ref$text,
+    _ref$icon = _ref.icon,
+    icon = _ref$icon === void 0 ? "plus" : _ref$icon,
+    _ref$size = _ref.size,
+    size = _ref$size === void 0 ? "medium" : _ref$size,
+    _ref$disabled = _ref.disabled,
+    disabled = _ref$disabled === void 0 ? false : _ref$disabled,
+    _ref$loading = _ref.loading,
+    loading = _ref$loading === void 0 ? false : _ref$loading,
+    _ref$className = _ref.className,
+    className = _ref$className === void 0 ? "" : _ref$className,
+    _ref$showText = _ref.showText,
+    showText = _ref$showText === void 0 ? true : _ref$showText;
+  var sizeClasses = {
+    small: "px-3 py-2 text-xs",
+    medium: "px-4 py-3 text-sm",
+    large: "px-6 py-4 text-base"
+  };
+  var iconSizes = {
+    small: "w-3 h-3",
+    medium: "w-4 h-4",
+    large: "w-5 h-5"
+  };
+  var iconPaths = {
+    plus: "M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z",
+    add: "M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
+    onClick: onClick,
+    disabled: disabled || loading,
+    className: "\n                relative overflow-hidden group\n                bg-gradient-to-r from-slate-100 via-gray-200 to-green-100 \n                hover:from-slate-200 hover:via-gray-300 hover:to-green-200\n                text-green-700 font-semibold rounded-xl\n                transition-all duration-300 transform hover:scale-105\n                shadow-lg shadow-green-500/25 hover:shadow-green-500/40\n                border border-green-300 hover:border-green-400\n                disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none\n                ".concat(sizeClasses[size], " ").concat(className, "\n            "),
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute inset-0 bg-gradient-to-r from-slate-200/60 to-green-200/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute inset-0 bg-gradient-to-r from-transparent via-slate-300/50 to-green-300/50 -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "relative flex items-center justify-center space-x-2",
+      children: [loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
+        className: "animate-spin ".concat(iconSizes[size], " text-green-600"),
+        xmlns: "http://www.w3.org/2000/svg",
+        fill: "none",
+        viewBox: "0 0 24 24",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("circle", {
+          className: "opacity-25",
+          cx: "12",
+          cy: "12",
+          r: "10",
+          stroke: "currentColor",
+          strokeWidth: "4"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+          className: "opacity-75",
+          fill: "currentColor",
+          d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+        })]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+        className: "".concat(iconSizes[size], " text-green-600 group-hover:text-green-700 transition-colors duration-300"),
+        fill: "currentColor",
+        viewBox: "0 0 20 20",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+          fillRule: "evenodd",
+          d: iconPaths[icon],
+          clipRule: "evenodd"
+        })
+      }), showText && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        className: "group-hover:text-green-800 transition-colors duration-300",
+        children: loading ? "Memproses..." : text
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute -top-1 -right-1 w-2 h-2 bg-green-400/70 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-slate-400/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-150"
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateButton);
+
+/***/ }),
+
+/***/ "./resources/js/button/delete.jsx":
+/*!****************************************!*\
+  !*** ./resources/js/button/delete.jsx ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+var DeleteButton = function DeleteButton(_ref) {
+  var _ref$onClick = _ref.onClick,
+    onClick = _ref$onClick === void 0 ? function () {} : _ref$onClick,
+    _ref$text = _ref.text,
+    text = _ref$text === void 0 ? "Hapus Data" : _ref$text,
+    _ref$icon = _ref.icon,
+    icon = _ref$icon === void 0 ? "trash" : _ref$icon,
+    _ref$size = _ref.size,
+    size = _ref$size === void 0 ? "medium" : _ref$size,
+    _ref$disabled = _ref.disabled,
+    disabled = _ref$disabled === void 0 ? false : _ref$disabled,
+    _ref$loading = _ref.loading,
+    loading = _ref$loading === void 0 ? false : _ref$loading,
+    _ref$className = _ref.className,
+    className = _ref$className === void 0 ? "" : _ref$className,
+    _ref$showText = _ref.showText,
+    showText = _ref$showText === void 0 ? true : _ref$showText,
+    _ref$confirmDelete = _ref.confirmDelete,
+    confirmDelete = _ref$confirmDelete === void 0 ? false : _ref$confirmDelete;
+  var sizeClasses = {
+    small: "px-3 py-2 text-xs",
+    medium: "px-4 py-3 text-sm",
+    large: "px-6 py-4 text-base"
+  };
+  var iconSizes = {
+    small: "w-3 h-3",
+    medium: "w-4 h-4",
+    large: "w-5 h-5"
+  };
+  var iconPaths = {
+    trash: "M9 2a1 1 0 000 2h2a1 1 0 100-2H9z M4 5a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM5.5 8a.5.5 0 01.5.5v6a.5.5 0 01-1 0v-6a.5.5 0 01.5-.5zm3 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0v-6a.5.5 0 01.5-.5zm3 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0v-6a.5.5 0 01.5-.5z",
+    "delete": "M8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+  };
+  var handleClick = function handleClick() {
+    if (confirmDelete) {
+      if (window.confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+        onClick();
+      }
+    } else {
+      onClick();
+    }
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
+    onClick: handleClick,
+    disabled: disabled || loading,
+    className: "\n                relative overflow-hidden group\n                bg-gradient-to-r from-slate-100 via-gray-200 to-red-100 \n                hover:from-slate-200 hover:via-gray-300 hover:to-red-200\n                text-red-700 font-semibold rounded-xl\n                transition-all duration-300 transform hover:scale-105\n                shadow-lg shadow-red-500/25 hover:shadow-red-500/40\n                border border-red-300 hover:border-red-400\n                disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none\n                hover:animate-pulse\n                ".concat(sizeClasses[size], " ").concat(className, "\n            "),
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute inset-0 bg-gradient-to-r from-slate-200/60 to-red-200/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute inset-0 bg-gradient-to-r from-transparent via-slate-300/50 to-red-300/60 -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "relative flex items-center justify-center space-x-2",
+      children: [loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
+        className: "animate-spin ".concat(iconSizes[size], " text-red-600"),
+        xmlns: "http://www.w3.org/2000/svg",
+        fill: "none",
+        viewBox: "0 0 24 24",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("circle", {
+          className: "opacity-25",
+          cx: "12",
+          cy: "12",
+          r: "10",
+          stroke: "currentColor",
+          strokeWidth: "4"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+          className: "opacity-75",
+          fill: "currentColor",
+          d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+        })]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+        className: "".concat(iconSizes[size], " text-red-600 group-hover:text-red-700 transition-colors duration-300"),
+        fill: "currentColor",
+        viewBox: "0 0 20 20",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+          fillRule: "evenodd",
+          d: iconPaths[icon],
+          clipRule: "evenodd"
+        })
+      }), showText && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        className: "group-hover:text-red-800 transition-colors duration-300",
+        children: loading ? "Menghapus..." : text
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute -top-1 -right-1 w-2 h-2 bg-red-400/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-ping"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-slate-400/70 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-ping delay-150"
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DeleteButton);
+
+/***/ }),
+
+/***/ "./resources/js/button/show.jsx":
+/*!**************************************!*\
+  !*** ./resources/js/button/show.jsx ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+var ShowButton = function ShowButton(_ref) {
+  var _ref$onClick = _ref.onClick,
+    onClick = _ref$onClick === void 0 ? function () {} : _ref$onClick,
+    _ref$text = _ref.text,
+    text = _ref$text === void 0 ? "Lihat Detail" : _ref$text,
+    _ref$icon = _ref.icon,
+    icon = _ref$icon === void 0 ? "eye" : _ref$icon,
+    _ref$size = _ref.size,
+    size = _ref$size === void 0 ? "medium" : _ref$size,
+    _ref$disabled = _ref.disabled,
+    disabled = _ref$disabled === void 0 ? false : _ref$disabled,
+    _ref$loading = _ref.loading,
+    loading = _ref$loading === void 0 ? false : _ref$loading,
+    _ref$className = _ref.className,
+    className = _ref$className === void 0 ? "" : _ref$className,
+    _ref$showText = _ref.showText,
+    showText = _ref$showText === void 0 ? true : _ref$showText;
+  var sizeClasses = {
+    small: "px-3 py-2 text-xs",
+    medium: "px-4 py-3 text-sm",
+    large: "px-6 py-4 text-base"
+  };
+  var iconSizes = {
+    small: "w-3 h-3",
+    medium: "w-4 h-4",
+    large: "w-5 h-5"
+  };
+  var iconPaths = {
+    eye: "M10 12a2 2 0 100-4 2 2 0 000 4z M10 3C6 3 2.73 5.11 1.18 8.5a1.5 1.5 0 000 3C2.73 14.89 6 17 10 17s7.27-2.11 8.82-5.5a1.5 1.5 0 000-3C17.27 5.11 14 3 10 3z",
+    view: "M10 3C6 3 2.73 5.11 1.18 8.5a1.5 1.5 0 000 3C2.73 14.89 6 17 10 17s7.27-2.11 8.82-5.5a1.5 1.5 0 000-3C17.27 5.11 14 3 10 3z"
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
+    onClick: onClick,
+    disabled: disabled || loading,
+    className: "\n                relative overflow-hidden group\n                bg-gradient-to-r from-slate-100 via-gray-200 to-blue-100 \n                hover:from-slate-200 hover:via-gray-300 hover:to-blue-200\n                text-blue-700 font-semibold rounded-xl\n                transition-all duration-300 transform hover:scale-105\n                shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40\n                border border-blue-300 hover:border-blue-400\n                disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none\n                ".concat(sizeClasses[size], " ").concat(className, "\n            "),
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute inset-0 bg-gradient-to-r from-slate-200/60 to-blue-200/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute inset-0 bg-gradient-to-r from-transparent via-slate-300/50 to-blue-300/50 -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "relative flex items-center justify-center space-x-2",
+      children: [loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
+        className: "animate-spin ".concat(iconSizes[size], " text-blue-600"),
+        xmlns: "http://www.w3.org/2000/svg",
+        fill: "none",
+        viewBox: "0 0 24 24",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("circle", {
+          className: "opacity-25",
+          cx: "12",
+          cy: "12",
+          r: "10",
+          stroke: "currentColor",
+          strokeWidth: "4"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+          className: "opacity-75",
+          fill: "currentColor",
+          d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+        })]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+        className: "".concat(iconSizes[size], " text-blue-600 group-hover:text-blue-700 transition-colors duration-300"),
+        fill: "currentColor",
+        viewBox: "0 0 20 20",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+          fillRule: "evenodd",
+          d: iconPaths[icon],
+          clipRule: "evenodd"
+        })
+      }), showText && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        className: "group-hover:text-blue-800 transition-colors duration-300",
+        children: loading ? "Memuat..." : text
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute -top-1 -right-1 w-2 h-2 bg-blue-400/70 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-slate-400/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-150"
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ShowButton);
+
+/***/ }),
+
+/***/ "./resources/js/button/update.jsx":
+/*!****************************************!*\
+  !*** ./resources/js/button/update.jsx ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+var UpdateButton = function UpdateButton(_ref) {
+  var _ref$onClick = _ref.onClick,
+    onClick = _ref$onClick === void 0 ? function () {} : _ref$onClick,
+    _ref$text = _ref.text,
+    text = _ref$text === void 0 ? "Edit Data" : _ref$text,
+    _ref$icon = _ref.icon,
+    icon = _ref$icon === void 0 ? "edit" : _ref$icon,
+    _ref$size = _ref.size,
+    size = _ref$size === void 0 ? "medium" : _ref$size,
+    _ref$disabled = _ref.disabled,
+    disabled = _ref$disabled === void 0 ? false : _ref$disabled,
+    _ref$loading = _ref.loading,
+    loading = _ref$loading === void 0 ? false : _ref$loading,
+    _ref$className = _ref.className,
+    className = _ref$className === void 0 ? "" : _ref$className,
+    _ref$showText = _ref.showText,
+    showText = _ref$showText === void 0 ? true : _ref$showText;
+  var sizeClasses = {
+    small: "px-3 py-2 text-xs",
+    medium: "px-4 py-3 text-sm",
+    large: "px-6 py-4 text-base"
+  };
+  var iconSizes = {
+    small: "w-3 h-3",
+    medium: "w-4 h-4",
+    large: "w-5 h-5"
+  };
+  var iconPaths = {
+    edit: "M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z",
+    pencil: "M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
+    onClick: onClick,
+    disabled: disabled || loading,
+    className: "\n                relative overflow-hidden group\n                bg-gradient-to-r from-slate-100 via-gray-200 to-orange-100 \n                hover:from-slate-200 hover:via-gray-300 hover:to-orange-200\n                text-orange-700 font-semibold rounded-xl\n                transition-all duration-300 transform hover:scale-105\n                shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40\n                border border-orange-300 hover:border-orange-400\n                disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none\n                ".concat(sizeClasses[size], " ").concat(className, "\n            "),
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute inset-0 bg-gradient-to-r from-slate-200/60 to-orange-200/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute inset-0 bg-gradient-to-r from-transparent via-slate-300/50 to-orange-300/50 -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "relative flex items-center justify-center space-x-2",
+      children: [loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
+        className: "animate-spin ".concat(iconSizes[size], " text-orange-600"),
+        xmlns: "http://www.w3.org/2000/svg",
+        fill: "none",
+        viewBox: "0 0 24 24",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("circle", {
+          className: "opacity-25",
+          cx: "12",
+          cy: "12",
+          r: "10",
+          stroke: "currentColor",
+          strokeWidth: "4"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+          className: "opacity-75",
+          fill: "currentColor",
+          d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+        })]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+        className: "".concat(iconSizes[size], " text-orange-600 group-hover:text-orange-700 transition-colors duration-300"),
+        fill: "currentColor",
+        viewBox: "0 0 20 20",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+          fillRule: "evenodd",
+          d: iconPaths[icon],
+          clipRule: "evenodd"
+        })
+      }), showText && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        className: "group-hover:text-orange-800 transition-colors duration-300",
+        children: loading ? "Memproses..." : text
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute -top-1 -right-1 w-2 h-2 bg-orange-400/70 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-slate-400/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-150"
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UpdateButton);
 
 /***/ })
 
