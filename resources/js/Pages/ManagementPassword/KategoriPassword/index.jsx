@@ -214,7 +214,7 @@ const KategoriPasswordIndex = () => {
             <div className="flex-1 flex flex-col">
                 <Header />
 
-                <main className="flex-1 p-4 relative">
+                <main className="flex-1 p-4 bg-gradient-to-br from-slate-100 via-blue-100 to-gray-100 relative">
                     <div className="space-y-4 max-w-7xl">
                         {/* Header Halaman */}
                         <div className="bg-gradient-to-r from-gray-900 via-black to-gray-800 rounded-xl shadow-2xl p-6 border border-amber-500/20">
