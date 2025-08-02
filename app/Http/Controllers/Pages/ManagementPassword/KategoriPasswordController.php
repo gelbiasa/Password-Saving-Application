@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pages\ManagementPassword;
 use App\Models\ManagementPassword\KategoriPasswordModel;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Log;
 
 class KategoriPasswordController extends Controller
 {
@@ -76,5 +77,26 @@ class KategoriPasswordController extends Controller
         $result = $this->model->restoreData($id);
         
         return response()->json($result);
+    }
+
+    public function getCount()
+    {
+        try {
+            $count = $this->model->where('isDeleted', 0)->count();
+            
+            return response()->json([
+                'success' => true,
+                'count' => $count
+            ], 200);
+            
+        } catch (\Exception $e) {
+            Log::error('Error getting kategori password count: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'count' => 0,
+                'message' => 'Gagal mengambil jumlah kategori: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }
