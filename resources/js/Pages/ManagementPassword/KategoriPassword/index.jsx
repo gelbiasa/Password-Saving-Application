@@ -115,6 +115,10 @@ const KategoriPasswordIndex = () => {
                 // Refresh data
                 setTimeout(() => {
                     fetchData();
+                    // Refresh sidebar count
+                    if (window.refreshSidebarCounts) {
+                        window.refreshSidebarCounts();
+                    }
                 }, 1000);
             } else {
                 throw new Error(response.data.message || 'Operasi gagal');
@@ -173,6 +177,10 @@ const KategoriPasswordIndex = () => {
                 // Refresh data
                 setTimeout(() => {
                     fetchData();
+                    // Refresh sidebar count
+                    if (window.refreshSidebarCounts) {
+                        window.refreshSidebarCounts();
+                    }
                 }, 1000);
             } else {
                 throw new Error(response.data.message || 'Gagal menghapus data');
