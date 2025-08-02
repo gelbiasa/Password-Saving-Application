@@ -41199,7 +41199,6 @@ var PilihLevel = function PilihLevel() {
             console.log('Response hak akses:', response.data);
             if (Array.isArray(response.data) && response.data.length > 0) {
               setHakAkses(response.data);
-              showSuccess('Data hak akses berhasil dimuat!', 'Berhasil!');
             } else {
               console.error('Data hak akses kosong atau format salah');
               showError('Tidak ada hak akses yang tersedia. Silakan login ulang.', 'Data Tidak Ditemukan!', function () {
@@ -41341,12 +41340,13 @@ var PilihLevel = function PilihLevel() {
   }();
   var handleLevelChange = function handleLevelChange(levelId) {
     setSelectedLevel(levelId);
-    var selectedItem = hakAkses.find(function (item) {
-      return item.m_hak_akses_id == levelId;
-    });
-    if (selectedItem) {
-      showSuccess("Level \"".concat(selectedItem.hak_akses_nama, "\" telah dipilih!"), 'Level Dipilih!');
-    }
+    // const selectedItem = hakAkses.find(item => item.m_hak_akses_id == levelId);
+    // if (selectedItem) {
+    //     showSuccess(
+    //         `Level "${selectedItem.hak_akses_nama}" telah dipilih!`, 
+    //         'Level Dipilih!'
+    //     );
+    // }
   };
   if (fetchLoading) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
@@ -41958,8 +41958,17 @@ var Sidebar = function Sidebar(_ref) {
     _useState2 = _slicedToArray(_useState, 2),
     userData = _useState2[0],
     setUserData = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    _useState4 = _slicedToArray(_useState3, 2),
+    kategoriCount = _useState4[0],
+    setKategoriCount = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState6 = _slicedToArray(_useState5, 2),
+    loadingCount = _useState6[0],
+    setLoadingCount = _useState6[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     fetchCurrentUser();
+    fetchKategoriCount();
   }, []);
   var fetchCurrentUser = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
@@ -41996,6 +42005,45 @@ var Sidebar = function Sidebar(_ref) {
       return _ref2.apply(this, arguments);
     };
   }();
+  var fetchKategoriCount = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var response, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            _context2.p = 0;
+            setLoadingCount(true);
+            _context2.n = 1;
+            return axios.get('/api/kategori-password/count');
+          case 1:
+            response = _context2.v;
+            if (response.data.success) {
+              setKategoriCount(response.data.count);
+            } else {
+              console.warn('Failed to fetch kategori count:', response.data.message);
+              setKategoriCount(0);
+            }
+            _context2.n = 3;
+            break;
+          case 2:
+            _context2.p = 2;
+            _t2 = _context2.v;
+            console.error('Error fetching kategori count:', _t2);
+            // Set fallback count atau biarkan 0
+            setKategoriCount(0);
+          case 3:
+            _context2.p = 3;
+            setLoadingCount(false);
+            return _context2.f(3);
+          case 4:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[0, 2, 3, 4]]);
+    }));
+    return function fetchKategoriCount() {
+      return _ref3.apply(this, arguments);
+    };
+  }();
   var handleNavigation = function handleNavigation(page) {
     if (page === 'dashboard') {
       window.location.href = '/dashboard';
@@ -42009,6 +42057,19 @@ var Sidebar = function Sidebar(_ref) {
       return word.charAt(0);
     }).join('').substring(0, 2).toUpperCase();
   };
+
+  // Function untuk refresh count setelah CRUD operations
+  var refreshKategoriCount = function refreshKategoriCount() {
+    fetchKategoriCount();
+  };
+
+  // Expose function ke window untuk dipanggil dari komponen lain
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    window.refreshSidebarCounts = refreshKategoriCount;
+    return function () {
+      delete window.refreshSidebarCounts;
+    };
+  }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("aside", {
     className: "bg-gradient-to-b from-gray-900 via-black to-amber-900 text-white w-56 shadow-2xl min-h-screen flex flex-col border-r border-amber-500/20",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
@@ -42117,14 +42178,16 @@ var Sidebar = function Sidebar(_ref) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                 className: "font-medium",
                 children: "Kategori Password"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                className: "ml-auto bg-gradient-to-r from-amber-400 to-yellow-500 text-black text-xs px-2 py-0.5 rounded-full font-semibold shadow-lg",
-                children: "25"
-              }), activeMenu === 'kategori-password' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-                className: "ml-2",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                className: "ml-auto flex items-center space-x-2",
+                children: [loadingCount ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                  className: "w-4 h-4 border-2 border-amber-400/30 border-t-amber-400 rounded-full animate-spin"
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                  className: "bg-gradient-to-r from-amber-400 to-yellow-500 text-black text-xs px-2 py-0.5 rounded-full font-semibold shadow-lg min-w-[1.5rem] text-center",
+                  children: kategoriCount
+                }), activeMenu === 'kategori-password' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
                   className: "w-2 h-2 bg-amber-400 rounded-full animate-pulse"
-                })
+                })]
               })]
             })
           })]
@@ -43442,6 +43505,10 @@ var KategoriPasswordIndex = function KategoriPasswordIndex() {
             // Refresh data
             setTimeout(function () {
               _fetchData();
+              // Refresh sidebar count
+              if (window.refreshSidebarCounts) {
+                window.refreshSidebarCounts();
+              }
             }, 1000);
             _context2.n = 8;
             break;
@@ -43512,6 +43579,10 @@ var KategoriPasswordIndex = function KategoriPasswordIndex() {
             // Refresh data
             setTimeout(function () {
               _fetchData();
+              // Refresh sidebar count
+              if (window.refreshSidebarCounts) {
+                window.refreshSidebarCounts();
+              }
             }, 1000);
             _context3.n = 3;
             break;

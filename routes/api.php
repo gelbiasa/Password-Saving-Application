@@ -29,6 +29,7 @@ Route::get('/current-user', [AuthController::class, 'getCurrentUser'])->middlewa
 Route::get('/dashboard-data', [DashboardController::class, 'getDashboardData']);
 Route::middleware('web')->group(function () {
     Route::get('/kategori-password', [KategoriPasswordController::class, 'getData']);
+    Route::get('/kategori-password/count', [KategoriPasswordController::class, 'getCount']); // New route
     Route::get('/kategori-password/deleted', [KategoriPasswordController::class, 'getDeletedData']);
     Route::post('/kategori-password', [KategoriPasswordController::class, 'store']);
     Route::put('/kategori-password/{id}', [KategoriPasswordController::class, 'update']);
