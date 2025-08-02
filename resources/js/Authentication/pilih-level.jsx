@@ -36,7 +36,6 @@ const PilihLevel = () => {
             
             if (Array.isArray(response.data) && response.data.length > 0) {
                 setHakAkses(response.data);
-                showSuccess('Data hak akses berhasil dimuat!', 'Berhasil!');
             } else {
                 console.error('Data hak akses kosong atau format salah');
                 showError(
@@ -155,13 +154,13 @@ const PilihLevel = () => {
 
     const handleLevelChange = (levelId) => {
         setSelectedLevel(levelId);
-        const selectedItem = hakAkses.find(item => item.m_hak_akses_id == levelId);
-        if (selectedItem) {
-            showSuccess(
-                `Level "${selectedItem.hak_akses_nama}" telah dipilih!`, 
-                'Level Dipilih!'
-            );
-        }
+        // const selectedItem = hakAkses.find(item => item.m_hak_akses_id == levelId);
+        // if (selectedItem) {
+        //     showSuccess(
+        //         `Level "${selectedItem.hak_akses_nama}" telah dipilih!`, 
+        //         'Level Dipilih!'
+        //     );
+        // }
     };
 
     if (fetchLoading) {

@@ -41199,7 +41199,6 @@ var PilihLevel = function PilihLevel() {
             console.log('Response hak akses:', response.data);
             if (Array.isArray(response.data) && response.data.length > 0) {
               setHakAkses(response.data);
-              showSuccess('Data hak akses berhasil dimuat!', 'Berhasil!');
             } else {
               console.error('Data hak akses kosong atau format salah');
               showError('Tidak ada hak akses yang tersedia. Silakan login ulang.', 'Data Tidak Ditemukan!', function () {
@@ -41341,12 +41340,13 @@ var PilihLevel = function PilihLevel() {
   }();
   var handleLevelChange = function handleLevelChange(levelId) {
     setSelectedLevel(levelId);
-    var selectedItem = hakAkses.find(function (item) {
-      return item.m_hak_akses_id == levelId;
-    });
-    if (selectedItem) {
-      showSuccess("Level \"".concat(selectedItem.hak_akses_nama, "\" telah dipilih!"), 'Level Dipilih!');
-    }
+    // const selectedItem = hakAkses.find(item => item.m_hak_akses_id == levelId);
+    // if (selectedItem) {
+    //     showSuccess(
+    //         `Level "${selectedItem.hak_akses_nama}" telah dipilih!`, 
+    //         'Level Dipilih!'
+    //     );
+    // }
   };
   if (fetchLoading) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
