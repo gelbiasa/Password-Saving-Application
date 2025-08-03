@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Pages\ManagementPassword;
 
+use App\Http\Controllers\TraitsController;
 use App\Models\ManagementPassword\DetailPasswordModel;
 use App\Models\ManagementPassword\KategoriPasswordModel;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class DetailPasswordController extends Controller
 {
+    use TraitsController;
     protected $model;
     protected $kategoriModel;
 
