@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Dashboard from './Pages/Dashboard';
 import KategoriPasswordIndex from './Pages/ManagementPassword/KategoriPassword/index';
+import DetailPasswordIndex from './Pages/ManagementPassword/DetailPassword/index';
 import Login from './Authentication/login';
 import PilihLevel from './Authentication/pilih-level';
 
@@ -23,8 +24,8 @@ if (token) {
 // Render React App berdasarkan halaman
 if (document.getElementById('react-app')) {
     const currentPath = window.location.pathname;
-    
-    switch(currentPath) {
+
+    switch (currentPath) {
         case '/login':
             ReactDOM.render(<Login />, document.getElementById('react-app'));
             break;
@@ -36,6 +37,9 @@ if (document.getElementById('react-app')) {
             break;
         case '/kategori-password':
             ReactDOM.render(<KategoriPasswordIndex />, document.getElementById('react-app'));
+            break;
+        case '/detail-password':
+            ReactDOM.render(<DetailPasswordIndex />, document.getElementById('react-app'));
             break;
         default:
             // Redirect ke login jika halaman tidak dikenali
