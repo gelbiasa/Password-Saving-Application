@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Pages\DashboardController;
+use App\Http\Controllers\Pages\ManagementPassword\DetailPasswordController;
 use App\Http\Controllers\Pages\ManagementPassword\KategoriPasswordController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,4 +30,5 @@ Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/kategori-password', [KategoriPasswordController::class, 'index'])->name('kategori-password');
+    Route::get('/detail-password', [DetailPasswordController::class, 'index']); // Add this
 });

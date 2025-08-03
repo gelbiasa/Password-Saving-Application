@@ -41920,6 +41920,109 @@ var Header = function Header() {
 
 /***/ }),
 
+/***/ "./resources/js/Components/PasswordInput.jsx":
+/*!***************************************************!*\
+  !*** ./resources/js/Components/PasswordInput.jsx ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+
+var PasswordInput = function PasswordInput(_ref) {
+  var label = _ref.label,
+    value = _ref.value,
+    onChange = _ref.onChange,
+    _ref$placeholder = _ref.placeholder,
+    placeholder = _ref$placeholder === void 0 ? "" : _ref$placeholder,
+    _ref$required = _ref.required,
+    required = _ref$required === void 0 ? false : _ref$required,
+    _ref$disabled = _ref.disabled,
+    disabled = _ref$disabled === void 0 ? false : _ref$disabled,
+    _ref$className = _ref.className,
+    className = _ref$className === void 0 ? "" : _ref$className,
+    _ref$name = _ref.name,
+    name = _ref$name === void 0 ? "" : _ref$name;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    showPassword = _useState2[0],
+    setShowPassword = _useState2[1];
+  var togglePasswordVisibility = function togglePasswordVisibility() {
+    setShowPassword(!showPassword);
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "relative",
+    children: [label && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("label", {
+      className: "block text-sm font-semibold text-amber-300 mb-2",
+      children: [label, required && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        className: "text-red-400 ml-1",
+        children: "*"
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "relative",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+        type: showPassword ? "text" : "password",
+        name: name,
+        value: value,
+        onChange: onChange,
+        placeholder: placeholder,
+        required: required,
+        disabled: disabled,
+        className: "w-full px-4 py-3 pr-12 bg-gray-800/50 border border-amber-500/30 rounded-xl text-amber-100 placeholder-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-400/50 transition-all duration-200 ".concat(className)
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+        type: "button",
+        onClick: togglePasswordVisibility,
+        disabled: disabled,
+        className: "absolute inset-y-0 right-0 flex items-center pr-3 text-amber-400 hover:text-amber-300 focus:outline-none transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed",
+        children: showPassword ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+          className: "w-5 h-5",
+          fill: "none",
+          stroke: "currentColor",
+          viewBox: "0 0 24 24",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            strokeWidth: "2",
+            d: "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
+          })
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
+          className: "w-5 h-5",
+          fill: "none",
+          stroke: "currentColor",
+          viewBox: "0 0 24 24",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            strokeWidth: "2",
+            d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            strokeWidth: "2",
+            d: "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+          })]
+        })
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PasswordInput);
+
+/***/ }),
+
 /***/ "./resources/js/Components/Sidebar.jsx":
 /*!*********************************************!*\
   !*** ./resources/js/Components/Sidebar.jsx ***!
@@ -41962,13 +42065,22 @@ var Sidebar = function Sidebar(_ref) {
     _useState4 = _slicedToArray(_useState3, 2),
     kategoriCount = _useState4[0],
     setKategoriCount = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState6 = _slicedToArray(_useState5, 2),
-    loadingCount = _useState6[0],
-    setLoadingCount = _useState6[1];
+    detailPasswordCount = _useState6[0],
+    setDetailPasswordCount = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState8 = _slicedToArray(_useState7, 2),
+    loadingCount = _useState8[0],
+    setLoadingCount = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState0 = _slicedToArray(_useState9, 2),
+    loadingDetailCount = _useState0[0],
+    setLoadingDetailCount = _useState0[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     fetchCurrentUser();
     fetchKategoriCount();
+    fetchDetailPasswordCount();
   }, []);
   var fetchCurrentUser = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
@@ -42029,7 +42141,6 @@ var Sidebar = function Sidebar(_ref) {
             _context2.p = 2;
             _t2 = _context2.v;
             console.error('Error fetching kategori count:', _t2);
-            // Set fallback count atau biarkan 0
             setKategoriCount(0);
           case 3:
             _context2.p = 3;
@@ -42044,11 +42155,51 @@ var Sidebar = function Sidebar(_ref) {
       return _ref3.apply(this, arguments);
     };
   }();
+  var fetchDetailPasswordCount = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+      var response, _t3;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.p = _context3.n) {
+          case 0:
+            _context3.p = 0;
+            setLoadingDetailCount(true);
+            _context3.n = 1;
+            return axios.get('/api/detail-password/count');
+          case 1:
+            response = _context3.v;
+            if (response.data.success) {
+              setDetailPasswordCount(response.data.count);
+            } else {
+              console.warn('Failed to fetch detail password count:', response.data.message);
+              setDetailPasswordCount(0);
+            }
+            _context3.n = 3;
+            break;
+          case 2:
+            _context3.p = 2;
+            _t3 = _context3.v;
+            console.error('Error fetching detail password count:', _t3);
+            setDetailPasswordCount(0);
+          case 3:
+            _context3.p = 3;
+            setLoadingDetailCount(false);
+            return _context3.f(3);
+          case 4:
+            return _context3.a(2);
+        }
+      }, _callee3, null, [[0, 2, 3, 4]]);
+    }));
+    return function fetchDetailPasswordCount() {
+      return _ref4.apply(this, arguments);
+    };
+  }();
   var handleNavigation = function handleNavigation(page) {
     if (page === 'dashboard') {
       window.location.href = '/dashboard';
     } else if (page === 'kategori-password') {
       window.location.href = '/kategori-password';
+    } else if (page === 'detail-password') {
+      window.location.href = '/detail-password';
     }
   };
   var getInitials = function getInitials(name) {
@@ -42062,10 +42213,16 @@ var Sidebar = function Sidebar(_ref) {
   var refreshKategoriCount = function refreshKategoriCount() {
     fetchKategoriCount();
   };
+  var refreshDetailPasswordCount = function refreshDetailPasswordCount() {
+    fetchDetailPasswordCount();
+  };
 
   // Expose function ke window untuk dipanggil dari komponen lain
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    window.refreshSidebarCounts = refreshKategoriCount;
+    window.refreshSidebarCounts = function () {
+      refreshKategoriCount();
+      refreshDetailPasswordCount();
+    };
     return function () {
       delete window.refreshSidebarCounts;
     };
@@ -42186,6 +42343,35 @@ var Sidebar = function Sidebar(_ref) {
                   className: "bg-gradient-to-r from-amber-400 to-yellow-500 text-black text-xs px-2 py-0.5 rounded-full font-semibold shadow-lg min-w-[1.5rem] text-center",
                   children: kategoriCount
                 }), activeMenu === 'kategori-password' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                  className: "w-2 h-2 bg-amber-400 rounded-full animate-pulse"
+                })]
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
+              onClick: function onClick() {
+                return handleNavigation('detail-password');
+              },
+              className: "w-full flex items-center space-x-3 p-3 rounded-xl transition-all duration-300 text-sm group ".concat(activeMenu === 'detail-password' ? 'bg-gradient-to-r from-amber-500/20 to-yellow-600/20 border border-amber-400/30 shadow-lg shadow-amber-500/25 text-amber-100' : 'hover:bg-gradient-to-r hover:from-amber-500/10 hover:to-yellow-600/10 hover:border-amber-400/20 border border-transparent text-amber-200/80 hover:text-amber-100'),
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+                className: "w-4 h-4 ".concat(activeMenu === 'detail-password' ? 'text-amber-400' : 'text-amber-300/70 group-hover:text-amber-400'),
+                fill: "currentColor",
+                viewBox: "0 0 20 20",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+                  fillRule: "evenodd",
+                  d: "M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                className: "font-medium",
+                children: "Detail Password"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                className: "ml-auto flex items-center space-x-2",
+                children: [loadingDetailCount ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                  className: "w-4 h-4 border-2 border-amber-400/30 border-t-amber-400 rounded-full animate-spin"
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                  className: "bg-gradient-to-r from-blue-400 to-cyan-500 text-black text-xs px-2 py-0.5 rounded-full font-semibold shadow-lg min-w-[1.5rem] text-center",
+                  children: detailPasswordCount
+                }), activeMenu === 'detail-password' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
                   className: "w-2 h-2 bg-amber-400 rounded-full animate-pulse"
                 })]
               })]
@@ -43288,6 +43474,707 @@ var RecentActivity = function RecentActivity() {
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Dashboard);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/ManagementPassword/DetailPassword/index.jsx":
+/*!************************************************************************!*\
+  !*** ./resources/js/Pages/ManagementPassword/DetailPassword/index.jsx ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Components_Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Components/Header */ "./resources/js/Components/Header.jsx");
+/* harmony import */ var _Components_Sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Components/Sidebar */ "./resources/js/Components/Sidebar.jsx");
+/* harmony import */ var _Components_Footer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Components/Footer */ "./resources/js/Components/Footer.jsx");
+/* harmony import */ var _Components_PasswordInput__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../Components/PasswordInput */ "./resources/js/Components/PasswordInput.jsx");
+/* harmony import */ var _Feedback_Message_success__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../Feedback-Message/success */ "./resources/js/Feedback-Message/success.jsx");
+/* harmony import */ var _Feedback_Message_error__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../Feedback-Message/error */ "./resources/js/Feedback-Message/error.jsx");
+/* harmony import */ var _Feedback_Message_delete__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../Feedback-Message/delete */ "./resources/js/Feedback-Message/delete.jsx");
+/* harmony import */ var _button_create__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../button/create */ "./resources/js/button/create.jsx");
+/* harmony import */ var _button_update__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../button/update */ "./resources/js/button/update.jsx");
+/* harmony import */ var _button_show__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../button/show */ "./resources/js/button/show.jsx");
+/* harmony import */ var _button_delete__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../button/delete */ "./resources/js/button/delete.jsx");
+/* harmony import */ var _Hooks_useNotification__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../Hooks/useNotification */ "./resources/js/Hooks/useNotification.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { if (r) i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n;else { var o = function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); }; o("next", 0), o("throw", 1), o("return", 2); } }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var DetailPasswordIndex = function DetailPasswordIndex() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState2 = _slicedToArray(_useState, 2),
+    data = _useState2[0],
+    setData = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState4 = _slicedToArray(_useState3, 2),
+    kategoriOptions = _useState4[0],
+    setKategoriOptions = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState6 = _slicedToArray(_useState5, 2),
+    loading = _useState6[0],
+    setLoading = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    showModal = _useState8[0],
+    setShowModal = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState0 = _slicedToArray(_useState9, 2),
+    isEdit = _useState0[0],
+    setIsEdit = _useState0[1];
+  var _useState1 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState10 = _slicedToArray(_useState1, 2),
+    editId = _useState10[0],
+    setEditId = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    saveLoading = _useState12[0],
+    setSaveLoading = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      fk_m_kategori_password: '',
+      fk_m_user: 1,
+      // Default user ID - adjust as needed
+      dp_nama_username: '',
+      dp_nama_password: '',
+      dp_keterangan: ''
+    }),
+    _useState14 = _slicedToArray(_useState13, 2),
+    formData = _useState14[0],
+    setFormData = _useState14[1];
+
+  // Use notification hook
+  var _useNotification = (0,_Hooks_useNotification__WEBPACK_IMPORTED_MODULE_12__.useNotification)(),
+    notification = _useNotification.notification,
+    showSuccess = _useNotification.showSuccess,
+    showError = _useNotification.showError,
+    showDelete = _useNotification.showDelete,
+    hideNotification = _useNotification.hideNotification;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    _fetchData();
+    fetchKategoriOptions();
+  }, []);
+  var _fetchData = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+      var response, responseData, errorMessage, _error$response$data, _t;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.p = _context.n) {
+          case 0:
+            setLoading(true);
+            _context.p = 1;
+            _context.n = 2;
+            return axios.get('/api/detail-password');
+          case 2:
+            response = _context.v;
+            if (!(response.status === 200)) {
+              _context.n = 3;
+              break;
+            }
+            if (response.data.success) {
+              responseData = response.data.data || [];
+            } else if (Array.isArray(response.data)) {
+              responseData = response.data;
+            } else {
+              responseData = [];
+            }
+            setData(responseData);
+            _context.n = 4;
+            break;
+          case 3:
+            throw new Error("HTTP ".concat(response.status, ": ").concat(response.statusText));
+          case 4:
+            _context.n = 6;
+            break;
+          case 5:
+            _context.p = 5;
+            _t = _context.v;
+            console.error('Kesalahan saat mengambil data:', _t);
+            errorMessage = 'Gagal memuat data detail password.';
+            if (_t.code === 'ERR_NETWORK') {
+              errorMessage = 'Tidak dapat terhubung ke server. Periksa koneksi internet Anda.';
+            } else if (_t.response) {
+              errorMessage = "Server Error ".concat(_t.response.status, ": ").concat(((_error$response$data = _t.response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.message) || 'Terjadi kesalahan pada server.');
+            } else if (_t.request) {
+              errorMessage = 'Server tidak merespons. Silakan coba lagi nanti.';
+            }
+            showError(errorMessage + ' Menggunakan data contoh.', 'Gagal Memuat Data', function () {
+              return _fetchData();
+            });
+          case 6:
+            _context.p = 6;
+            setLoading(false);
+            return _context.f(6);
+          case 7:
+            return _context.a(2);
+        }
+      }, _callee, null, [[1, 5, 6, 7]]);
+    }));
+    return function fetchData() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+  var fetchKategoriOptions = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var response, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            _context2.p = 0;
+            _context2.n = 1;
+            return axios.get('/api/detail-password/kategori-options');
+          case 1:
+            response = _context2.v;
+            if (response.data.success) {
+              setKategoriOptions(response.data.data || []);
+            }
+            _context2.n = 3;
+            break;
+          case 2:
+            _context2.p = 2;
+            _t2 = _context2.v;
+            console.error('Error fetching kategori options:', _t2);
+            setKategoriOptions([]);
+          case 3:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[0, 2]]);
+    }));
+    return function fetchKategoriOptions() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+  var _handleSubmit = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(e) {
+      var response, payload, _error$response, errorMessage, _t3;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.p = _context3.n) {
+          case 0:
+            e.preventDefault();
+
+            // Validasi form
+            if (!(!formData.fk_m_kategori_password || !formData.dp_nama_username.trim() || !formData.dp_nama_password.trim() || !formData.dp_keterangan.trim())) {
+              _context3.n = 1;
+              break;
+            }
+            showError('Semua field harus diisi!', 'Validasi Gagal');
+            return _context3.a(2);
+          case 1:
+            setSaveLoading(true);
+            _context3.p = 2;
+            payload = {
+              fk_m_kategori_password: formData.fk_m_kategori_password,
+              fk_m_user: formData.fk_m_user,
+              dp_nama_username: formData.dp_nama_username.trim(),
+              dp_nama_password: formData.dp_nama_password.trim(),
+              dp_keterangan: formData.dp_keterangan.trim()
+            };
+            if (!isEdit) {
+              _context3.n = 4;
+              break;
+            }
+            _context3.n = 3;
+            return axios.put("/api/detail-password/".concat(editId), payload);
+          case 3:
+            response = _context3.v;
+            _context3.n = 6;
+            break;
+          case 4:
+            _context3.n = 5;
+            return axios.post('/api/detail-password', payload);
+          case 5:
+            response = _context3.v;
+          case 6:
+            if (!response.data.success) {
+              _context3.n = 7;
+              break;
+            }
+            showSuccess("Detail password berhasil ".concat(isEdit ? 'diperbarui' : 'disimpan', "!"), "".concat(isEdit ? 'Update' : 'Simpan', " Berhasil!"));
+            handleCloseModal();
+            setTimeout(function () {
+              _fetchData();
+              if (window.refreshSidebarCounts) {
+                window.refreshSidebarCounts();
+              }
+            }, 1000);
+            _context3.n = 8;
+            break;
+          case 7:
+            throw new Error(response.data.message || 'Operasi gagal');
+          case 8:
+            _context3.n = 10;
+            break;
+          case 9:
+            _context3.p = 9;
+            _t3 = _context3.v;
+            console.error('Kesalahan saat menyimpan data:', _t3);
+            errorMessage = ((_error$response = _t3.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || "Gagal ".concat(isEdit ? 'memperbarui' : 'menyimpan', " detail password. Silakan coba lagi.");
+            showError(errorMessage, "".concat(isEdit ? 'Update' : 'Simpan', " Gagal!"), function () {
+              return _handleSubmit(e);
+            });
+          case 10:
+            setSaveLoading(false);
+          case 11:
+            return _context3.a(2);
+        }
+      }, _callee3, null, [[2, 9]]);
+    }));
+    return function handleSubmit(_x) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+  var handleEdit = function handleEdit(item) {
+    setFormData({
+      fk_m_kategori_password: item.fk_m_kategori_password,
+      fk_m_user: item.fk_m_user,
+      dp_nama_username: item.dp_nama_username_decrypted || '',
+      dp_nama_password: item.dp_nama_password_decrypted || '',
+      dp_keterangan: item.dp_keterangan
+    });
+    setEditId(item.m_detail_password_id);
+    setIsEdit(true);
+    setShowModal(true);
+  };
+  var handleDelete = function handleDelete(item) {
+    var _item$kategori_passwo;
+    showDelete('Data detail password yang dihapus tidak dapat dikembalikan!', 'Konfirmasi Hapus Detail Password', function () {
+      return _performDelete(item.m_detail_password_id);
+    }, "".concat(item.dp_keterangan, " (").concat(((_item$kategori_passwo = item.kategori_password) === null || _item$kategori_passwo === void 0 ? void 0 : _item$kategori_passwo.kp_nama) || 'Unknown', ")"));
+  };
+  var _performDelete = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4(id) {
+      var response, _error$response2, errorMessage, _t4;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.p = _context4.n) {
+          case 0:
+            _context4.p = 0;
+            showSuccess('Sedang menghapus data...', 'Memproses...');
+            _context4.n = 1;
+            return axios["delete"]("/api/detail-password/".concat(id));
+          case 1:
+            response = _context4.v;
+            if (!response.data.success) {
+              _context4.n = 2;
+              break;
+            }
+            showSuccess('Detail password berhasil dihapus!', 'Hapus Berhasil!');
+            setTimeout(function () {
+              _fetchData();
+              if (window.refreshSidebarCounts) {
+                window.refreshSidebarCounts();
+              }
+            }, 1000);
+            _context4.n = 3;
+            break;
+          case 2:
+            throw new Error(response.data.message || 'Gagal menghapus data');
+          case 3:
+            _context4.n = 5;
+            break;
+          case 4:
+            _context4.p = 4;
+            _t4 = _context4.v;
+            console.error('Kesalahan saat menghapus data:', _t4);
+            errorMessage = ((_error$response2 = _t4.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || 'Gagal menghapus detail password. Silakan coba lagi.';
+            showError(errorMessage, 'Hapus Gagal!', function () {
+              return _performDelete(id);
+            });
+          case 5:
+            return _context4.a(2);
+        }
+      }, _callee4, null, [[0, 4]]);
+    }));
+    return function performDelete(_x2) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+  var handleCloseModal = function handleCloseModal() {
+    setShowModal(false);
+    setFormData({
+      fk_m_kategori_password: '',
+      fk_m_user: 1,
+      dp_nama_username: '',
+      dp_nama_password: '',
+      dp_keterangan: ''
+    });
+    setIsEdit(false);
+    setEditId(null);
+    setSaveLoading(false);
+  };
+  var handleShowDetail = function handleShowDetail(item) {
+    var _item$kategori_passwo2;
+    var detailInfo = "\n            Kategori: ".concat(((_item$kategori_passwo2 = item.kategori_password) === null || _item$kategori_passwo2 === void 0 ? void 0 : _item$kategori_passwo2.kp_nama) || 'Unknown', "\n            Username: ").concat(item.dp_nama_username_masked || '***', "\n            Password: ").concat(item.dp_nama_password_masked || '***', "\n            Keterangan: ").concat(item.dp_keterangan, "\n            Dibuat: ").concat(new Date(item.created_at).toLocaleDateString('id-ID'), "\n        ").trim();
+    showSuccess(detailInfo, "Detail Password");
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+    className: "min-h-screen flex",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Components_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      activeMenu: "detail-password"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+      className: "flex-1 flex flex-col",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Components_Header__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("main", {
+        className: "flex-1 p-4 bg-gradient-to-br from-slate-100 via-blue-100 to-gray-100 relative",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "space-y-4 max-w-7xl",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+            className: "bg-gradient-to-r from-gray-900 via-black to-gray-800 rounded-xl shadow-2xl p-6 border border-amber-500/20",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              className: "flex items-center justify-between",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h1", {
+                  className: "text-2xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
+                  children: "Detail Password"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+                  className: "text-amber-100/80 mt-2 text-sm",
+                  children: "Kelola dan simpan detail password Anda dengan aman menggunakan enkripsi tingkat tinggi."
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_button_create__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                text: "Tambah Password",
+                onClick: function onClick() {
+                  return setShowModal(true);
+                },
+                size: "medium"
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-amber-500/20",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+              className: "p-6 border-b border-amber-500/20",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("h2", {
+                className: "text-xl font-semibold bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent",
+                children: ["Daftar Password (", data.length, " password)"]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+              className: "overflow-x-auto",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("table", {
+                className: "min-w-full divide-y divide-amber-500/20",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("thead", {
+                  className: "bg-gradient-to-r from-gray-800 to-gray-900",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("tr", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+                      className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
+                      children: "No"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+                      className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
+                      children: "Kategori"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+                      className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
+                      children: "Username"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+                      className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
+                      children: "Password"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+                      className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
+                      children: "Keterangan"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+                      className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
+                      children: "Tanggal Dibuat"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+                      className: "px-6 py-4 text-center text-xs font-semibold text-amber-300 uppercase tracking-wider",
+                      children: "Aksi"
+                    })]
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("tbody", {
+                  className: "divide-y divide-amber-500/10",
+                  children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("tr", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                      colSpan: "7",
+                      className: "px-6 py-8 text-center",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                        className: "flex items-center justify-center space-x-3",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+                          className: "w-6 h-6 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full animate-spin flex items-center justify-center",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+                            className: "w-3 h-3 bg-black rounded-full"
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                          className: "text-amber-200",
+                          children: "Memuat data..."
+                        })]
+                      })
+                    })
+                  }) : data.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("tr", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                      colSpan: "7",
+                      className: "px-6 py-8 text-center",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                        className: "text-amber-300/60",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("svg", {
+                          className: "w-12 h-12 mx-auto mb-3 opacity-50",
+                          fill: "currentColor",
+                          viewBox: "0 0 20 20",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("path", {
+                            fillRule: "evenodd",
+                            d: "M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z",
+                            clipRule: "evenodd"
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+                          children: "Belum ada detail password yang disimpan"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+                          className: "text-xs mt-1",
+                          children: "Klik tombol \"Tambah Password\" untuk mulai menambahkan"
+                        })]
+                      })
+                    })
+                  }) : data.map(function (item, index) {
+                    var _item$kategori_passwo3;
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("tr", {
+                      className: "hover:bg-gradient-to-r hover:from-amber-500/5 hover:to-yellow-500/5 transition-all duration-200",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                        className: "px-6 py-4 whitespace-nowrap text-sm text-amber-100",
+                        children: index + 1
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                        className: "px-6 py-4 whitespace-nowrap",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                          className: "text-sm font-medium bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent",
+                          children: ((_item$kategori_passwo3 = item.kategori_password) === null || _item$kategori_passwo3 === void 0 ? void 0 : _item$kategori_passwo3.kp_nama) || 'Unknown'
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                        className: "px-6 py-4 whitespace-nowrap",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                          className: "text-sm text-amber-100 font-mono bg-gray-800/50 px-2 py-1 rounded",
+                          children: item.dp_nama_username_masked || '***'
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                        className: "px-6 py-4 whitespace-nowrap",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                          className: "text-sm text-amber-100 font-mono bg-gray-800/50 px-2 py-1 rounded",
+                          children: item.dp_nama_password_masked || '***'
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                        className: "px-6 py-4 whitespace-nowrap text-sm text-amber-100",
+                        children: item.dp_keterangan
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                        className: "px-6 py-4 whitespace-nowrap text-sm text-amber-200/80",
+                        children: new Date(item.created_at).toLocaleDateString('id-ID')
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                        className: "px-6 py-4 whitespace-nowrap",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                          className: "flex justify-center space-x-2",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_button_show__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                            size: "small",
+                            showText: false,
+                            onClick: function onClick() {
+                              return handleShowDetail(item);
+                            }
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_button_update__WEBPACK_IMPORTED_MODULE_9__["default"], {
+                            size: "small",
+                            showText: false,
+                            onClick: function onClick() {
+                              return handleEdit(item);
+                            }
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_button_delete__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                            size: "small",
+                            showText: false,
+                            onClick: function onClick() {
+                              return handleDelete(item);
+                            }
+                          })]
+                        })
+                      })]
+                    }, item.m_detail_password_id);
+                  })
+                })]
+              })
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+            className: "pb-16"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Components_Footer__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
+      })]
+    }), showModal && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      className: "fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-40",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-md mx-4 border border-amber-500/20",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "p-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "flex items-center justify-between mb-6",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("h3", {
+              className: "text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
+              children: [isEdit ? 'Edit' : 'Tambah', " Detail Password"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+              onClick: handleCloseModal,
+              className: "text-amber-400 hover:text-amber-300 transition-colors duration-200 p-1 rounded-full hover:bg-amber-500/10",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("svg", {
+                className: "w-6 h-6",
+                fill: "none",
+                stroke: "currentColor",
+                viewBox: "0 0 24 24",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("path", {
+                  strokeLinecap: "round",
+                  strokeLinejoin: "round",
+                  strokeWidth: "2",
+                  d: "M6 18L18 6M6 6l12 12"
+                })
+              })
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("form", {
+            onSubmit: _handleSubmit,
+            className: "space-y-6",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("label", {
+                className: "block text-sm font-semibold text-amber-300 mb-2",
+                children: ["Kategori Password ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                  className: "text-red-400",
+                  children: "*"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("select", {
+                value: formData.fk_m_kategori_password,
+                onChange: function onChange(e) {
+                  return setFormData(_objectSpread(_objectSpread({}, formData), {}, {
+                    fk_m_kategori_password: e.target.value
+                  }));
+                },
+                className: "w-full px-4 py-3 bg-gray-800/50 border border-amber-500/30 rounded-xl text-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-400/50 transition-all duration-200",
+                required: true,
+                disabled: saveLoading,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("option", {
+                  value: "",
+                  children: "Pilih Kategori"
+                }), kategoriOptions.map(function (kategori) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("option", {
+                    value: kategori.m_kategori_password_id,
+                    children: [kategori.kp_nama, " (", kategori.kp_kode, ")"]
+                  }, kategori.m_kategori_password_id);
+                })]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Components_PasswordInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              label: "Username",
+              value: formData.dp_nama_username,
+              onChange: function onChange(e) {
+                return setFormData(_objectSpread(_objectSpread({}, formData), {}, {
+                  dp_nama_username: e.target.value
+                }));
+              },
+              placeholder: "Masukkan username",
+              required: true,
+              disabled: saveLoading
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Components_PasswordInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              label: "Password",
+              value: formData.dp_nama_password,
+              onChange: function onChange(e) {
+                return setFormData(_objectSpread(_objectSpread({}, formData), {}, {
+                  dp_nama_password: e.target.value
+                }));
+              },
+              placeholder: "Masukkan password",
+              required: true,
+              disabled: saveLoading
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("label", {
+                className: "block text-sm font-semibold text-amber-300 mb-2",
+                children: ["Keterangan ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                  className: "text-red-400",
+                  children: "*"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("textarea", {
+                value: formData.dp_keterangan,
+                onChange: function onChange(e) {
+                  return setFormData(_objectSpread(_objectSpread({}, formData), {}, {
+                    dp_keterangan: e.target.value
+                  }));
+                },
+                className: "w-full px-4 py-3 bg-gray-800/50 border border-amber-500/30 rounded-xl text-amber-100 placeholder-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-400/50 transition-all duration-200 resize-none",
+                placeholder: "Contoh: Password untuk akun Gmail pribadi",
+                rows: "3",
+                required: true,
+                disabled: saveLoading
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              className: "flex space-x-3 pt-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+                type: "button",
+                onClick: handleCloseModal,
+                disabled: saveLoading,
+                className: "flex-1 px-6 py-3 border border-amber-500/30 rounded-xl text-amber-200 hover:bg-amber-500/10 hover:border-amber-400/50 transition-all duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed",
+                children: "Batal"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+                type: "submit",
+                disabled: saveLoading || !formData.fk_m_kategori_password || !formData.dp_nama_username.trim() || !formData.dp_nama_password.trim() || !formData.dp_keterangan.trim(),
+                className: "flex-1 px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-black rounded-xl font-bold transition-all duration-200 transform hover:scale-105 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none",
+                children: saveLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                  className: "flex items-center justify-center space-x-2",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("svg", {
+                    className: "animate-spin h-4 w-4",
+                    xmlns: "http://www.w3.org/2000/svg",
+                    fill: "none",
+                    viewBox: "0 0 24 24",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("circle", {
+                      className: "opacity-25",
+                      cx: "12",
+                      cy: "12",
+                      r: "10",
+                      stroke: "currentColor",
+                      strokeWidth: "4"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("path", {
+                      className: "opacity-75",
+                      fill: "currentColor",
+                      d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    })]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                    children: "Menyimpan..."
+                  })]
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                  children: isEdit ? 'Perbarui' : 'Simpan'
+                })
+              })]
+            })]
+          })]
+        })
+      })
+    }), notification && notification.type === 'success' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Feedback_Message_success__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      message: notification.message,
+      title: notification.title,
+      isVisible: notification.isVisible,
+      onClose: hideNotification
+    }), notification && notification.type === 'error' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Feedback_Message_error__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      message: notification.message,
+      title: notification.title,
+      isVisible: notification.isVisible,
+      onClose: hideNotification,
+      onRetry: notification.onRetry
+    }), notification && notification.type === 'delete' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Feedback_Message_delete__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      message: notification.message,
+      title: notification.title,
+      isVisible: notification.isVisible,
+      onClose: hideNotification,
+      onConfirm: notification.onConfirm,
+      itemName: notification.itemName
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DetailPasswordIndex);
 
 /***/ }),
 
@@ -44420,9 +45307,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var _Pages_Dashboard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Pages/Dashboard */ "./resources/js/Pages/Dashboard.jsx");
 /* harmony import */ var _Pages_ManagementPassword_KategoriPassword_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Pages/ManagementPassword/KategoriPassword/index */ "./resources/js/Pages/ManagementPassword/KategoriPassword/index.jsx");
-/* harmony import */ var _Authentication_login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Authentication/login */ "./resources/js/Authentication/login.jsx");
-/* harmony import */ var _Authentication_pilih_level__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Authentication/pilih-level */ "./resources/js/Authentication/pilih-level.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Pages_ManagementPassword_DetailPassword_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Pages/ManagementPassword/DetailPassword/index */ "./resources/js/Pages/ManagementPassword/DetailPassword/index.jsx");
+/* harmony import */ var _Authentication_login__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Authentication/login */ "./resources/js/Authentication/login.jsx");
+/* harmony import */ var _Authentication_pilih_level__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Authentication/pilih-level */ "./resources/js/Authentication/pilih-level.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -44450,16 +45339,19 @@ if (document.getElementById('react-app')) {
   var currentPath = window.location.pathname;
   switch (currentPath) {
     case '/login':
-      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Authentication_login__WEBPACK_IMPORTED_MODULE_4__["default"], {}), document.getElementById('react-app'));
+      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Authentication_login__WEBPACK_IMPORTED_MODULE_5__["default"], {}), document.getElementById('react-app'));
       break;
     case '/pilih-level':
-      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Authentication_pilih_level__WEBPACK_IMPORTED_MODULE_5__["default"], {}), document.getElementById('react-app'));
+      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Authentication_pilih_level__WEBPACK_IMPORTED_MODULE_6__["default"], {}), document.getElementById('react-app'));
       break;
     case '/dashboard':
-      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Pages_Dashboard__WEBPACK_IMPORTED_MODULE_2__["default"], {}), document.getElementById('react-app'));
+      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Pages_Dashboard__WEBPACK_IMPORTED_MODULE_2__["default"], {}), document.getElementById('react-app'));
       break;
     case '/kategori-password':
-      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Pages_ManagementPassword_KategoriPassword_index__WEBPACK_IMPORTED_MODULE_3__["default"], {}), document.getElementById('react-app'));
+      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Pages_ManagementPassword_KategoriPassword_index__WEBPACK_IMPORTED_MODULE_3__["default"], {}), document.getElementById('react-app'));
+      break;
+    case '/detail-password':
+      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Pages_ManagementPassword_DetailPassword_index__WEBPACK_IMPORTED_MODULE_4__["default"], {}), document.getElementById('react-app'));
       break;
     default:
       // Redirect ke login jika halaman tidak dikenali

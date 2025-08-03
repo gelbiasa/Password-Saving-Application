@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Pages\ManagementPassword;
 
+use App\Http\Controllers\TraitsController;
 use App\Models\ManagementPassword\KategoriPasswordModel;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class KategoriPasswordController extends Controller
 {
+    use TraitsController;
     protected $model;
 
     public function __construct()

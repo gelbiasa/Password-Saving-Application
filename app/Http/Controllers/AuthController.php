@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
+    use TraitsController;
     // Tampilkan halaman login
     public function login()
     {

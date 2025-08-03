@@ -9,11 +9,14 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
     });
 
     const [kategoriCount, setKategoriCount] = useState(0);
+    const [detailPasswordCount, setDetailPasswordCount] = useState(0);
     const [loadingCount, setLoadingCount] = useState(true);
+    const [loadingDetailCount, setLoadingDetailCount] = useState(true);
 
     useEffect(() => {
         fetchCurrentUser();
         fetchKategoriCount();
+        fetchDetailPasswordCount();
     }, []);
 
     const fetchCurrentUser = async () => {
@@ -46,10 +49,28 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
             }
         } catch (error) {
             console.error('Error fetching kategori count:', error);
-            // Set fallback count atau biarkan 0
             setKategoriCount(0);
         } finally {
             setLoadingCount(false);
+        }
+    };
+
+    const fetchDetailPasswordCount = async () => {
+        try {
+            setLoadingDetailCount(true);
+            const response = await axios.get('/api/detail-password/count');
+            
+            if (response.data.success) {
+                setDetailPasswordCount(response.data.count);
+            } else {
+                console.warn('Failed to fetch detail password count:', response.data.message);
+                setDetailPasswordCount(0);
+            }
+        } catch (error) {
+            console.error('Error fetching detail password count:', error);
+            setDetailPasswordCount(0);
+        } finally {
+            setLoadingDetailCount(false);
         }
     };
 
@@ -58,6 +79,8 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
             window.location.href = '/dashboard';
         } else if (page === 'kategori-password') {
             window.location.href = '/kategori-password';
+        } else if (page === 'detail-password') {
+            window.location.href = '/detail-password';
         }
     };
 
@@ -71,9 +94,16 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
         fetchKategoriCount();
     };
 
+    const refreshDetailPasswordCount = () => {
+        fetchDetailPasswordCount();
+    };
+
     // Expose function ke window untuk dipanggil dari komponen lain
     useEffect(() => {
-        window.refreshSidebarCounts = refreshKategoriCount;
+        window.refreshSidebarCounts = () => {
+            refreshKategoriCount();
+            refreshDetailPasswordCount();
+        };
         
         return () => {
             delete window.refreshSidebarCounts;
@@ -184,6 +214,37 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                                     )}
                                     
                                     {activeMenu === 'kategori-password' && (
+                                        <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
+                                    )}
+                                </div>
+                            </button>
+                        </li>
+
+                        <li>
+                            <button 
+                                onClick={() => handleNavigation('detail-password')}
+                                className={`w-full flex items-center space-x-3 p-3 rounded-xl transition-all duration-300 text-sm group ${
+                                    activeMenu === 'detail-password' 
+                                        ? 'bg-gradient-to-r from-amber-500/20 to-yellow-600/20 border border-amber-400/30 shadow-lg shadow-amber-500/25 text-amber-100' 
+                                        : 'hover:bg-gradient-to-r hover:from-amber-500/10 hover:to-yellow-600/10 hover:border-amber-400/20 border border-transparent text-amber-200/80 hover:text-amber-100'
+                                }`}
+                            >
+                                <svg className={`w-4 h-4 ${activeMenu === 'detail-password' ? 'text-amber-400' : 'text-amber-300/70 group-hover:text-amber-400'}`} fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+                                </svg>
+                                <span className="font-medium">Detail Password</span>
+                                
+                                {/* Dynamic Count Badge */}
+                                <div className="ml-auto flex items-center space-x-2">
+                                    {loadingDetailCount ? (
+                                        <div className="w-4 h-4 border-2 border-amber-400/30 border-t-amber-400 rounded-full animate-spin"></div>
+                                    ) : (
+                                        <span className="bg-gradient-to-r from-blue-400 to-cyan-500 text-black text-xs px-2 py-0.5 rounded-full font-semibold shadow-lg min-w-[1.5rem] text-center">
+                                            {detailPasswordCount}
+                                        </span>
+                                    )}
+                                    
+                                    {activeMenu === 'detail-password' && (
                                         <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
                                     )}
                                 </div>
