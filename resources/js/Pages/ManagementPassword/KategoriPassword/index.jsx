@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../../Components/Header';
 import Sidebar from '../../../Components/Sidebar';
 import Footer from '../../../Components/Footer';
+import DetailModal from '../../../Components/DetailModal'; // Import modal detail
 import SuccessMessage from '../../../Feedback-Message/success';
 import ErrorMessage from '../../../Feedback-Message/error';
 import DeleteMessage from '../../../Feedback-Message/delete';
@@ -15,6 +16,8 @@ const KategoriPasswordIndex = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [showDetailModal, setShowDetailModal] = useState(false); // State untuk detail modal
+    const [selectedItem, setSelectedItem] = useState(null); // State untuk data yang dipilih
     const [isEdit, setIsEdit] = useState(false);
     const [editId, setEditId] = useState(null);
     const [saveLoading, setSaveLoading] = useState(false);
@@ -209,10 +212,13 @@ const KategoriPasswordIndex = () => {
     };
 
     const handleShowDetail = (item) => {
-        showSuccess(
-            `Kode: ${item.kp_kode}\nNama: ${item.kp_nama}\nDibuat: ${new Date(item.created_at).toLocaleDateString('id-ID')}`,
-            `Detail ${item.kp_nama}`
-        );
+        setSelectedItem(item);
+        setShowDetailModal(true);
+    };
+
+    const handleCloseDetailModal = () => {
+        setShowDetailModal(false);
+        setSelectedItem(null);
     };
 
     return (
@@ -410,6 +416,14 @@ const KategoriPasswordIndex = () => {
                     </div>
                 </div>
             )}
+
+            {/* Detail Modal */}
+            <DetailModal
+                isVisible={showDetailModal}
+                onClose={handleCloseDetailModal}
+                data={selectedItem}
+                title={selectedItem ? `Detail ${selectedItem.kp_nama}` : "Detail Kategori"}
+            />
 
             {/* Notification Components */}
             {notification && notification.type === 'success' && (
