@@ -3,6 +3,7 @@ import Header from '../../../Components/Header';
 import Sidebar from '../../../Components/Sidebar';
 import Footer from '../../../Components/Footer';
 import PasswordInput from '../../../Components/PasswordInput';
+import DetailModal from '../../../Components/DetailModal'; // Tambahkan import ini
 import SuccessMessage from '../../../Feedback-Message/success';
 import ErrorMessage from '../../../Feedback-Message/error';
 import DeleteMessage from '../../../Feedback-Message/delete';
@@ -20,9 +21,11 @@ const DetailPasswordIndex = () => {
     const [isEdit, setIsEdit] = useState(false);
     const [editId, setEditId] = useState(null);
     const [saveLoading, setSaveLoading] = useState(false);
+    const [showDetailModal, setShowDetailModal] = useState(false); // State untuk modal detail
+    const [selectedItem, setSelectedItem] = useState(null); // State untuk data yang dipilih
     const [formData, setFormData] = useState({
         fk_m_kategori_password: '',
-        fk_m_user: 1, // Default user ID - adjust as needed
+        fk_m_user: 1,
         dp_nama_username: '',
         dp_nama_password: '',
         dp_keterangan: ''
@@ -221,19 +224,15 @@ const DetailPasswordIndex = () => {
         setSaveLoading(false);
     };
 
+    // Ganti handleShowDetail agar menggunakan modal
     const handleShowDetail = (item) => {
-        const detailInfo = `
-            Kategori: ${item.kategori_password?.kp_nama || 'Unknown'}
-            Username: ${item.dp_nama_username_masked || '***'}
-            Password: ${item.dp_nama_password_masked || '***'}
-            Keterangan: ${item.dp_keterangan}
-            Dibuat: ${new Date(item.created_at).toLocaleDateString('id-ID')}
-        `.trim();
+        setSelectedItem(item);
+        setShowDetailModal(true);
+    };
 
-        showSuccess(
-            detailInfo,
-            `Detail Password`
-        );
+    const handleCloseDetailModal = () => {
+        setShowDetailModal(false);
+        setSelectedItem(null);
     };
 
     return (
@@ -243,7 +242,6 @@ const DetailPasswordIndex = () => {
             <div className="flex-1 flex flex-col">
                 <Header />
 
-                {/* Change background to dark theme */}
                 <main className="flex-1 p-4 bg-gradient-to-br from-slate-100 via-blue-100 to-gray-100 relative">
                     <div className="space-y-4 max-w-7xl">
                         {/* Header Halaman */}
@@ -471,6 +469,26 @@ const DetailPasswordIndex = () => {
                     </div>
                 </div>
             )}
+
+            {/* Modal Detail */}
+            <DetailModal
+                isVisible={showDetailModal}
+                onClose={handleCloseDetailModal}
+                data={selectedItem && {
+                    // Data yang dikirim ke modal
+                    title: selectedItem.kategori_password?.kp_nama || 'Detail Password',
+                    kategori: selectedItem.kategori_password?.kp_nama || 'Unknown',
+                    username: selectedItem.dp_nama_username_masked || '***',
+                    password: selectedItem.dp_nama_password_masked || '***',
+                    keterangan: selectedItem.dp_keterangan,
+                    created_at: selectedItem.created_at,
+                    updated_at: selectedItem.updated_at,
+                    created_by: selectedItem.created_by,
+                    updated_by: selectedItem.updated_by,
+                    m_detail_password_id: selectedItem.m_detail_password_id
+                }}
+                title={selectedItem ? `Detail Password` : "Detail Password"}
+            />
 
             {/* Notification Components */}
             {notification && notification.type === 'success' && (
