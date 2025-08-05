@@ -43819,15 +43819,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_Sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Components/Sidebar */ "./resources/js/Components/Sidebar.jsx");
 /* harmony import */ var _Components_Footer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Components/Footer */ "./resources/js/Components/Footer.jsx");
 /* harmony import */ var _Components_PasswordInput__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../Components/PasswordInput */ "./resources/js/Components/PasswordInput.jsx");
-/* harmony import */ var _Feedback_Message_success__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../Feedback-Message/success */ "./resources/js/Feedback-Message/success.jsx");
-/* harmony import */ var _Feedback_Message_error__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../Feedback-Message/error */ "./resources/js/Feedback-Message/error.jsx");
-/* harmony import */ var _Feedback_Message_delete__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../Feedback-Message/delete */ "./resources/js/Feedback-Message/delete.jsx");
-/* harmony import */ var _button_create__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../button/create */ "./resources/js/button/create.jsx");
-/* harmony import */ var _button_update__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../button/update */ "./resources/js/button/update.jsx");
-/* harmony import */ var _button_show__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../button/show */ "./resources/js/button/show.jsx");
-/* harmony import */ var _button_delete__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../button/delete */ "./resources/js/button/delete.jsx");
-/* harmony import */ var _Hooks_useNotification__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../Hooks/useNotification */ "./resources/js/Hooks/useNotification.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Components_DetailModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../Components/DetailModal */ "./resources/js/Components/DetailModal.jsx");
+/* harmony import */ var _Feedback_Message_success__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../Feedback-Message/success */ "./resources/js/Feedback-Message/success.jsx");
+/* harmony import */ var _Feedback_Message_error__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../Feedback-Message/error */ "./resources/js/Feedback-Message/error.jsx");
+/* harmony import */ var _Feedback_Message_delete__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../Feedback-Message/delete */ "./resources/js/Feedback-Message/delete.jsx");
+/* harmony import */ var _button_create__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../button/create */ "./resources/js/button/create.jsx");
+/* harmony import */ var _button_update__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../button/update */ "./resources/js/button/update.jsx");
+/* harmony import */ var _button_show__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../button/show */ "./resources/js/button/show.jsx");
+/* harmony import */ var _button_delete__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../button/delete */ "./resources/js/button/delete.jsx");
+/* harmony import */ var _Hooks_useNotification__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../Hooks/useNotification */ "./resources/js/Hooks/useNotification.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -43849,6 +43850,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
+ // Tambahkan import ini
 
 
 
@@ -43859,6 +43861,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 var DetailPasswordIndex = function DetailPasswordIndex() {
+  var _selectedItem$kategor, _selectedItem$kategor2;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
     data = _useState2[0],
@@ -43887,20 +43890,27 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
     _useState12 = _slicedToArray(_useState11, 2),
     saveLoading = _useState12[0],
     setSaveLoading = _useState12[1];
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState14 = _slicedToArray(_useState13, 2),
+    showDetailModal = _useState14[0],
+    setShowDetailModal = _useState14[1]; // State untuk modal detail
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState16 = _slicedToArray(_useState15, 2),
+    selectedItem = _useState16[0],
+    setSelectedItem = _useState16[1]; // State untuk data yang dipilih
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       fk_m_kategori_password: '',
       fk_m_user: 1,
-      // Default user ID - adjust as needed
       dp_nama_username: '',
       dp_nama_password: '',
       dp_keterangan: ''
     }),
-    _useState14 = _slicedToArray(_useState13, 2),
-    formData = _useState14[0],
-    setFormData = _useState14[1];
+    _useState18 = _slicedToArray(_useState17, 2),
+    formData = _useState18[0],
+    setFormData = _useState18[1];
 
   // Use notification hook
-  var _useNotification = (0,_Hooks_useNotification__WEBPACK_IMPORTED_MODULE_12__.useNotification)(),
+  var _useNotification = (0,_Hooks_useNotification__WEBPACK_IMPORTED_MODULE_13__.useNotification)(),
     notification = _useNotification.notification,
     showSuccess = _useNotification.showSuccess,
     showError = _useNotification.showError,
@@ -44156,34 +44166,39 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
     setEditId(null);
     setSaveLoading(false);
   };
+
+  // Ganti handleShowDetail agar menggunakan modal
   var handleShowDetail = function handleShowDetail(item) {
-    var _item$kategori_passwo2;
-    var detailInfo = "\n            Kategori: ".concat(((_item$kategori_passwo2 = item.kategori_password) === null || _item$kategori_passwo2 === void 0 ? void 0 : _item$kategori_passwo2.kp_nama) || 'Unknown', "\n            Username: ").concat(item.dp_nama_username_masked || '***', "\n            Password: ").concat(item.dp_nama_password_masked || '***', "\n            Keterangan: ").concat(item.dp_keterangan, "\n            Dibuat: ").concat(new Date(item.created_at).toLocaleDateString('id-ID'), "\n        ").trim();
-    showSuccess(detailInfo, "Detail Password");
+    setSelectedItem(item);
+    setShowDetailModal(true);
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+  var handleCloseDetailModal = function handleCloseDetailModal() {
+    setShowDetailModal(false);
+    setSelectedItem(null);
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
     className: "min-h-screen flex",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Components_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Components_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], {
       activeMenu: "detail-password"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
       className: "flex-1 flex flex-col",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Components_Header__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("main", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Components_Header__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("main", {
         className: "flex-1 p-4 bg-gradient-to-br from-slate-100 via-blue-100 to-gray-100 relative",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
           className: "space-y-4 max-w-7xl",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
             className: "bg-gradient-to-r from-gray-900 via-black to-gray-800 rounded-xl shadow-2xl p-6 border border-amber-500/20",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
               className: "flex items-center justify-between",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h1", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h1", {
                   className: "text-2xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
                   children: "Detail Password"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
                   className: "text-amber-100/80 mt-2 text-sm",
                   children: "Kelola dan simpan detail password Anda dengan aman menggunakan enkripsi tingkat tinggi."
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_button_create__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_button_create__WEBPACK_IMPORTED_MODULE_9__["default"], {
                 text: "Tambah Password",
                 onClick: function onClick() {
                   return setShowModal(true);
@@ -44191,134 +44206,134 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                 size: "medium"
               })]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
             className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-amber-500/20",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
               className: "p-6 border-b border-amber-500/20",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("h2", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("h2", {
                 className: "text-xl font-semibold bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent",
                 children: ["Daftar Password (", data.length, " password)"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
               className: "overflow-x-auto",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("table", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("table", {
                 className: "min-w-full divide-y divide-amber-500/20",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("thead", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("thead", {
                   className: "bg-gradient-to-r from-gray-800 to-gray-900",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("tr", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("th", {
                       className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
                       children: "No"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("th", {
                       className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
                       children: "Kategori"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("th", {
                       className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
                       children: "Username"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("th", {
                       className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
                       children: "Password"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("th", {
                       className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
                       children: "Keterangan"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("th", {
                       className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
                       children: "Tanggal Dibuat"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("th", {
                       className: "px-6 py-4 text-center text-xs font-semibold text-amber-300 uppercase tracking-wider",
                       children: "Aksi"
                     })]
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("tbody", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("tbody", {
                   className: "divide-y divide-amber-500/10",
-                  children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("tr", {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                  children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("tr", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
                       colSpan: "7",
                       className: "px-6 py-8 text-center",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
                         className: "flex items-center justify-center space-x-3",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
                           className: "w-6 h-6 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full animate-spin flex items-center justify-center",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
                             className: "w-3 h-3 bg-black rounded-full"
                           })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
                           className: "text-amber-200",
                           children: "Memuat data..."
                         })]
                       })
                     })
-                  }) : data.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("tr", {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                  }) : data.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("tr", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
                       colSpan: "7",
                       className: "px-6 py-8 text-center",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
                         className: "text-amber-300/60",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("svg", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("svg", {
                           className: "w-12 h-12 mx-auto mb-3 opacity-50",
                           fill: "currentColor",
                           viewBox: "0 0 20 20",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("path", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
                             fillRule: "evenodd",
                             d: "M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z",
                             clipRule: "evenodd"
                           })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
                           children: "Belum ada detail password yang disimpan"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
                           className: "text-xs mt-1",
                           children: "Klik tombol \"Tambah Password\" untuk mulai menambahkan"
                         })]
                       })
                     })
                   }) : data.map(function (item, index) {
-                    var _item$kategori_passwo3;
-                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("tr", {
+                    var _item$kategori_passwo2;
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("tr", {
                       className: "hover:bg-gradient-to-r hover:from-amber-500/5 hover:to-yellow-500/5 transition-all duration-200",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
                         className: "px-6 py-4 whitespace-nowrap text-sm text-amber-100",
                         children: index + 1
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
                         className: "px-6 py-4 whitespace-nowrap",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
                           className: "text-sm font-medium bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent",
-                          children: ((_item$kategori_passwo3 = item.kategori_password) === null || _item$kategori_passwo3 === void 0 ? void 0 : _item$kategori_passwo3.kp_nama) || 'Unknown'
+                          children: ((_item$kategori_passwo2 = item.kategori_password) === null || _item$kategori_passwo2 === void 0 ? void 0 : _item$kategori_passwo2.kp_nama) || 'Unknown'
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
                         className: "px-6 py-4 whitespace-nowrap",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
                           className: "text-sm text-amber-100 font-mono bg-gray-800/50 px-2 py-1 rounded",
                           children: item.dp_nama_username_masked || '***'
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
                         className: "px-6 py-4 whitespace-nowrap",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
                           className: "text-sm text-amber-100 font-mono bg-gray-800/50 px-2 py-1 rounded",
                           children: item.dp_nama_password_masked || '***'
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
                         className: "px-6 py-4 whitespace-nowrap text-sm text-amber-100",
                         children: item.dp_keterangan
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
                         className: "px-6 py-4 whitespace-nowrap text-sm text-amber-200/80",
                         children: new Date(item.created_at).toLocaleDateString('id-ID')
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
                         className: "px-6 py-4 whitespace-nowrap",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
                           className: "flex justify-center space-x-2",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_button_show__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_button_show__WEBPACK_IMPORTED_MODULE_11__["default"], {
                             size: "small",
                             showText: false,
                             onClick: function onClick() {
                               return handleShowDetail(item);
                             }
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_button_update__WEBPACK_IMPORTED_MODULE_9__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_button_update__WEBPACK_IMPORTED_MODULE_10__["default"], {
                             size: "small",
                             showText: false,
                             onClick: function onClick() {
                               return handleEdit(item);
                             }
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_button_delete__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_button_delete__WEBPACK_IMPORTED_MODULE_12__["default"], {
                             size: "small",
                             showText: false,
                             onClick: function onClick() {
@@ -44332,31 +44347,31 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                 })]
               })
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
             className: "pb-16"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Components_Footer__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Components_Footer__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
       })]
-    }), showModal && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+    }), showModal && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
       className: "fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-40",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
         className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-md mx-4 border border-amber-500/20",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
           className: "p-6",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
             className: "flex items-center justify-between mb-6",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("h3", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("h3", {
               className: "text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
               children: [isEdit ? 'Edit' : 'Tambah', " Detail Password"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
               onClick: handleCloseModal,
               className: "text-amber-400 hover:text-amber-300 transition-colors duration-200 p-1 rounded-full hover:bg-amber-500/10",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("svg", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("svg", {
                 className: "w-6 h-6",
                 fill: "none",
                 stroke: "currentColor",
                 viewBox: "0 0 24 24",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("path", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
                   strokeLinecap: "round",
                   strokeLinejoin: "round",
                   strokeWidth: "2",
@@ -44364,17 +44379,17 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                 })
               })
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("form", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("form", {
             onSubmit: _handleSubmit,
             className: "space-y-6",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("label", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("label", {
                 className: "block text-sm font-semibold text-amber-300 mb-2",
-                children: ["Kategori Password ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                children: ["Kategori Password ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
                   className: "text-red-400",
                   children: "*"
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("select", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("select", {
                 value: formData.fk_m_kategori_password,
                 onChange: function onChange(e) {
                   return setFormData(_objectSpread(_objectSpread({}, formData), {}, {
@@ -44384,17 +44399,17 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                 className: "w-full px-4 py-3 bg-gray-800/50 border border-amber-500/30 rounded-xl text-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-400/50 transition-all duration-200",
                 required: true,
                 disabled: saveLoading,
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("option", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("option", {
                   value: "",
                   children: "Pilih Kategori"
                 }), kategoriOptions.map(function (kategori) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("option", {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("option", {
                     value: kategori.m_kategori_password_id,
                     children: [kategori.kp_nama, " (", kategori.kp_kode, ")"]
                   }, kategori.m_kategori_password_id);
                 })]
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Components_PasswordInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Components_PasswordInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
               label: "Username",
               value: formData.dp_nama_username,
               onChange: function onChange(e) {
@@ -44405,7 +44420,7 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
               placeholder: "Masukkan username",
               required: true,
               disabled: saveLoading
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Components_PasswordInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Components_PasswordInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
               label: "Password",
               value: formData.dp_nama_password,
               onChange: function onChange(e) {
@@ -44416,14 +44431,14 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
               placeholder: "Masukkan password",
               required: true,
               disabled: saveLoading
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("label", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("label", {
                 className: "block text-sm font-semibold text-amber-300 mb-2",
-                children: ["Keterangan ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                children: ["Keterangan ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
                   className: "text-red-400",
                   children: "*"
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("textarea", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("textarea", {
                 value: formData.dp_keterangan,
                 onChange: function onChange(e) {
                   return setFormData(_objectSpread(_objectSpread({}, formData), {}, {
@@ -44436,41 +44451,41 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                 required: true,
                 disabled: saveLoading
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
               className: "flex space-x-3 pt-4",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
                 type: "button",
                 onClick: handleCloseModal,
                 disabled: saveLoading,
                 className: "flex-1 px-6 py-3 border border-amber-500/30 rounded-xl text-amber-200 hover:bg-amber-500/10 hover:border-amber-400/50 transition-all duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed",
                 children: "Batal"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
                 type: "submit",
                 disabled: saveLoading || !formData.fk_m_kategori_password || !formData.dp_nama_username.trim() || !formData.dp_nama_password.trim() || !formData.dp_keterangan.trim(),
                 className: "flex-1 px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-black rounded-xl font-bold transition-all duration-200 transform hover:scale-105 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none",
-                children: saveLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                children: saveLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
                   className: "flex items-center justify-center space-x-2",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("svg", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("svg", {
                     className: "animate-spin h-4 w-4",
                     xmlns: "http://www.w3.org/2000/svg",
                     fill: "none",
                     viewBox: "0 0 24 24",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("circle", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("circle", {
                       className: "opacity-25",
                       cx: "12",
                       cy: "12",
                       r: "10",
                       stroke: "currentColor",
                       strokeWidth: "4"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("path", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
                       className: "opacity-75",
                       fill: "currentColor",
                       d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
                     children: "Menyimpan..."
                   })]
-                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
                   children: isEdit ? 'Perbarui' : 'Simpan'
                 })
               })]
@@ -44478,18 +44493,35 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
           })]
         })
       })
-    }), notification && notification.type === 'success' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Feedback_Message_success__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Components_DetailModal__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      isVisible: showDetailModal,
+      onClose: handleCloseDetailModal,
+      data: selectedItem && {
+        // Data yang dikirim ke modal
+        title: ((_selectedItem$kategor = selectedItem.kategori_password) === null || _selectedItem$kategor === void 0 ? void 0 : _selectedItem$kategor.kp_nama) || 'Detail Password',
+        kategori: ((_selectedItem$kategor2 = selectedItem.kategori_password) === null || _selectedItem$kategor2 === void 0 ? void 0 : _selectedItem$kategor2.kp_nama) || 'Unknown',
+        username: selectedItem.dp_nama_username_masked || '***',
+        password: selectedItem.dp_nama_password_masked || '***',
+        keterangan: selectedItem.dp_keterangan,
+        created_at: selectedItem.created_at,
+        updated_at: selectedItem.updated_at,
+        created_by: selectedItem.created_by,
+        updated_by: selectedItem.updated_by,
+        m_detail_password_id: selectedItem.m_detail_password_id
+      },
+      title: selectedItem ? "Detail Password" : "Detail Password"
+    }), notification && notification.type === 'success' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Feedback_Message_success__WEBPACK_IMPORTED_MODULE_6__["default"], {
       message: notification.message,
       title: notification.title,
       isVisible: notification.isVisible,
       onClose: hideNotification
-    }), notification && notification.type === 'error' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Feedback_Message_error__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    }), notification && notification.type === 'error' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Feedback_Message_error__WEBPACK_IMPORTED_MODULE_7__["default"], {
       message: notification.message,
       title: notification.title,
       isVisible: notification.isVisible,
       onClose: hideNotification,
       onRetry: notification.onRetry
-    }), notification && notification.type === 'delete' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Feedback_Message_delete__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    }), notification && notification.type === 'delete' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Feedback_Message_delete__WEBPACK_IMPORTED_MODULE_8__["default"], {
       message: notification.message,
       title: notification.title,
       isVisible: notification.isVisible,
