@@ -21,13 +21,16 @@ const DetailPasswordIndex = () => {
     const [isEdit, setIsEdit] = useState(false);
     const [editId, setEditId] = useState(null);
     const [saveLoading, setSaveLoading] = useState(false);
-    const [showDetailModal, setShowDetailModal] = useState(false); // State untuk modal detail
-    const [selectedItem, setSelectedItem] = useState(null); // State untuk data yang dipilih
+    const [showDetailModal, setShowDetailModal] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
+    
+    // ✅ Update formData dengan dp_pin
     const [formData, setFormData] = useState({
         fk_m_kategori_password: '',
         fk_m_user: 1,
         dp_nama_username: '',
         dp_nama_password: '',
+        dp_pin: '', // ✅ Tambah field PIN
         dp_keterangan: ''
     });
 
@@ -92,13 +95,21 @@ const DetailPasswordIndex = () => {
         }
     };
 
+    // ✅ Update handleSubmit dengan validasi PIN
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validasi form
+        // ✅ Update validasi form dengan PIN
         if (!formData.fk_m_kategori_password || !formData.dp_nama_username.trim() ||
-            !formData.dp_nama_password.trim() || !formData.dp_keterangan.trim()) {
-            showError('Semua field harus diisi!', 'Validasi Gagal');
+            !formData.dp_nama_password.trim() || !formData.dp_keterangan.trim() ||
+            (!isEdit && !formData.dp_pin.trim())) { // PIN required untuk create, optional untuk edit
+            showError('Semua field wajib harus diisi!', 'Validasi Gagal');
+            return;
+        }
+
+        // ✅ Validasi panjang PIN
+        if (formData.dp_pin && (formData.dp_pin.length < 4 || formData.dp_pin.length > 10)) {
+            showError('PIN harus terdiri dari 4-10 digit!', 'Validasi PIN Gagal');
             return;
         }
 
@@ -113,6 +124,11 @@ const DetailPasswordIndex = () => {
                 dp_nama_password: formData.dp_nama_password.trim(),
                 dp_keterangan: formData.dp_keterangan.trim()
             };
+
+            // ✅ Tambahkan PIN ke payload jika ada
+            if (formData.dp_pin && formData.dp_pin.trim()) {
+                payload.dp_pin = formData.dp_pin.trim();
+            }
 
             if (isEdit) {
                 response = await axios.put(`/api/detail-password/${editId}`, payload);
@@ -153,12 +169,14 @@ const DetailPasswordIndex = () => {
         setSaveLoading(false);
     };
 
+    // ✅ Update handleEdit dengan PIN (tidak menampilkan PIN untuk keamanan)
     const handleEdit = (item) => {
         setFormData({
             fk_m_kategori_password: item.fk_m_kategori_password,
             fk_m_user: item.fk_m_user,
             dp_nama_username: item.dp_nama_username_decrypted || '',
             dp_nama_password: item.dp_nama_password_decrypted || '',
+            dp_pin: '', // ✅ PIN tidak ditampilkan saat edit untuk keamanan
             dp_keterangan: item.dp_keterangan
         });
         setEditId(item.m_detail_password_id);
@@ -210,6 +228,7 @@ const DetailPasswordIndex = () => {
         }
     };
 
+    // ✅ Update handleCloseModal dengan PIN
     const handleCloseModal = () => {
         setShowModal(false);
         setFormData({
@@ -217,6 +236,7 @@ const DetailPasswordIndex = () => {
             fk_m_user: 1,
             dp_nama_username: '',
             dp_nama_password: '',
+            dp_pin: '', // ✅ Reset PIN
             dp_keterangan: ''
         });
         setIsEdit(false);
@@ -252,7 +272,7 @@ const DetailPasswordIndex = () => {
                                         Detail Password
                                     </h1>
                                     <p className="text-amber-100/80 mt-2 text-sm">
-                                        Kelola dan simpan detail password Anda dengan aman menggunakan enkripsi tingkat tinggi.
+                                        Kelola dan simpan detail password Anda dengan aman menggunakan enkripsi dan PIN keamanan.
                                     </p>
                                 </div>
                                 <CreateButton
@@ -278,6 +298,7 @@ const DetailPasswordIndex = () => {
                                             <th className="px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider">Kategori</th>
                                             <th className="px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider">Username</th>
                                             <th className="px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider">Password</th>
+                                            <th className="px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider">PIN</th> {/* ✅ Tambah kolom PIN */}
                                             <th className="px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider">Keterangan</th>
                                             <th className="px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider">Tanggal Dibuat</th>
                                             <th className="px-6 py-4 text-center text-xs font-semibold text-amber-300 uppercase tracking-wider">Aksi</th>
@@ -286,7 +307,7 @@ const DetailPasswordIndex = () => {
                                     <tbody className="divide-y divide-amber-500/10">
                                         {loading ? (
                                             <tr>
-                                                <td colSpan="7" className="px-6 py-8 text-center">
+                                                <td colSpan="8" className="px-6 py-8 text-center"> {/* ✅ Update colspan */}
                                                     <div className="flex items-center justify-center space-x-3">
                                                         <div className="w-6 h-6 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full animate-spin flex items-center justify-center">
                                                             <div className="w-3 h-3 bg-black rounded-full"></div>
@@ -297,7 +318,7 @@ const DetailPasswordIndex = () => {
                                             </tr>
                                         ) : data.length === 0 ? (
                                             <tr>
-                                                <td colSpan="7" className="px-6 py-8 text-center">
+                                                <td colSpan="8" className="px-6 py-8 text-center"> {/* ✅ Update colspan */}
                                                     <div className="text-amber-300/60">
                                                         <svg className="w-12 h-12 mx-auto mb-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
                                                             <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"></path>
@@ -325,6 +346,17 @@ const DetailPasswordIndex = () => {
                                                         <span className="text-sm text-amber-100 font-mono bg-gray-800/50 px-2 py-1 rounded">
                                                             {item.dp_nama_password_masked || '***'}
                                                         </span>
+                                                    </td>
+                                                    {/* ✅ Tambah kolom PIN */}
+                                                    <td className="px-6 py-4 whitespace-nowrap">
+                                                        <div className="flex items-center space-x-2">
+                                                            <span className="text-sm text-amber-100 font-mono bg-gray-800/50 px-2 py-1 rounded">
+                                                                {item.dp_pin_masked || '****'}
+                                                            </span>
+                                                            {item.has_pin && (
+                                                                <div className="w-2 h-2 bg-green-400 rounded-full" title="PIN telah diset"></div>
+                                                            )}
+                                                        </div>
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-amber-100">{item.dp_keterangan}</td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-amber-200/80">
@@ -364,10 +396,10 @@ const DetailPasswordIndex = () => {
                 </main>
             </div>
 
-            {/* Modal Form */}
+            {/* ✅ Update Modal Form dengan PIN Input */}
             {showModal && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-40">
-                    <div className="bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-md mx-4 border border-amber-500/20">
+                    <div className="bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-lg mx-4 border border-amber-500/20 max-h-[90vh] overflow-y-auto">
                         <div className="p-6">
                             <div className="flex items-center justify-between mb-6">
                                 <h3 className="text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent">
@@ -384,6 +416,7 @@ const DetailPasswordIndex = () => {
                             </div>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
+                                {/* Kategori Dropdown */}
                                 <div>
                                     <label className="block text-sm font-semibold text-amber-300 mb-2">
                                         Kategori Password <span className="text-red-400">*</span>
@@ -404,24 +437,66 @@ const DetailPasswordIndex = () => {
                                     </select>
                                 </div>
 
-                                <PasswordInput
-                                    label="Username"
-                                    value={formData.dp_nama_username}
-                                    onChange={(e) => setFormData({ ...formData, dp_nama_username: e.target.value })}
-                                    placeholder="Masukkan username"
-                                    required={true}
-                                    disabled={saveLoading}
-                                />
+                                {/* Username Input with Eye Icon */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-amber-300 mb-2">
+                                        Username <span className="text-red-400">*</span>
+                                    </label>
+                                    <PasswordInput
+                                        value={formData.dp_nama_username}
+                                        onChange={(value) => setFormData({ ...formData, dp_nama_username: value })}
+                                        placeholder="Masukkan username"
+                                        required
+                                        disabled={saveLoading}
+                                        showEyeIcon={true} // ✅ Enable eye icon
+                                    />
+                                </div>
 
-                                <PasswordInput
-                                    label="Password"
-                                    value={formData.dp_nama_password}
-                                    onChange={(e) => setFormData({ ...formData, dp_nama_password: e.target.value })}
-                                    placeholder="Masukkan password"
-                                    required={true}
-                                    disabled={saveLoading}
-                                />
+                                {/* Password Input with Eye Icon */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-amber-300 mb-2">
+                                        Password <span className="text-red-400">*</span>
+                                    </label>
+                                    <PasswordInput
+                                        value={formData.dp_nama_password}
+                                        onChange={(value) => setFormData({ ...formData, dp_nama_password: value })}
+                                        placeholder="Masukkan password"
+                                        required
+                                        disabled={saveLoading}
+                                        showEyeIcon={true} // ✅ Enable eye icon
+                                    />
+                                </div>
 
+                                {/* ✅ PIN Input with Eye Icon */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-amber-300 mb-2">
+                                        PIN Keamanan 
+                                        {!isEdit && <span className="text-red-400"> *</span>}
+                                        <span className="text-xs text-amber-400/80 ml-2">(4-10 digit)</span>
+                                    </label>
+                                    <PasswordInput
+                                        value={formData.dp_pin}
+                                        onChange={(value) => {
+                                            // Hanya izinkan angka dan batasi maksimal 10 karakter
+                                            const numericValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+                                            setFormData({ ...formData, dp_pin: numericValue });
+                                        }}
+                                        placeholder={isEdit ? "Biarkan kosong jika tidak ingin mengubah PIN" : "Masukkan PIN 4-10 digit"}
+                                        required={!isEdit} // Required untuk create, optional untuk edit
+                                        disabled={saveLoading}
+                                        showEyeIcon={true} // ✅ Enable eye icon untuk PIN
+                                        inputMode="numeric" // ✅ Numeric keyboard di mobile
+                                        pattern="[0-9]*" // ✅ Pattern untuk numeric
+                                    />
+                                    <p className="text-xs text-amber-400/60 mt-1">
+                                        {isEdit ? 
+                                            "PIN akan di-hash untuk keamanan. Kosongkan jika tidak ingin mengubah." :
+                                            "PIN akan di-hash untuk keamanan dan tidak dapat dilihat kembali."
+                                        }
+                                    </p>
+                                </div>
+
+                                {/* Keterangan */}
                                 <div>
                                     <label className="block text-sm font-semibold text-amber-300 mb-2">
                                         Keterangan <span className="text-red-400">*</span>
@@ -437,6 +512,7 @@ const DetailPasswordIndex = () => {
                                     />
                                 </div>
 
+                                {/* Buttons */}
                                 <div className="flex space-x-3 pt-4">
                                     <button
                                         type="button"
@@ -448,7 +524,14 @@ const DetailPasswordIndex = () => {
                                     </button>
                                     <button
                                         type="submit"
-                                        disabled={saveLoading || !formData.fk_m_kategori_password || !formData.dp_nama_username.trim() || !formData.dp_nama_password.trim() || !formData.dp_keterangan.trim()}
+                                        disabled={saveLoading || 
+                                            !formData.fk_m_kategori_password || 
+                                            !formData.dp_nama_username.trim() || 
+                                            !formData.dp_nama_password.trim() || 
+                                            !formData.dp_keterangan.trim() ||
+                                            (!isEdit && !formData.dp_pin.trim()) ||
+                                            (formData.dp_pin && (formData.dp_pin.length < 4 || formData.dp_pin.length > 10))
+                                        }
                                         className="flex-1 px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-black rounded-xl font-bold transition-all duration-200 transform hover:scale-105 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
                                     >
                                         {saveLoading ? (
@@ -470,7 +553,7 @@ const DetailPasswordIndex = () => {
                 </div>
             )}
 
-            {/* Modal Detail */}
+            {/* ✅ Update Modal Detail dengan informasi PIN */}
             <DetailModal
                 isVisible={showDetailModal}
                 onClose={handleCloseDetailModal}
@@ -480,6 +563,8 @@ const DetailPasswordIndex = () => {
                     kategori: selectedItem.kategori_password?.kp_nama || 'Unknown',
                     username: selectedItem.dp_nama_username_masked || '***',
                     password: selectedItem.dp_nama_password_masked || '***',
+                    pin: selectedItem.dp_pin_masked || '****', // ✅ Tambah PIN info
+                    has_pin: selectedItem.has_pin || false, // ✅ Tambah status PIN
                     keterangan: selectedItem.dp_keterangan,
                     created_at: selectedItem.created_at,
                     updated_at: selectedItem.updated_at,
