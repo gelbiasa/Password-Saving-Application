@@ -129,6 +129,7 @@ class DetailPasswordController extends Controller
                 'fk_m_user' => 'required|integer|exists:m_user,m_user_id',
                 'dp_nama_username' => 'required|string|max:255',
                 'dp_nama_password' => 'required|string|max:255',
+                'dp_pin' => 'required|numeric|digits_between:4,10', // ✅ Validasi PIN: numeric, 4-10 digit
                 'dp_keterangan' => 'required|string|max:255'
             ], [
                 'fk_m_kategori_password.required' => 'Kategori password harus dipilih',
@@ -139,6 +140,9 @@ class DetailPasswordController extends Controller
                 'dp_nama_username.max' => 'Username maksimal 255 karakter',
                 'dp_nama_password.required' => 'Password harus diisi',
                 'dp_nama_password.max' => 'Password maksimal 255 karakter',
+                'dp_pin.required' => 'PIN harus diisi',
+                'dp_pin.numeric' => 'PIN harus berupa angka',
+                'dp_pin.digits_between' => 'PIN harus terdiri dari 4-10 digit',
                 'dp_keterangan.required' => 'Keterangan harus diisi',
                 'dp_keterangan.max' => 'Keterangan maksimal 255 karakter'
             ]);
@@ -180,6 +184,7 @@ class DetailPasswordController extends Controller
                 'fk_m_user' => 'required|integer|exists:m_user,m_user_id',
                 'dp_nama_username' => 'required|string|max:255',
                 'dp_nama_password' => 'required|string|max:255',
+                'dp_pin' => 'nullable|numeric|digits_between:4,10', // ✅ PIN optional saat update
                 'dp_keterangan' => 'required|string|max:255'
             ], [
                 'fk_m_kategori_password.required' => 'Kategori password harus dipilih',
@@ -190,6 +195,8 @@ class DetailPasswordController extends Controller
                 'dp_nama_username.max' => 'Username maksimal 255 karakter',
                 'dp_nama_password.required' => 'Password harus diisi',
                 'dp_nama_password.max' => 'Password maksimal 255 karakter',
+                'dp_pin.numeric' => 'PIN harus berupa angka',
+                'dp_pin.digits_between' => 'PIN harus terdiri dari 4-10 digit',
                 'dp_keterangan.required' => 'Keterangan harus diisi',
                 'dp_keterangan.max' => 'Keterangan maksimal 255 karakter'
             ]);
@@ -202,7 +209,13 @@ class DetailPasswordController extends Controller
                 ], 422);
             }
 
-            $result = $this->model->updateData($id, $request->all());
+            // ✅ Jika PIN tidak diisi saat update, hapus dari data
+            $updateData = $request->all();
+            if (empty($updateData['dp_pin'])) {
+                unset($updateData['dp_pin']);
+            }
+
+            $result = $this->model->updateData($id, $updateData);
             
             if ($result['success']) {
                 return response()->json($result, 200);
@@ -216,6 +229,56 @@ class DetailPasswordController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Gagal memperbarui data: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * ✅ Method baru untuk verifikasi PIN
+     */
+    public function verifyPin(Request $request, $id)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'pin' => 'required|numeric'
+            ], [
+                'pin.required' => 'PIN harus diisi',
+                'pin.numeric' => 'PIN harus berupa angka'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'PIN tidak valid',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $detailPassword = $this->model->where('m_detail_password_id', $id)
+                                         ->where('isDeleted', 0)
+                                         ->first();
+
+            if (!$detailPassword) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data tidak ditemukan'
+                ], 404);
+            }
+
+            $pinValid = $detailPassword->verifyPin($request->pin);
+
+            return response()->json([
+                'success' => true,
+                'pin_valid' => $pinValid,
+                'message' => $pinValid ? 'PIN valid' : 'PIN tidak valid'
+            ], 200);
+
+        } catch (\Exception $e) {
+            Log::error('Error verifying PIN: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal memverifikasi PIN: ' . $e->getMessage()
             ], 500);
         }
     }
