@@ -51,4 +51,5 @@ Route::middleware('web')->group(function () {
     Route::put('/detail-password/{id}', [DetailPasswordController::class, 'update']);
     Route::delete('/detail-password/{id}', [DetailPasswordController::class, 'destroy']);
     Route::post('/detail-password/{id}/restore', [DetailPasswordController::class, 'restore']);
+    Route::post('/detail-password/{id}/verify-pin', [DetailPasswordController::class, 'verifyPin']);
 });

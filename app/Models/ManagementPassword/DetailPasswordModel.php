@@ -24,6 +24,7 @@ class DetailPasswordModel extends Model
         'fk_m_user',
         'dp_nama_username',
         'dp_nama_password',
+        'dp_pin', // ✅ Tambahkan dp_pin ke fillable
         'dp_keterangan'
     ];
 
@@ -81,6 +82,17 @@ class DetailPasswordModel extends Model
     }
 
     /**
+     * ✅ Hash PIN sebelum disimpan
+     */
+    public function setDpPinAttribute($value)
+    {
+        if (!empty($value)) {
+            // Hash PIN menggunakan bcrypt
+            $this->attributes['dp_pin'] = Hash::make($value);
+        }
+    }
+
+    /**
      * Decrypt username dan password saat diambil
      */
     public function getDpNamaUsernameAttribute($value)
@@ -110,6 +122,14 @@ class DetailPasswordModel extends Model
     }
 
     /**
+     * ✅ Method untuk verifikasi PIN
+     */
+    public function verifyPin($pin)
+    {
+        return Hash::check($pin, $this->getOriginal('dp_pin'));
+    }
+
+    /**
      * Method untuk mendapatkan data dengan decryption manual (untuk keperluan tampilan)
      */
     public function getDecryptedData()
@@ -136,6 +156,10 @@ class DetailPasswordModel extends Model
                 $data['dp_nama_password_masked'] = '***';
             }
         }
+
+        // ✅ PIN tidak perlu di-decrypt karena sudah di-hash, hanya tampilkan status
+        $data['dp_pin_masked'] = !empty($this->getOriginal('dp_pin')) ? '****' : 'Not Set';
+        $data['has_pin'] = !empty($this->getOriginal('dp_pin'));
 
         return $data;
     }
