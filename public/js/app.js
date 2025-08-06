@@ -42268,19 +42268,24 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 var PasswordInput = function PasswordInput(_ref) {
-  var label = _ref.label,
-    value = _ref.value,
+  var value = _ref.value,
     onChange = _ref.onChange,
     _ref$placeholder = _ref.placeholder,
-    placeholder = _ref$placeholder === void 0 ? "" : _ref$placeholder,
+    placeholder = _ref$placeholder === void 0 ? "Masukkan password" : _ref$placeholder,
     _ref$required = _ref.required,
     required = _ref$required === void 0 ? false : _ref$required,
     _ref$disabled = _ref.disabled,
     disabled = _ref$disabled === void 0 ? false : _ref$disabled,
+    _ref$showEyeIcon = _ref.showEyeIcon,
+    showEyeIcon = _ref$showEyeIcon === void 0 ? true : _ref$showEyeIcon,
+    _ref$inputMode = _ref.inputMode,
+    inputMode = _ref$inputMode === void 0 ? "text" : _ref$inputMode,
+    _ref$pattern = _ref.pattern,
+    pattern = _ref$pattern === void 0 ? null : _ref$pattern,
     _ref$className = _ref.className,
     className = _ref$className === void 0 ? "" : _ref$className,
-    _ref$name = _ref.name,
-    name = _ref$name === void 0 ? "" : _ref$name;
+    _ref$label = _ref.label,
+    label = _ref$label === void 0 ? null : _ref$label;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     showPassword = _useState2[0],
@@ -42288,30 +42293,37 @@ var PasswordInput = function PasswordInput(_ref) {
   var togglePasswordVisibility = function togglePasswordVisibility() {
     setShowPassword(!showPassword);
   };
+  var handleChange = function handleChange(e) {
+    if (typeof onChange === 'function') {
+      // ✅ Selalu kirim value string, bukan event object
+      onChange(e.target.value);
+    }
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "relative",
     children: [label && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("label", {
       className: "block text-sm font-semibold text-amber-300 mb-2",
       children: [label, required && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-        className: "text-red-400 ml-1",
-        children: "*"
+        className: "text-red-400",
+        children: " *"
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "relative",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-        type: showPassword ? "text" : "password",
-        name: name,
-        value: value,
-        onChange: onChange,
+        type: showEyeIcon && showPassword ? "text" : "password",
+        value: value || '',
+        onChange: handleChange,
         placeholder: placeholder,
         required: required,
         disabled: disabled,
-        className: "w-full px-4 py-3 pr-12 bg-gray-800/50 border border-amber-500/30 rounded-xl text-amber-100 placeholder-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-400/50 transition-all duration-200 ".concat(className)
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+        inputMode: inputMode,
+        pattern: pattern,
+        className: "w-full px-4 py-3 ".concat(showEyeIcon ? 'pr-12' : '', " bg-gray-800/50 border border-amber-500/30 rounded-xl text-amber-100 placeholder-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-400/50 transition-all duration-200 ").concat(className)
+      }), showEyeIcon && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
         type: "button",
         onClick: togglePasswordVisibility,
         disabled: disabled,
-        className: "absolute inset-y-0 right-0 flex items-center pr-3 text-amber-400 hover:text-amber-300 focus:outline-none transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed",
+        className: "absolute inset-y-0 right-0 flex items-center pr-3 text-amber-400 hover:text-amber-300 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed",
         children: showPassword ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
           className: "w-5 h-5",
           fill: "none",
@@ -42321,7 +42333,7 @@ var PasswordInput = function PasswordInput(_ref) {
             strokeLinecap: "round",
             strokeLinejoin: "round",
             strokeWidth: "2",
-            d: "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
+            d: "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L8.464 8.464M18.364 18.364L5.636 5.636"
           })
         }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
           className: "w-5 h-5",
@@ -43893,16 +43905,20 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState14 = _slicedToArray(_useState13, 2),
     showDetailModal = _useState14[0],
-    setShowDetailModal = _useState14[1]; // State untuk modal detail
+    setShowDetailModal = _useState14[1];
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState16 = _slicedToArray(_useState15, 2),
     selectedItem = _useState16[0],
-    setSelectedItem = _useState16[1]; // State untuk data yang dipilih
+    setSelectedItem = _useState16[1];
+
+  // ✅ Update formData dengan dp_pin
   var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       fk_m_kategori_password: '',
       fk_m_user: 1,
       dp_nama_username: '',
       dp_nama_password: '',
+      dp_pin: '',
+      // ✅ Tambah field PIN
       dp_keterangan: ''
     }),
     _useState18 = _slicedToArray(_useState17, 2),
@@ -44009,6 +44025,8 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
       return _ref2.apply(this, arguments);
     };
   }();
+
+  // ✅ Update handleSubmit dengan validasi PIN
   var _handleSubmit = /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(e) {
       var response, payload, _error$response, errorMessage, _t3;
@@ -44017,41 +44035,52 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
           case 0:
             e.preventDefault();
 
-            // Validasi form
-            if (!(!formData.fk_m_kategori_password || !formData.dp_nama_username.trim() || !formData.dp_nama_password.trim() || !formData.dp_keterangan.trim())) {
+            // ✅ Update validasi form dengan PIN
+            if (!(!formData.fk_m_kategori_password || !formData.dp_nama_username.trim() || !formData.dp_nama_password.trim() || !formData.dp_keterangan.trim() || !isEdit && !formData.dp_pin.trim())) {
               _context3.n = 1;
               break;
             }
-            showError('Semua field harus diisi!', 'Validasi Gagal');
+            // PIN required untuk create, optional untuk edit
+            showError('Semua field wajib harus diisi!', 'Validasi Gagal');
             return _context3.a(2);
           case 1:
+            if (!(formData.dp_pin && (formData.dp_pin.length < 4 || formData.dp_pin.length > 10))) {
+              _context3.n = 2;
+              break;
+            }
+            showError('PIN harus terdiri dari 4-10 digit!', 'Validasi PIN Gagal');
+            return _context3.a(2);
+          case 2:
             setSaveLoading(true);
-            _context3.p = 2;
+            _context3.p = 3;
             payload = {
               fk_m_kategori_password: formData.fk_m_kategori_password,
               fk_m_user: formData.fk_m_user,
               dp_nama_username: formData.dp_nama_username.trim(),
               dp_nama_password: formData.dp_nama_password.trim(),
               dp_keterangan: formData.dp_keterangan.trim()
-            };
+            }; // ✅ Tambahkan PIN ke payload jika ada
+            if (formData.dp_pin && formData.dp_pin.trim()) {
+              payload.dp_pin = formData.dp_pin.trim();
+            }
             if (!isEdit) {
-              _context3.n = 4;
+              _context3.n = 5;
               break;
             }
-            _context3.n = 3;
+            _context3.n = 4;
             return axios.put("/api/detail-password/".concat(editId), payload);
-          case 3:
-            response = _context3.v;
-            _context3.n = 6;
-            break;
           case 4:
-            _context3.n = 5;
-            return axios.post('/api/detail-password', payload);
-          case 5:
             response = _context3.v;
+            _context3.n = 7;
+            break;
+          case 5:
+            _context3.n = 6;
+            return axios.post('/api/detail-password', payload);
           case 6:
+            response = _context3.v;
+          case 7:
             if (!response.data.success) {
-              _context3.n = 7;
+              _context3.n = 8;
               break;
             }
             showSuccess("Detail password berhasil ".concat(isEdit ? 'diperbarui' : 'disimpan', "!"), "".concat(isEdit ? 'Update' : 'Simpan', " Berhasil!"));
@@ -44062,38 +44091,42 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                 window.refreshSidebarCounts();
               }
             }, 1000);
-            _context3.n = 8;
+            _context3.n = 9;
             break;
-          case 7:
-            throw new Error(response.data.message || 'Operasi gagal');
           case 8:
-            _context3.n = 10;
-            break;
+            throw new Error(response.data.message || 'Operasi gagal');
           case 9:
-            _context3.p = 9;
+            _context3.n = 11;
+            break;
+          case 10:
+            _context3.p = 10;
             _t3 = _context3.v;
             console.error('Kesalahan saat menyimpan data:', _t3);
             errorMessage = ((_error$response = _t3.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || "Gagal ".concat(isEdit ? 'memperbarui' : 'menyimpan', " detail password. Silakan coba lagi.");
             showError(errorMessage, "".concat(isEdit ? 'Update' : 'Simpan', " Gagal!"), function () {
               return _handleSubmit(e);
             });
-          case 10:
-            setSaveLoading(false);
           case 11:
+            setSaveLoading(false);
+          case 12:
             return _context3.a(2);
         }
-      }, _callee3, null, [[2, 9]]);
+      }, _callee3, null, [[3, 10]]);
     }));
     return function handleSubmit(_x) {
       return _ref3.apply(this, arguments);
     };
   }();
+
+  // ✅ Update handleEdit dengan PIN (tidak menampilkan PIN untuk keamanan)
   var handleEdit = function handleEdit(item) {
     setFormData({
       fk_m_kategori_password: item.fk_m_kategori_password,
       fk_m_user: item.fk_m_user,
       dp_nama_username: item.dp_nama_username_decrypted || '',
       dp_nama_password: item.dp_nama_password_decrypted || '',
+      dp_pin: '',
+      // ✅ PIN tidak ditampilkan saat edit untuk keamanan
       dp_keterangan: item.dp_keterangan
     });
     setEditId(item.m_detail_password_id);
@@ -44153,6 +44186,8 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
       return _ref4.apply(this, arguments);
     };
   }();
+
+  // ✅ Update handleCloseModal dengan PIN
   var handleCloseModal = function handleCloseModal() {
     setShowModal(false);
     setFormData({
@@ -44160,6 +44195,8 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
       fk_m_user: 1,
       dp_nama_username: '',
       dp_nama_password: '',
+      dp_pin: '',
+      // ✅ Reset PIN
       dp_keterangan: ''
     });
     setIsEdit(false);
@@ -44196,7 +44233,7 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                   children: "Detail Password"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
                   className: "text-amber-100/80 mt-2 text-sm",
-                  children: "Kelola dan simpan detail password Anda dengan aman menggunakan enkripsi tingkat tinggi."
+                  children: "Kelola dan simpan detail password Anda dengan aman menggunakan enkripsi dan PIN keamanan."
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_button_create__WEBPACK_IMPORTED_MODULE_9__["default"], {
                 text: "Tambah Password",
@@ -44235,6 +44272,9 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                       children: "Password"
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("th", {
                       className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
+                      children: "PIN"
+                    }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("th", {
+                      className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
                       children: "Keterangan"
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("th", {
                       className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
@@ -44247,10 +44287,10 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("tbody", {
                   className: "divide-y divide-amber-500/10",
                   children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("tr", {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
-                      colSpan: "7",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("td", {
+                      colSpan: "8",
                       className: "px-6 py-8 text-center",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                      children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
                         className: "flex items-center justify-center space-x-3",
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
                           className: "w-6 h-6 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full animate-spin flex items-center justify-center",
@@ -44261,13 +44301,13 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                           className: "text-amber-200",
                           children: "Memuat data..."
                         })]
-                      })
+                      })]
                     })
                   }) : data.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("tr", {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
-                      colSpan: "7",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("td", {
+                      colSpan: "8",
                       className: "px-6 py-8 text-center",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                      children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
                         className: "text-amber-300/60",
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("svg", {
                           className: "w-12 h-12 mx-auto mb-3 opacity-50",
@@ -44284,7 +44324,7 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                           className: "text-xs mt-1",
                           children: "Klik tombol \"Tambah Password\" untuk mulai menambahkan"
                         })]
-                      })
+                      })]
                     })
                   }) : data.map(function (item, index) {
                     var _item$kategori_passwo2;
@@ -44310,6 +44350,18 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
                           className: "text-sm text-amber-100 font-mono bg-gray-800/50 px-2 py-1 rounded",
                           children: item.dp_nama_password_masked || '***'
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
+                        className: "px-6 py-4 whitespace-nowrap",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                          className: "flex items-center space-x-2",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                            className: "text-sm text-amber-100 font-mono bg-gray-800/50 px-2 py-1 rounded",
+                            children: item.dp_pin_masked || '****'
+                          }), item.has_pin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+                            className: "w-2 h-2 bg-green-400 rounded-full",
+                            title: "PIN telah diset"
+                          })]
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
                         className: "px-6 py-4 whitespace-nowrap text-sm text-amber-100",
@@ -44355,7 +44407,7 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
     }), showModal && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
       className: "fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-40",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
-        className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-md mx-4 border border-amber-500/20",
+        className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-lg mx-4 border border-amber-500/20 max-h-[90vh] overflow-y-auto",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
           className: "p-6",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
@@ -44409,28 +44461,76 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                   }, kategori.m_kategori_password_id);
                 })]
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Components_PasswordInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              label: "Username",
-              value: formData.dp_nama_username,
-              onChange: function onChange(e) {
-                return setFormData(_objectSpread(_objectSpread({}, formData), {}, {
-                  dp_nama_username: e.target.value
-                }));
-              },
-              placeholder: "Masukkan username",
-              required: true,
-              disabled: saveLoading
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Components_PasswordInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              label: "Password",
-              value: formData.dp_nama_password,
-              onChange: function onChange(e) {
-                return setFormData(_objectSpread(_objectSpread({}, formData), {}, {
-                  dp_nama_password: e.target.value
-                }));
-              },
-              placeholder: "Masukkan password",
-              required: true,
-              disabled: saveLoading
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("label", {
+                className: "block text-sm font-semibold text-amber-300 mb-2",
+                children: ["Username ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                  className: "text-red-400",
+                  children: "*"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Components_PasswordInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                value: formData.dp_nama_username,
+                onChange: function onChange(value) {
+                  return setFormData(_objectSpread(_objectSpread({}, formData), {}, {
+                    dp_nama_username: value
+                  }));
+                },
+                placeholder: "Masukkan username",
+                required: true,
+                disabled: saveLoading,
+                showEyeIcon: true // ✅ Enable eye icon
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("label", {
+                className: "block text-sm font-semibold text-amber-300 mb-2",
+                children: ["Password ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                  className: "text-red-400",
+                  children: "*"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Components_PasswordInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                value: formData.dp_nama_password,
+                onChange: function onChange(value) {
+                  return setFormData(_objectSpread(_objectSpread({}, formData), {}, {
+                    dp_nama_password: value
+                  }));
+                },
+                placeholder: "Masukkan password",
+                required: true,
+                disabled: saveLoading,
+                showEyeIcon: true // ✅ Enable eye icon
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("label", {
+                className: "block text-sm font-semibold text-amber-300 mb-2",
+                children: ["PIN Keamanan", !isEdit && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                  className: "text-red-400",
+                  children: " *"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                  className: "text-xs text-amber-400/80 ml-2",
+                  children: "(4-10 digit)"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Components_PasswordInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                value: formData.dp_pin,
+                onChange: function onChange(value) {
+                  // Hanya izinkan angka dan batasi maksimal 10 karakter
+                  var numericValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+                  setFormData(_objectSpread(_objectSpread({}, formData), {}, {
+                    dp_pin: numericValue
+                  }));
+                },
+                placeholder: isEdit ? "Biarkan kosong jika tidak ingin mengubah PIN" : "Masukkan PIN 4-10 digit",
+                required: !isEdit // Required untuk create, optional untuk edit
+                ,
+                disabled: saveLoading,
+                showEyeIcon: true // ✅ Enable eye icon untuk PIN
+                ,
+                inputMode: "numeric" // ✅ Numeric keyboard di mobile
+                ,
+                pattern: "[0-9]*" // ✅ Pattern untuk numeric
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+                className: "text-xs text-amber-400/60 mt-1",
+                children: isEdit ? "PIN akan di-hash untuk keamanan. Kosongkan jika tidak ingin mengubah." : "PIN akan di-hash untuk keamanan dan tidak dapat dilihat kembali."
+              })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("label", {
                 className: "block text-sm font-semibold text-amber-300 mb-2",
@@ -44461,7 +44561,7 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                 children: "Batal"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
                 type: "submit",
-                disabled: saveLoading || !formData.fk_m_kategori_password || !formData.dp_nama_username.trim() || !formData.dp_nama_password.trim() || !formData.dp_keterangan.trim(),
+                disabled: saveLoading || !formData.fk_m_kategori_password || !formData.dp_nama_username.trim() || !formData.dp_nama_password.trim() || !formData.dp_keterangan.trim() || !isEdit && !formData.dp_pin.trim() || formData.dp_pin && (formData.dp_pin.length < 4 || formData.dp_pin.length > 10),
                 className: "flex-1 px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-black rounded-xl font-bold transition-all duration-200 transform hover:scale-105 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none",
                 children: saveLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
                   className: "flex items-center justify-center space-x-2",
@@ -44502,6 +44602,10 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
         kategori: ((_selectedItem$kategor2 = selectedItem.kategori_password) === null || _selectedItem$kategor2 === void 0 ? void 0 : _selectedItem$kategor2.kp_nama) || 'Unknown',
         username: selectedItem.dp_nama_username_masked || '***',
         password: selectedItem.dp_nama_password_masked || '***',
+        pin: selectedItem.dp_pin_masked || '****',
+        // ✅ Tambah PIN info
+        has_pin: selectedItem.has_pin || false,
+        // ✅ Tambah status PIN
         keterangan: selectedItem.dp_keterangan,
         created_at: selectedItem.created_at,
         updated_at: selectedItem.updated_at,
