@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('fk_m_user'); 
             $table->string('dp_nama_username', 255); 
             $table->string('dp_nama_password', 255);
+            $table->string('dp_pin', 255); 
             $table->string('dp_keterangan', 255);
             $table->tinyInteger('isDeleted')->default(0);
             $table->string('created_by', 30)->nullable();
