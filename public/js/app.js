@@ -42096,7 +42096,6 @@ var Header = function Header() {
   }();
   var handleLogout = function handleLogout() {
     showLogout('Semua sesi aktif akan berakhir dan Anda perlu login kembali untuk mengakses aplikasi.', 'Konfirmasi Logout', function () {
-      // Proses logout setelah konfirmasi
       _performLogout();
     }, userData.nama_pengguna || 'User');
   };
@@ -42107,19 +42106,13 @@ var Header = function Header() {
         while (1) switch (_context2.p = _context2.n) {
           case 0:
             _context2.p = 0;
-            // Tampilkan loading message
             showSuccess('Sedang memproses logout...', 'Memproses...');
-
-            // Simulate logout process (replace with actual API call)
             _context2.n = 1;
             return new Promise(function (resolve) {
               return setTimeout(resolve, 1000);
             });
           case 1:
-            // Tampilkan success message
             showSuccess("Terima kasih ".concat(userData.nama_pengguna, "! Anda berhasil keluar dari sistem."), 'Logout Berhasil!');
-
-            // Redirect setelah delay
             setTimeout(function () {
               window.location.href = '/logout';
             }, 2000);
@@ -42131,8 +42124,7 @@ var Header = function Header() {
             console.error('Error during logout:', _t2);
             showError('Terjadi kesalahan saat logout. Silakan coba lagi.', 'Logout Gagal!', function () {
               return _performLogout();
-            } // Retry function
-            );
+            });
           case 3:
             return _context2.a(2);
         }
@@ -42174,9 +42166,9 @@ var Header = function Header() {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("nav", {
           className: "flex items-center space-x-3",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-            className: "relative flex items-center space-x-2",
+            className: "relative flex items-center space-x-3",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-              className: "w-6 h-6 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center overflow-hidden relative shadow-lg shadow-amber-500/30",
+              className: "w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center overflow-hidden relative shadow-lg shadow-amber-500/30",
               children: [userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
                 src: userData.foto_profil,
                 alt: "Profile",
@@ -42186,7 +42178,7 @@ var Header = function Header() {
                   e.target.nextSibling.style.display = 'flex';
                 }
               }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                className: "text-xs font-bold absolute inset-0 flex items-center justify-center text-black",
+                className: "text-sm font-bold absolute inset-0 flex items-center justify-center text-black",
                 style: {
                   display: userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? 'none' : 'flex'
                 },
@@ -42194,12 +42186,18 @@ var Header = function Header() {
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
               className: "flex flex-col text-right",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                className: "text-sm font-medium text-amber-100",
-                children: userData.nama_pengguna
-              }), userData.hak_akses && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                className: "text-xs text-amber-300",
-                children: userData.hak_akses.nama
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                className: "flex items-center space-x-1",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "text-sm font-medium text-amber-100",
+                  children: userData.nama_pengguna
+                }), userData.hak_akses && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                  className: "text-sm text-amber-300",
+                  children: ["(", userData.hak_akses.nama, ")"]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                className: "text-xs text-amber-200/80",
+                children: userData.email_pengguna
               })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
@@ -42393,7 +42391,8 @@ var Sidebar = function Sidebar(_ref) {
       nama_pengguna: 'Loading...',
       email_pengguna: 'Loading...',
       foto_profil: '/foto-profile/default-picture.jpg',
-      hak_akses: null
+      hak_akses: null,
+      alias_pengguna: 'Loading...' // ✅ Tambah field alias
     }),
     _useState2 = _slicedToArray(_useState, 2),
     userData = _useState2[0],
@@ -42443,7 +42442,8 @@ var Sidebar = function Sidebar(_ref) {
               nama_pengguna: 'User',
               email_pengguna: 'user@example.com',
               foto_profil: '/foto-profile/default-picture.jpg',
-              hak_akses: null
+              hak_akses: null,
+              alias_pengguna: 'User'
             });
           case 3:
             return _context.a(2);
@@ -42546,15 +42546,61 @@ var Sidebar = function Sidebar(_ref) {
     }).join('').substring(0, 2).toUpperCase();
   };
 
-  // Function untuk refresh count setelah CRUD operations
+  // ✅ Function untuk generate alias dari nama pengguna
+  var generateAlias = function generateAlias(namaPengguna) {
+    if (!namaPengguna || namaPengguna === 'Loading...') return 'Loading...';
+    var kata = namaPengguna.trim().split(' ');
+    if (kata.length <= 1) {
+      return namaPengguna.substring(0, 10);
+    }
+    var alias = '';
+    var panjangTotalKarakter = 0;
+    for (var i = 0; i < kata.length; i++) {
+      var kataSekarang = kata[i];
+      if (i === kata.length - 1) {
+        // Untuk kata terakhir, ambil huruf pertama + titik
+        var tambahan = kataSekarang.substring(0, 1) + '.';
+        if (panjangTotalKarakter + tambahan.length <= 10) {
+          alias += tambahan;
+        } else {
+          // Jika tidak muat, potong kata sebelumnya
+          var sisaRuang = 10 - tambahan.length;
+          if (sisaRuang > 0) {
+            alias = alias.substring(0, sisaRuang) + tambahan;
+          } else {
+            alias = alias.substring(0, 10);
+          }
+        }
+        break;
+      } else {
+        var spasi = i > 0 ? ' ' : '';
+        var _tambahan = spasi + kataSekarang;
+        if (panjangTotalKarakter + _tambahan.length + 3 <= 10) {
+          // 3 untuk " X."
+          alias += _tambahan;
+          panjangTotalKarakter += _tambahan.length;
+        } else {
+          // Jika tidak muat, potong kata ini dan lanjut ke kata terakhir
+          var _sisaRuang = 10 - panjangTotalKarakter - 3;
+          if (_sisaRuang > 0) {
+            alias += spasi + kataSekarang.substring(0, _sisaRuang);
+          }
+
+          // Tambahkan kata terakhir
+          var kataTerakir = kata[kata.length - 1];
+          alias += ' ' + kataTerakir.substring(0, 1) + '.';
+          break;
+        }
+      }
+    }
+    return alias;
+  };
   var refreshKategoriCount = function refreshKategoriCount() {
     fetchKategoriCount();
   };
   var refreshDetailPasswordCount = function refreshDetailPasswordCount() {
     fetchDetailPasswordCount();
   };
-
-  // Expose function ke window untuk dipanggil dari komponen lain
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     window.refreshSidebarCounts = function () {
       refreshKategoriCount();
@@ -42592,7 +42638,7 @@ var Sidebar = function Sidebar(_ref) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
         className: "mb-6",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "flex items-center space-x-2 p-3 bg-gradient-to-br from-gray-800/60 via-black/60 to-gray-700/60 backdrop-blur-xl rounded-xl border border-amber-500/20 ring-1 ring-amber-400/10",
+          className: "flex items-center space-x-3 p-3 bg-gradient-to-br from-gray-800/60 via-black/60 to-gray-700/60 backdrop-blur-xl rounded-xl border border-amber-500/20 ring-1 ring-amber-400/10",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
             className: "w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center overflow-hidden relative shadow-lg shadow-amber-500/30",
             children: [userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
@@ -42613,15 +42659,11 @@ var Sidebar = function Sidebar(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
             className: "flex-1 min-w-0",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-              className: "font-medium text-sm truncate text-amber-100",
+              className: "font-medium text-sm text-amber-100",
               title: userData.nama_pengguna,
-              children: userData.nama_pengguna
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-              className: "text-xs text-amber-300/70 truncate",
-              title: userData.email_pengguna,
-              children: userData.email_pengguna
+              children: generateAlias(userData.nama_pengguna)
             }), userData.hak_akses && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-              className: "text-xs text-amber-400 truncate",
+              className: "text-xs text-amber-300",
               title: userData.hak_akses.nama,
               children: userData.hak_akses.nama
             })]

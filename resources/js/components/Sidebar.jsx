@@ -5,7 +5,8 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
         nama_pengguna: 'Loading...',
         email_pengguna: 'Loading...',
         foto_profil: '/foto-profile/default-picture.jpg',
-        hak_akses: null
+        hak_akses: null,
+        alias_pengguna: 'Loading...' // ✅ Tambah field alias
     });
 
     const [kategoriCount, setKategoriCount] = useState(0);
@@ -31,7 +32,8 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                 nama_pengguna: 'User',
                 email_pengguna: 'user@example.com',
                 foto_profil: '/foto-profile/default-picture.jpg',
-                hak_akses: null
+                hak_akses: null,
+                alias_pengguna: 'User'
             });
         }
     };
@@ -89,7 +91,63 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
         return name.split(' ').map(word => word.charAt(0)).join('').substring(0, 2).toUpperCase();
     };
 
-    // Function untuk refresh count setelah CRUD operations
+    // ✅ Function untuk generate alias dari nama pengguna
+    const generateAlias = (namaPengguna) => {
+        if (!namaPengguna || namaPengguna === 'Loading...') return 'Loading...';
+        
+        const kata = namaPengguna.trim().split(' ');
+        
+        if (kata.length <= 1) {
+            return namaPengguna.substring(0, 10);
+        }
+
+        let alias = '';
+        let panjangTotalKarakter = 0;
+        
+        for (let i = 0; i < kata.length; i++) {
+            const kataSekarang = kata[i];
+            
+            if (i === kata.length - 1) {
+                // Untuk kata terakhir, ambil huruf pertama + titik
+                const tambahan = kataSekarang.substring(0, 1) + '.';
+                
+                if (panjangTotalKarakter + tambahan.length <= 10) {
+                    alias += tambahan;
+                } else {
+                    // Jika tidak muat, potong kata sebelumnya
+                    const sisaRuang = 10 - tambahan.length;
+                    if (sisaRuang > 0) {
+                        alias = alias.substring(0, sisaRuang) + tambahan;
+                    } else {
+                        alias = alias.substring(0, 10);
+                    }
+                }
+                break;
+            } else {
+                const spasi = (i > 0) ? ' ' : '';
+                const tambahan = spasi + kataSekarang;
+                
+                if (panjangTotalKarakter + tambahan.length + 3 <= 10) { // 3 untuk " X."
+                    alias += tambahan;
+                    panjangTotalKarakter += tambahan.length;
+                } else {
+                    // Jika tidak muat, potong kata ini dan lanjut ke kata terakhir
+                    const sisaRuang = 10 - panjangTotalKarakter - 3;
+                    if (sisaRuang > 0) {
+                        alias += spasi + kataSekarang.substring(0, sisaRuang);
+                    }
+                    
+                    // Tambahkan kata terakhir
+                    const kataTerakir = kata[kata.length - 1];
+                    alias += ' ' + kataTerakir.substring(0, 1) + '.';
+                    break;
+                }
+            }
+        }
+
+        return alias;
+    };
+
     const refreshKategoriCount = () => {
         fetchKategoriCount();
     };
@@ -98,7 +156,6 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
         fetchDetailPasswordCount();
     };
 
-    // Expose function ke window untuk dipanggil dari komponen lain
     useEffect(() => {
         window.refreshSidebarCounts = () => {
             refreshKategoriCount();
@@ -127,9 +184,9 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                     </div>
                 </div>
 
-                {/* User Profile Section */}
+                {/* ✅ Update User Profile Section - Gunakan Alias & Hilangkan Email */}
                 <div className="mb-6">
-                    <div className="flex items-center space-x-2 p-3 bg-gradient-to-br from-gray-800/60 via-black/60 to-gray-700/60 backdrop-blur-xl rounded-xl border border-amber-500/20 ring-1 ring-amber-400/10">
+                    <div className="flex items-center space-x-3 p-3 bg-gradient-to-br from-gray-800/60 via-black/60 to-gray-700/60 backdrop-blur-xl rounded-xl border border-amber-500/20 ring-1 ring-amber-400/10">
                         <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center overflow-hidden relative shadow-lg shadow-amber-500/30">
                             {userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? (
                                 <img 
@@ -150,14 +207,13 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                             </span>
                         </div>
                         <div className="flex-1 min-w-0">
-                            <p className="font-medium text-sm truncate text-amber-100" title={userData.nama_pengguna}>
-                                {userData.nama_pengguna}
+                            {/* ✅ Gunakan Alias yang di-generate dari nama pengguna */}
+                            <p className="font-medium text-sm text-amber-100" title={userData.nama_pengguna}>
+                                {generateAlias(userData.nama_pengguna)}
                             </p>
-                            <p className="text-xs text-amber-300/70 truncate" title={userData.email_pengguna}>
-                                {userData.email_pengguna}
-                            </p>
+                            {/* ✅ Tampilkan Hak Akses (tanpa email) */}
                             {userData.hak_akses && (
-                                <p className="text-xs text-amber-400 truncate" title={userData.hak_akses.nama}>
+                                <p className="text-xs text-amber-300" title={userData.hak_akses.nama}>
                                     {userData.hak_akses.nama}
                                 </p>
                             )}
@@ -203,7 +259,6 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                                 </svg>
                                 <span className="font-medium">Kategori Password</span>
                                 
-                                {/* Dynamic Count Badge */}
                                 <div className="ml-auto flex items-center space-x-2">
                                     {loadingCount ? (
                                         <div className="w-4 h-4 border-2 border-amber-400/30 border-t-amber-400 rounded-full animate-spin"></div>
@@ -234,7 +289,6 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                                 </svg>
                                 <span className="font-medium">Detail Password</span>
                                 
-                                {/* Dynamic Count Badge */}
                                 <div className="ml-auto flex items-center space-x-2">
                                     {loadingDetailCount ? (
                                         <div className="w-4 h-4 border-2 border-amber-400/30 border-t-amber-400 rounded-full animate-spin"></div>
@@ -254,7 +308,7 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                 </nav>
             </div>
             
-            {/* Status Sistem - Tetap di Bawah */}
+            {/* Status Sistem */}
             <div className="p-3">
                 <div className="p-3 bg-gradient-to-br from-gray-800/60 via-black/60 to-gray-700/60 backdrop-blur-xl rounded-xl border border-amber-500/20 ring-1 ring-amber-400/10">
                     <div className="flex items-center space-x-2 text-xs">

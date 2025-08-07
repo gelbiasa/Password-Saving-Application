@@ -39,7 +39,6 @@ const Header = () => {
             'Semua sesi aktif akan berakhir dan Anda perlu login kembali untuk mengakses aplikasi.',
             'Konfirmasi Logout',
             () => {
-                // Proses logout setelah konfirmasi
                 performLogout();
             },
             userData.nama_pengguna || 'User'
@@ -48,19 +47,15 @@ const Header = () => {
 
     const performLogout = async () => {
         try {
-            // Tampilkan loading message
             showSuccess('Sedang memproses logout...', 'Memproses...');
             
-            // Simulate logout process (replace with actual API call)
             await new Promise(resolve => setTimeout(resolve, 1000));
             
-            // Tampilkan success message
             showSuccess(
                 `Terima kasih ${userData.nama_pengguna}! Anda berhasil keluar dari sistem.`,
                 'Logout Berhasil!'
             );
             
-            // Redirect setelah delay
             setTimeout(() => {
                 window.location.href = '/logout';
             }, 2000);
@@ -70,7 +65,7 @@ const Header = () => {
             showError(
                 'Terjadi kesalahan saat logout. Silakan coba lagi.',
                 'Logout Gagal!',
-                () => performLogout() // Retry function
+                () => performLogout()
             );
         }
     };
@@ -96,8 +91,9 @@ const Header = () => {
                     </div>
                     
                     <nav className="flex items-center space-x-3">
-                        <div className="relative flex items-center space-x-2">
-                            <div className="w-6 h-6 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center overflow-hidden relative shadow-lg shadow-amber-500/30">
+                        {/* ✅ Update User Profile Section di Header dengan Email dan Format Baru */}
+                        <div className="relative flex items-center space-x-3">
+                            <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center overflow-hidden relative shadow-lg shadow-amber-500/30">
                                 {userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? (
                                     <img 
                                         src={userData.foto_profil} 
@@ -110,17 +106,22 @@ const Header = () => {
                                     />
                                 ) : null}
                                 <span 
-                                    className="text-xs font-bold absolute inset-0 flex items-center justify-center text-black"
+                                    className="text-sm font-bold absolute inset-0 flex items-center justify-center text-black"
                                     style={{ display: userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? 'none' : 'flex' }}
                                 >
                                     {getInitials(userData.nama_pengguna)}
                                 </span>
                             </div>
+                            
+                            {/* ✅ Format Baru: Nama Lengkap (Hak Akses) + Email */}
                             <div className="flex flex-col text-right">
-                                <span className="text-sm font-medium text-amber-100">{userData.nama_pengguna}</span>
-                                {userData.hak_akses && (
-                                    <span className="text-xs text-amber-300">{userData.hak_akses.nama}</span>
-                                )}
+                                <div className="flex items-center space-x-1">
+                                    <span className="text-sm font-medium text-amber-100">{userData.nama_pengguna}</span>
+                                    {userData.hak_akses && (
+                                        <span className="text-sm text-amber-300">({userData.hak_akses.nama})</span>
+                                    )}
+                                </div>
+                                <span className="text-xs text-amber-200/80">{userData.email_pengguna}</span>
                             </div>
                         </div>
                         
