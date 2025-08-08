@@ -75,6 +75,30 @@ const Header = () => {
         return name.split(' ').map(word => word.charAt(0)).join('').substring(0, 2).toUpperCase();
     };
 
+    // ✅ Update Function untuk badge dengan warna hijau gradasi yang lebih jelas
+    const getBadgeColor = (hakAkses) => {
+        if (!hakAkses) return 'bg-gray-500/30 text-gray-200 border-gray-400/40';
+        
+        const nama = hakAkses.nama.toLowerCase();
+        
+        if (nama.includes('administrator') || nama.includes('admin')) {
+            // ✅ Gradasi Hijau Terang untuk Administrator
+            return 'bg-gradient-to-r from-emerald-400/30 to-green-500/30 text-emerald-200 border-emerald-400/50 shadow-lg shadow-emerald-500/20';
+        } else if (nama.includes('manager') || nama.includes('supervisor')) {
+            // ✅ Gradasi Hijau-Biru untuk Manager
+            return 'bg-gradient-to-r from-teal-400/30 to-cyan-500/30 text-teal-200 border-teal-400/50 shadow-lg shadow-teal-500/20';
+        } else if (nama.includes('user') || nama.includes('pengguna')) {
+            // ✅ Gradasi Hijau Mint untuk User
+            return 'bg-gradient-to-r from-green-400/30 to-lime-500/30 text-green-200 border-green-400/50 shadow-lg shadow-green-500/20';
+        } else if (nama.includes('guest') || nama.includes('tamu')) {
+            // ✅ Gradasi Abu-abu Hijau untuk Guest
+            return 'bg-gradient-to-r from-slate-400/30 to-gray-500/30 text-slate-200 border-slate-400/50 shadow-lg shadow-slate-500/20';
+        } else {
+            // ✅ Gradasi Hijau Kuning untuk Default
+            return 'bg-gradient-to-r from-lime-400/30 to-yellow-500/30 text-lime-200 border-lime-400/50 shadow-lg shadow-lime-500/20';
+        }
+    };
+
     return (
         <>
             <header className="bg-gradient-to-r from-gray-900 via-black to-amber-900 text-white p-3 shadow-2xl border-b border-amber-500/20">
@@ -91,7 +115,6 @@ const Header = () => {
                     </div>
                     
                     <nav className="flex items-center space-x-3">
-                        {/* ✅ Update User Profile Section di Header dengan Email dan Format Baru */}
                         <div className="relative flex items-center space-x-3">
                             <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center overflow-hidden relative shadow-lg shadow-amber-500/30">
                                 {userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? (
@@ -113,12 +136,16 @@ const Header = () => {
                                 </span>
                             </div>
                             
-                            {/* ✅ Format Baru: Nama Lengkap (Hak Akses) + Email */}
                             <div className="flex flex-col text-right">
-                                <div className="flex items-center space-x-1">
-                                    <span className="text-sm font-medium text-amber-100">{userData.nama_pengguna}</span>
+                                <div className="flex items-center space-x-2 mb-1">
+                                    <span className="text-sm font-medium text-amber-100">
+                                        {userData.nama_pengguna}
+                                    </span>
+                                    {/* ✅ Badge dengan Gradasi Hijau yang Lebih Jelas */}
                                     {userData.hak_akses && (
-                                        <span className="text-sm text-amber-300">({userData.hak_akses.nama})</span>
+                                        <span className={`px-3 py-1 text-xs font-bold rounded-full border-2 backdrop-blur-sm transform hover:scale-105 transition-all duration-200 ${getBadgeColor(userData.hak_akses)}`}>
+                                            {userData.hak_akses.nama}
+                                        </span>
                                     )}
                                 </div>
                                 <span className="text-xs text-amber-200/80">{userData.email_pengguna}</span>
