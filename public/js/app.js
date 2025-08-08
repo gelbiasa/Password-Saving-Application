@@ -42140,6 +42140,28 @@ var Header = function Header() {
       return word.charAt(0);
     }).join('').substring(0, 2).toUpperCase();
   };
+
+  // ✅ Update Function untuk badge dengan warna hijau gradasi yang lebih jelas
+  var getBadgeColor = function getBadgeColor(hakAkses) {
+    if (!hakAkses) return 'bg-gray-500/30 text-gray-200 border-gray-400/40';
+    var nama = hakAkses.nama.toLowerCase();
+    if (nama.includes('administrator') || nama.includes('admin')) {
+      // ✅ Gradasi Hijau Terang untuk Administrator
+      return 'bg-gradient-to-r from-emerald-400/30 to-green-500/30 text-emerald-200 border-emerald-400/50 shadow-lg shadow-emerald-500/20';
+    } else if (nama.includes('manager') || nama.includes('supervisor')) {
+      // ✅ Gradasi Hijau-Biru untuk Manager
+      return 'bg-gradient-to-r from-teal-400/30 to-cyan-500/30 text-teal-200 border-teal-400/50 shadow-lg shadow-teal-500/20';
+    } else if (nama.includes('user') || nama.includes('pengguna')) {
+      // ✅ Gradasi Hijau Mint untuk User
+      return 'bg-gradient-to-r from-green-400/30 to-lime-500/30 text-green-200 border-green-400/50 shadow-lg shadow-green-500/20';
+    } else if (nama.includes('guest') || nama.includes('tamu')) {
+      // ✅ Gradasi Abu-abu Hijau untuk Guest
+      return 'bg-gradient-to-r from-slate-400/30 to-gray-500/30 text-slate-200 border-slate-400/50 shadow-lg shadow-slate-500/20';
+    } else {
+      // ✅ Gradasi Hijau Kuning untuk Default
+      return 'bg-gradient-to-r from-lime-400/30 to-yellow-500/30 text-lime-200 border-lime-400/50 shadow-lg shadow-lime-500/20';
+    }
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("header", {
       className: "bg-gradient-to-r from-gray-900 via-black to-amber-900 text-white p-3 shadow-2xl border-b border-amber-500/20",
@@ -42187,13 +42209,13 @@ var Header = function Header() {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
               className: "flex flex-col text-right",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-                className: "flex items-center space-x-1",
+                className: "flex items-center space-x-2 mb-1",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                   className: "text-sm font-medium text-amber-100",
                   children: userData.nama_pengguna
-                }), userData.hak_akses && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
-                  className: "text-sm text-amber-300",
-                  children: ["(", userData.hak_akses.nama, ")"]
+                }), userData.hak_akses && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "px-3 py-1 text-xs font-bold rounded-full border-2 backdrop-blur-sm transform hover:scale-105 transition-all duration-200 ".concat(getBadgeColor(userData.hak_akses)),
+                  children: userData.hak_akses.nama
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                 className: "text-xs text-amber-200/80",
