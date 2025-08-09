@@ -437,4 +437,41 @@ class DetailPasswordController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * ✅ Get detail password dengan full decryption untuk modal detail
+     */
+    public function getDetailById($id)
+    {
+        try {
+            $detailPassword = $this->model->with(['kategoriPassword'])
+                                      ->where('m_detail_password_id', $id)
+                                      ->where('isDeleted', 0)
+                                      ->first();
+
+            if (!$detailPassword) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data tidak ditemukan'
+                ], 404);
+            }
+
+            // ✅ Get full decrypted data untuk modal detail
+            $decryptedData = $detailPassword->getDecryptedData();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Detail data berhasil dimuat',
+                'data' => $decryptedData
+            ], 200);
+
+        } catch (\Exception $e) {
+            Log::error('Error fetching detail by ID: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal memuat detail data: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }
