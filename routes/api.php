@@ -38,18 +38,21 @@ Route::middleware('web')->group(function () {
     Route::post('/kategori-password/{id}/restore', [KategoriPasswordController::class, 'restore']);
 });
 
-// Detail Password Routes
-Route::middleware('web')->group(function () {
-    Route::get('/detail-password', [DetailPasswordController::class, 'getData']);
-    Route::get('/detail-password/count', [DetailPasswordController::class, 'getCount']);
-    Route::get('/detail-password/deleted', [DetailPasswordController::class, 'getDeletedData']);
-    Route::get('/detail-password/search', [DetailPasswordController::class, 'search']);
-    Route::get('/detail-password/kategori-options', [DetailPasswordController::class, 'getKategoriOptions']);
-    Route::get('/detail-password/user-options', [DetailPasswordController::class, 'getUserOptions']);
-    Route::get('/detail-password/{id}', [DetailPasswordController::class, 'show']);
-    Route::post('/detail-password', [DetailPasswordController::class, 'store']);
-    Route::put('/detail-password/{id}', [DetailPasswordController::class, 'update']);
-    Route::delete('/detail-password/{id}', [DetailPasswordController::class, 'destroy']);
-    Route::post('/detail-password/{id}/restore', [DetailPasswordController::class, 'restore']);
-    Route::post('/detail-password/{id}/verify-pin', [DetailPasswordController::class, 'verifyPin']);
+// Detail Password Management Routes
+Route::prefix('detail-password')->group(function () {
+    Route::get('/', [DetailPasswordController::class, 'getData']);
+    Route::get('/deleted', [DetailPasswordController::class, 'getDeletedData']);
+    Route::get('/count', [DetailPasswordController::class, 'getCount']);
+    Route::get('/search', [DetailPasswordController::class, 'search']);
+    Route::get('/kategori-options', [DetailPasswordController::class, 'getKategoriOptions']);
+    Route::get('/user-options', [DetailPasswordController::class, 'getUserOptions']);
+    
+    Route::get('/{id}', [DetailPasswordController::class, 'show']);
+    Route::get('/{id}/detail', [DetailPasswordController::class, 'getDetailById']); // New route untuk modal detail
+    Route::post('/{id}/verify-pin', [DetailPasswordController::class, 'verifyPin']); // New route untuk PIN verification
+    
+    Route::post('/', [DetailPasswordController::class, 'store']);
+    Route::put('/{id}', [DetailPasswordController::class, 'update']);
+    Route::delete('/{id}', [DetailPasswordController::class, 'destroy']);
+    Route::post('/{id}/restore', [DetailPasswordController::class, 'restore']);
 });
