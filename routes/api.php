@@ -48,8 +48,12 @@ Route::prefix('detail-password')->group(function () {
     Route::get('/user-options', [DetailPasswordController::class, 'getUserOptions']);
     
     Route::get('/{id}', [DetailPasswordController::class, 'show']);
-    Route::get('/{id}/detail', [DetailPasswordController::class, 'getDetailById']); // New route untuk modal detail
-    Route::post('/{id}/verify-pin', [DetailPasswordController::class, 'verifyPin']); // New route untuk PIN verification
+    Route::get('/{id}/detail', [DetailPasswordController::class, 'getDetailById']);
+    Route::get('/{id}/full-data', [DetailPasswordController::class, 'getFullDecryptedData']); // ✅ New route untuk data lengkap setelah verifikasi
+    
+    Route::post('/{id}/verify-user-password', [DetailPasswordController::class, 'verifyUserPassword']); // ✅ New route untuk verifikasi password user
+    Route::post('/{id}/verify-dual-security', [DetailPasswordController::class, 'verifyDualSecurity']); // ✅ New route untuk dual verification
+    Route::post('/{id}/verify-pin', [DetailPasswordController::class, 'verifyPin']); // Existing PIN verification
     
     Route::post('/', [DetailPasswordController::class, 'store']);
     Route::put('/{id}', [DetailPasswordController::class, 'update']);
