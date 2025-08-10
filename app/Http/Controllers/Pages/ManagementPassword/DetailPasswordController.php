@@ -444,7 +444,7 @@ class DetailPasswordController extends Controller
     public function getDetailById($id)
     {
         try {
-            $detailPassword = $this->model->with(['kategoriPassword'])
+            $detailPassword = $this->model->with(['kategoriPassword', 'user'])
                                       ->where('m_detail_password_id', $id)
                                       ->where('isDeleted', 0)
                                       ->first();
@@ -456,13 +456,25 @@ class DetailPasswordController extends Controller
                 ], 404);
             }
 
-            // ✅ Get full decrypted data untuk modal detail
-            $decryptedData = $detailPassword->getDecryptedData();
+            // Get creator info untuk verifikasi
+            $creatorInfo = $detailPassword->getCreatorInfo();
+
+            // Get basic info tanpa decrypt sensitive data dulu
+            $basicData = [
+                'm_detail_password_id' => $detailPassword->m_detail_password_id,
+                'kategori_password' => $detailPassword->kategoriPassword ? $detailPassword->kategoriPassword->toArray() : null,
+                'dp_keterangan' => $detailPassword->dp_keterangan,
+                'has_pin' => !empty($detailPassword->getOriginal('dp_pin')),
+                'creator_info' => $creatorInfo,
+                'created_at' => $detailPassword->created_at,
+                'updated_at' => $detailPassword->updated_at,
+                'requires_dual_verification' => true // Flag bahwa perlu dual verification
+            ];
 
             return response()->json([
                 'success' => true,
-                'message' => 'Detail data berhasil dimuat',
-                'data' => $decryptedData
+                'message' => 'Info dasar berhasil dimuat - perlu verifikasi keamanan',
+                'data' => $basicData
             ], 200);
 
         } catch (\Exception $e) {
@@ -471,6 +483,154 @@ class DetailPasswordController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Gagal memuat detail data: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * ✅ Method untuk mendapatkan full decrypted data setelah dual verification
+     */
+    public function getFullDecryptedData($id)
+    {
+        try {
+            $detailPassword = $this->model->with(['kategoriPassword', 'user'])
+                                      ->where('m_detail_password_id', $id)
+                                      ->where('isDeleted', 0)
+                                      ->first();
+
+            if (!$detailPassword) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data tidak ditemukan'
+                ], 404);
+            }
+
+            // Get full decrypted data
+            $decryptedData = $detailPassword->getDecryptedData();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Data lengkap berhasil dimuat',
+                'data' => $decryptedData
+            ], 200);
+
+        } catch (\Exception $e) {
+            Log::error('Error fetching full decrypted data: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal memuat data lengkap: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * ✅ Method untuk verifikasi password user pembuat password
+     */
+    public function verifyUserPassword(Request $request, $id)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'user_password' => 'required|string'
+            ], [
+                'user_password.required' => 'Password pengguna harus diisi'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Password pengguna tidak valid',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $detailPassword = $this->model->with(['user'])
+                                         ->where('m_detail_password_id', $id)
+                                         ->where('isDeleted', 0)
+                                         ->first();
+
+            if (!$detailPassword) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data tidak ditemukan'
+                ], 404);
+            }
+
+            $userPasswordValid = $detailPassword->verifyUserPassword($request->user_password);
+            $creatorInfo = $detailPassword->getCreatorInfo();
+
+            return response()->json([
+                'success' => true,
+                'user_password_valid' => $userPasswordValid,
+                'creator_info' => $creatorInfo,
+                'has_pin' => !empty($detailPassword->getOriginal('dp_pin')),
+                'message' => $userPasswordValid ? 'Password pengguna valid' : 'Password pengguna tidak valid'
+            ], 200);
+
+        } catch (\Exception $e) {
+            Log::error('Error verifying user password: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal memverifikasi password pengguna: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * ✅ Method untuk verifikasi dual security (User Password + PIN)
+     */
+    public function verifyDualSecurity(Request $request, $id)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'user_password' => 'required|string',
+                'pin' => 'nullable|numeric'
+            ], [
+                'user_password.required' => 'Password pengguna harus diisi',
+                'pin.numeric' => 'PIN harus berupa angka'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data verifikasi tidak valid',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $detailPassword = $this->model->with(['user'])
+                                         ->where('m_detail_password_id', $id)
+                                         ->where('isDeleted', 0)
+                                         ->first();
+
+            if (!$detailPassword) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data tidak ditemukan'
+                ], 404);
+            }
+
+            // Verifikasi dual security
+            $verificationResults = $detailPassword->verifyDualSecurity(
+                $request->user_password,
+                $request->pin
+            );
+
+            return response()->json([
+                'success' => true,
+                'verification_results' => $verificationResults,
+                'message' => $verificationResults['both_valid'] ? 
+                    'Verifikasi berhasil' : 
+                    'Verifikasi gagal - periksa password pengguna dan PIN'
+            ], 200);
+
+        } catch (\Exception $e) {
+            Log::error('Error verifying dual security: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal memverifikasi keamanan: ' . $e->getMessage()
             ], 500);
         }
     }
