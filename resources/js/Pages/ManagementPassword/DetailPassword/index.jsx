@@ -34,12 +34,16 @@ const DetailPasswordIndex = () => {
         dp_keterangan: ''
     });
 
-    // ✅ Tambah state untuk modal detail dengan PIN verification
+    // ✅ Update state untuk dual security verification
     const [detailModalData, setDetailModalData] = useState(null);
-    const [pinVerification, setPinVerification] = useState({
+    const [securityVerification, setSecurityVerification] = useState({
+        step: 'user_password', // 'user_password' -> 'pin' -> 'completed'
+        userPasswordVerified: false,
+        pinVerified: false,
         isVerifying: false,
-        isVerified: false,
-        showPinInput: false,
+        creatorInfo: null,
+        hasPin: false,
+        enteredUserPassword: '',
         enteredPin: '',
         error: ''
     });
@@ -259,72 +263,131 @@ const DetailPasswordIndex = () => {
         try {
             setSelectedItem(item);
             setDetailModalData(null);
-            setPinVerification({
+            setSecurityVerification({
+                step: 'user_password',
+                userPasswordVerified: false,
+                pinVerified: false,
                 isVerifying: false,
-                isVerified: false,
-                showPinInput: item.has_pin, // Show PIN input jika ada PIN
+                creatorInfo: null,
+                hasPin: false,
+                enteredUserPassword: '',
                 enteredPin: '',
                 error: ''
             });
             setShowDetailModal(true);
 
-            // Jika tidak ada PIN, langsung fetch detail
-            if (!item.has_pin) {
-                await fetchDetailData(item.m_detail_password_id);
-            }
+            // Fetch basic info untuk mendapatkan creator info
+            await fetchBasicDetailData(item.m_detail_password_id);
         } catch (error) {
             console.error('Error showing detail:', error);
             showError('Gagal menampilkan detail data', 'Error');
         }
     };
 
-    // ✅ Function untuk fetch detail data yang sudah di-decrypt
-    const fetchDetailData = async (id) => {
+    // ✅ Function untuk fetch basic info tanpa decrypt sensitive data
+    const fetchBasicDetailData = async (id) => {
         try {
             const response = await axios.get(`/api/detail-password/${id}/detail`);
             if (response.data.success) {
-                setDetailModalData(response.data.data);
-                setPinVerification(prev => ({ ...prev, isVerified: true }));
+                const data = response.data.data;
+                setDetailModalData(data);
+                setSecurityVerification(prev => ({
+                    ...prev,
+                    creatorInfo: data.creator_info,
+                    hasPin: data.has_pin
+                }));
             } else {
-                throw new Error(response.data.message || 'Gagal mengambil detail data');
+                throw new Error(response.data.message || 'Gagal mengambil info dasar');
             }
         } catch (error) {
-            console.error('Error fetching detail data:', error);
+            console.error('Error fetching basic detail data:', error);
             showError(
-                error.response?.data?.message || 'Gagal mengambil detail data',
+                error.response?.data?.message || 'Gagal mengambil info dasar',
                 'Error'
             );
         }
     };
 
-    // ✅ Function untuk verifikasi PIN
+    // ✅ Function untuk verifikasi password user pembuat
+    const handleUserPasswordVerification = async () => {
+        if (!securityVerification.enteredUserPassword.trim()) {
+            setSecurityVerification(prev => ({ 
+                ...prev, 
+                error: 'Password pengguna harus diisi' 
+            }));
+            return;
+        }
+
+        setSecurityVerification(prev => ({ ...prev, isVerifying: true, error: '' }));
+
+        try {
+            const response = await axios.post(`/api/detail-password/${selectedItem.m_detail_password_id}/verify-user-password`, {
+                user_password: securityVerification.enteredUserPassword
+            });
+
+            if (response.data.success && response.data.user_password_valid) {
+                // Password user valid, lanjut ke step berikutnya
+                setSecurityVerification(prev => ({ 
+                    ...prev, 
+                    userPasswordVerified: true,
+                    isVerifying: false,
+                    step: prev.hasPin ? 'pin' : 'completed',
+                    error: ''
+                }));
+
+                // Jika tidak ada PIN, langsung fetch full data
+                if (!securityVerification.hasPin) {
+                    await fetchFullDecryptedData(selectedItem.m_detail_password_id);
+                }
+            } else {
+                setSecurityVerification(prev => ({ 
+                    ...prev, 
+                    isVerifying: false, 
+                    error: 'Password pengguna tidak valid' 
+                }));
+            }
+        } catch (error) {
+            console.error('Error verifying user password:', error);
+            setSecurityVerification(prev => ({ 
+                ...prev, 
+                isVerifying: false, 
+                error: error.response?.data?.message || 'Gagal memverifikasi password pengguna' 
+            }));
+        }
+    };
+
+    // ✅ Function untuk verifikasi PIN (step 2)
     const handlePinVerification = async () => {
-        if (!pinVerification.enteredPin || pinVerification.enteredPin.length < 4) {
-            setPinVerification(prev => ({ 
+        if (!securityVerification.enteredPin || securityVerification.enteredPin.length < 4) {
+            setSecurityVerification(prev => ({ 
                 ...prev, 
                 error: 'PIN harus minimal 4 digit' 
             }));
             return;
         }
 
-        setPinVerification(prev => ({ ...prev, isVerifying: true, error: '' }));
+        setSecurityVerification(prev => ({ ...prev, isVerifying: true, error: '' }));
 
         try {
-            const response = await axios.post(`/api/detail-password/${selectedItem.m_detail_password_id}/verify-pin`, {
-                pin: pinVerification.enteredPin
+            const response = await axios.post(`/api/detail-password/${selectedItem.m_detail_password_id}/verify-dual-security`, {
+                user_password: securityVerification.enteredUserPassword,
+                pin: securityVerification.enteredPin
             });
 
-            if (response.data.success && response.data.pin_valid) {
-                // PIN valid, fetch detail data
-                await fetchDetailData(selectedItem.m_detail_password_id);
-                setPinVerification(prev => ({ 
+            if (response.data.success && response.data.verification_results.both_valid) {
+                // Dual verification berhasil
+                setSecurityVerification(prev => ({ 
                     ...prev, 
-                    isVerifying: false, 
-                    isVerified: true,
-                    showPinInput: false 
+                    pinVerified: true,
+                    isVerifying: false,
+                    step: 'completed',
+                    error: ''
                 }));
+
+                // Fetch full decrypted data
+                await fetchFullDecryptedData(selectedItem.m_detail_password_id);
             } else {
-                setPinVerification(prev => ({ 
+                setSecurityVerification(prev => ({ 
                     ...prev, 
                     isVerifying: false, 
                     error: 'PIN tidak valid' 
@@ -332,11 +395,29 @@ const DetailPasswordIndex = () => {
             }
         } catch (error) {
             console.error('Error verifying PIN:', error);
-            setPinVerification(prev => ({ 
+            setSecurityVerification(prev => ({ 
                 ...prev, 
                 isVerifying: false, 
                 error: error.response?.data?.message || 'Gagal memverifikasi PIN' 
             }));
+        }
+    };
+
+    // ✅ Function untuk fetch full decrypted data setelah dual verification
+    const fetchFullDecryptedData = async (id) => {
+        try {
+            const response = await axios.get(`/api/detail-password/${id}/full-data`);
+            if (response.data.success) {
+                setDetailModalData(response.data.data);
+            } else {
+                throw new Error(response.data.message || 'Gagal mengambil data lengkap');
+            }
+        } catch (error) {
+            console.error('Error fetching full decrypted data:', error);
+            showError(
+                error.response?.data?.message || 'Gagal mengambil data lengkap',
+                'Error'
+            );
         }
     };
 
@@ -345,10 +426,14 @@ const DetailPasswordIndex = () => {
         setShowDetailModal(false);
         setSelectedItem(null);
         setDetailModalData(null);
-        setPinVerification({
+        setSecurityVerification({
+            step: 'user_password',
+            userPasswordVerified: false,
+            pinVerified: false,
             isVerifying: false,
-            isVerified: false,
-            showPinInput: false,
+            creatorInfo: null,
+            hasPin: false,
+            enteredUserPassword: '',
             enteredPin: '',
             error: ''
         });
@@ -652,7 +737,7 @@ const DetailPasswordIndex = () => {
                 </div>
             )}
 
-            {/* ✅ Update Modal Detail dengan PIN Verification dan Data Decrypted */}
+            {/* ✅ Update Modal Detail dengan Dual Security Verification */}
             {showDetailModal && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
                     <div className="bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-2xl mx-4 border border-amber-500/20 max-h-[90vh] overflow-y-auto">
@@ -660,7 +745,7 @@ const DetailPasswordIndex = () => {
                             {/* Header */}
                             <div className="flex items-center justify-between mb-6">
                                 <h3 className="text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent">
-                                    Detail Password
+                                    Detail Password - Verifikasi Keamanan
                                 </h3>
                                 <button
                                     onClick={handleCloseDetailModal}
@@ -672,192 +757,298 @@ const DetailPasswordIndex = () => {
                                 </button>
                             </div>
 
-                            {/* ✅ PIN Verification Section */}
-                            {pinVerification.showPinInput && !pinVerification.isVerified && (
-                                <div className="mb-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl">
-                                    <div className="flex items-center space-x-2 mb-3">
-                                        <svg className="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span className="text-amber-300 font-semibold">Verifikasi PIN Keamanan</span>
-                                    </div>
-                                    <p className="text-amber-200/80 text-sm mb-4">
-                                        Data ini dilindungi dengan PIN keamanan. Masukkan PIN untuk melihat detail.
-                                    </p>
-                                    
-                                    <div className="flex space-x-3">
-                                        <input
-                                            type="password"
-                                            value={pinVerification.enteredPin}
-                                            onChange={(e) => {
-                                                const numericValue = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
-                                                setPinVerification(prev => ({ 
-                                                    ...prev, 
-                                                    enteredPin: numericValue,
-                                                    error: ''
-                                                }));
-                                            }}
-                                            placeholder="Masukkan PIN"
-                                            disabled={pinVerification.isVerifying}
-                                            inputMode="numeric"
-                                            pattern="[0-9]*"
-                                            className="flex-1 px-4 py-2 bg-gray-800/50 border border-amber-500/30 rounded-lg text-amber-100 placeholder-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-400/50 transition-all duration-200"
-                                            onKeyPress={(e) => {
-                                                if (e.key === 'Enter') {
-                                                    handlePinVerification();
-                                                }
-                                            }}
-                                        />
-                                        <button
-                                            onClick={handlePinVerification}
-                                            disabled={pinVerification.isVerifying || !pinVerification.enteredPin}
-                                            className="px-6 py-2 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-black rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                                        >
-                                            {pinVerification.isVerifying ? (
-                                                <div className="flex items-center space-x-2">
-                                                    <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                                    </svg>
-                                                    <span>Verifying...</span>
+                            {/* ✅ Step 1: User Password Verification */}
+                            {securityVerification.step === 'user_password' && (
+                                <div className="mb-6">
+                                    <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl mb-4">
+                                        <div className="flex items-center space-x-2 mb-3">
+                                            <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path>
+                                            </svg>
+                                            <span className="text-blue-300 font-semibold">Verifikasi Identitas Pembuat Password</span>
+                                        </div>
+                                        
+                                        {securityVerification.creatorInfo && (
+                                            <div className="bg-blue-900/20 p-3 rounded-lg mb-4">
+                                                <p className="text-blue-200 text-sm mb-2">Password ini dibuat oleh:</p>
+                                                <div className="space-y-1 text-sm">
+                                                    <p className="text-blue-100"><strong>Nama:</strong> {securityVerification.creatorInfo.nama_pengguna}</p>
+                                                    <p className="text-blue-100"><strong>Username:</strong> {securityVerification.creatorInfo.username}</p>
+                                                    <p className="text-blue-100"><strong>Email:</strong> {securityVerification.creatorInfo.email_pengguna}</p>
                                                 </div>
-                                            ) : 'Verifikasi'}
-                                        </button>
+                                            </div>
+                                        )}
+                                        
+                                        <p className="text-blue-200/80 text-sm mb-4">
+                                            Masukkan password login pengguna yang membuat password ini untuk melanjutkan.
+                                        </p>
+                                        
+                                        <div className="flex space-x-3">
+                                            <input
+                                                type="password"
+                                                value={securityVerification.enteredUserPassword}
+                                                onChange={(e) => {
+                                                    setSecurityVerification(prev => ({ 
+                                                        ...prev, 
+                                                        enteredUserPassword: e.target.value,
+                                                        error: ''
+                                                    }));
+                                                }}
+                                                placeholder="Masukkan password login pengguna"
+                                                disabled={securityVerification.isVerifying}
+                                                className="flex-1 px-4 py-2 bg-gray-800/50 border border-blue-500/30 rounded-lg text-blue-100 placeholder-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200"
+                                                onKeyPress={(e) => {
+                                                    if (e.key === 'Enter') {
+                                                        handleUserPasswordVerification();
+                                                    }
+                                                }}
+                                            />
+                                            <button
+                                                onClick={handleUserPasswordVerification}
+                                                disabled={securityVerification.isVerifying || !securityVerification.enteredUserPassword.trim()}
+                                                className="px-6 py-2 bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                            >
+                                                {securityVerification.isVerifying ? (
+                                                    <div className="flex items-center space-x-2">
+                                                        <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                        </svg>
+                                                        <span>Verifying...</span>
+                                                    </div>
+                                                ) : 'Verifikasi'}
+                                            </button>
+                                        </div>
+                                        
+                                        {securityVerification.error && (
+                                            <p className="text-red-400 text-sm mt-2">{securityVerification.error}</p>
+                                        )}
                                     </div>
-                                    
-                                    {pinVerification.error && (
-                                        <p className="text-red-400 text-sm mt-2">{pinVerification.error}</p>
-                                    )}
                                 </div>
                             )}
 
-                            {/* ✅ Detail Content - Show setelah PIN verified atau jika tidak ada PIN */}
-                            {(pinVerification.isVerified || !selectedItem?.has_pin) && (
-                                <div className="space-y-4">
-                                    {detailModalData ? (
-                                        <>
-                                            {/* ✅ Kategori Password */}
-                                            <div className="bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20">
-                                                <h4 className="text-amber-300 font-semibold mb-2">Kategori Password</h4>
-                                                <div className="flex items-center space-x-2">
-                                                    <span className="bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent font-semibold">
-                                                        {detailModalData.kategori_password?.kp_nama || 'Unknown'}
-                                                    </span>
-                                                    <span className="text-amber-200/60 text-sm">
-                                                        ({detailModalData.kategori_password?.kp_kode || 'N/A'})
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            {/* ✅ Username (Decrypted) */}
-                                            <div className="bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20">
-                                                <h4 className="text-amber-300 font-semibold mb-2">Username</h4>
-                                                <div className="flex items-center justify-between">
-                                                    <span className="font-mono bg-gray-900/50 px-3 py-2 rounded-lg text-amber-100 break-all">
-                                                        {detailModalData.dp_nama_username_decrypted || '[Error: Cannot decrypt]'}
-                                                    </span>
-                                                    <button
-                                                        onClick={() => {
-                                                            navigator.clipboard.writeText(detailModalData.dp_nama_username_decrypted || '');
-                                                            showSuccess('Username berhasil disalin!', 'Copied!');
-                                                        }}
-                                                        className="ml-2 p-2 text-amber-400 hover:text-amber-300 hover:bg-amber-500/10 rounded-lg transition-all duration-200"
-                                                        title="Salin username"
-                                                    >
-                                                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
-                                                            <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                            {/* ✅ Password (Decrypted) */}
-                                            <div className="bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20">
-                                                <h4 className="text-amber-300 font-semibold mb-2">Password</h4>
-                                                <div className="flex items-center justify-between">
-                                                    <span className="font-mono bg-gray-900/50 px-3 py-2 rounded-lg text-amber-100 break-all">
-                                                        {detailModalData.dp_nama_password_decrypted || '[Error: Cannot decrypt]'}
-                                                    </span>
-                                                    <button
-                                                        onClick={() => {
-                                                            navigator.clipboard.writeText(detailModalData.dp_nama_password_decrypted || '');
-                                                            showSuccess('Password berhasil disalin!', 'Copied!');
-                                                        }}
-                                                        className="ml-2 p-2 text-amber-400 hover:text-amber-300 hover:bg-amber-500/10 rounded-lg transition-all duration-200"
-                                                        title="Salin password"
-                                                    >
-                                                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
-                                                            <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                            {/* ✅ Keterangan */}
-                                            <div className="bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20">
-                                                <h4 className="text-amber-300 font-semibold mb-2">Keterangan</h4>
-                                                <p className="text-amber-100 leading-relaxed">
-                                                    {detailModalData.dp_keterangan || '-'}
-                                                </p>
-                                            </div>
-
-                                            {/* ✅ PIN Status (tanpa menampilkan PIN actual) */}
-                                            <div className="bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20">
-                                                <h4 className="text-amber-300 font-semibold mb-2">Keamanan PIN</h4>
-                                                <div className="flex items-center space-x-2">
-                                                    {detailModalData.has_pin ? (
-                                                        <>
-                                                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                                                            <span className="text-green-300">PIN Aktif</span>
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                                                            <span className="text-red-300">PIN Tidak Diset</span>
-                                                        </>
-                                                    )}
-                                                </div>
-                                            </div>
-
-                                            {/* ✅ Informasi Sistem */}
-                                            <div className="bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20">
-                                                <h4 className="text-amber-300 font-semibold mb-3">Informasi Sistem</h4>
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                                                    <div>
-                                                        <span className="text-amber-200/60">ID:</span>
-                                                        <span className="text-amber-100 ml-2">#{detailModalData.m_detail_password_id}</span>
-                                                    </div>
-                                                    <div>
-                                                        <span className="text-amber-200/60">Dibuat:</span>
-                                                        <span className="text-amber-100 ml-2">
-                                                            {new Date(detailModalData.created_at).toLocaleString('id-ID')}
-                                                        </span>
-                                                    </div>
-                                                    <div>
-                                                        <span className="text-amber-200/60">Diperbarui:</span>
-                                                        <span className="text-amber-100 ml-2">
-                                                            {new Date(detailModalData.updated_at).toLocaleString('id-ID')}
-                                                        </span>
-                                                    </div>
-                                                    <div>
-                                                        <span className="text-amber-200/60">Status:</span>
-                                                        <span className="text-green-300 ml-2">Aktif</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </>
-                                    ) : (
-                                        <div className="flex items-center justify-center py-8">
-                                            <div className="flex items-center space-x-3">
-                                                <div className="w-6 h-6 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full animate-spin flex items-center justify-center">
-                                                    <div className="w-3 h-3 bg-black rounded-full"></div>
-                                                </div>
-                                                <span className="text-amber-200">Memuat detail data...</span>
+                            {/* ✅ Step 2: PIN Verification (jika ada PIN) */}
+                            {securityVerification.step === 'pin' && securityVerification.hasPin && (
+                                <div className="mb-6">
+                                    <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl">
+                                        <div className="flex items-center space-x-2 mb-3">
+                                            <svg className="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"></path>
+                                            </svg>
+                                            <span className="text-amber-300 font-semibold">Verifikasi PIN Keamanan</span>
+                                        </div>
+                                        
+                                        <div className="bg-green-900/20 p-3 rounded-lg mb-4">
+                                            <div className="flex items-center space-x-2">
+                                                <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
+                                                </svg>
+                                                <span className="text-green-300 text-sm">Password pengguna terverifikasi</span>
                                             </div>
                                         </div>
-                                    )}
+                                        
+                                        <p className="text-amber-200/80 text-sm mb-4">
+                                            Sekarang masukkan PIN keamanan untuk mengakses data password.
+                                        </p>
+                                        
+                                        <div className="flex space-x-3">
+                                            <input
+                                                type="password"
+                                                value={securityVerification.enteredPin}
+                                                onChange={(e) => {
+                                                    const numericValue = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
+                                                    setSecurityVerification(prev => ({ 
+                                                        ...prev, 
+                                                        enteredPin: numericValue,
+                                                        error: ''
+                                                    }));
+                                                }}
+                                                placeholder="Masukkan PIN"
+                                                disabled={securityVerification.isVerifying}
+                                                inputMode="numeric"
+                                                pattern="[0-9]*"
+                                                className="flex-1 px-4 py-2 bg-gray-800/50 border border-amber-500/30 rounded-lg text-amber-100 placeholder-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-400/50 transition-all duration-200"
+                                                onKeyPress={(e) => {
+                                                    if (e.key === 'Enter') {
+                                                        handlePinVerification();
+                                                    }
+                                                }}
+                                            />
+                                            <button
+                                                onClick={handlePinVerification}
+                                                disabled={securityVerification.isVerifying || !securityVerification.enteredPin}
+                                                className="px-6 py-2 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-black rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                            >
+                                                {securityVerification.isVerifying ? (
+                                                    <div className="flex items-center space-x-2">
+                                                        <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                        </svg>
+                                                        <span>Verifying...</span>
+                                                    </div>
+                                                ) : 'Verifikasi'}
+                                            </button>
+                                        </div>
+                                        
+                                        {securityVerification.error && (
+                                            <p className="text-red-400 text-sm mt-2">{securityVerification.error}</p>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* ✅ Step 3: Detail Content - Show setelah semua verifikasi berhasil */}
+                            {securityVerification.step === 'completed' && detailModalData && (
+                                <div className="space-y-4">
+                                    {/* Success Indicator */}
+                                    <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4 mb-6">
+                                        <div className="flex items-center space-x-2">
+                                            <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                                            </svg>
+                                            <span className="text-green-300 font-semibold">Verifikasi Keamanan Berhasil</span>
+                                        </div>
+                                        <p className="text-green-200/80 text-sm mt-1">
+                                            Anda dapat melihat detail password yang ter-decrypt di bawah ini.
+                                        </p>
+                                    </div>
+
+                                    {/* ✅ Detail Content sama seperti sebelumnya */}
+                                    <div className="bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20">
+                                        <h4 className="text-amber-300 font-semibold mb-2">Kategori Password</h4>
+                                        <div className="flex items-center space-x-2">
+                                            <span className="bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent font-semibold">
+                                                {detailModalData.kategori_password?.kp_nama || 'Unknown'}
+                                            </span>
+                                            <span className="text-amber-200/60 text-sm">
+                                                ({detailModalData.kategori_password?.kp_kode || 'N/A'})
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* Username (Decrypted) */}
+                                    <div className="bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20">
+                                        <h4 className="text-amber-300 font-semibold mb-2">Username</h4>
+                                        <div className="flex items-center justify-between">
+                                            <span className="font-mono bg-gray-900/50 px-3 py-2 rounded-lg text-amber-100 break-all">
+                                                {detailModalData.dp_nama_username_decrypted || '[Error: Cannot decrypt]'}
+                                            </span>
+                                            <button
+                                                onClick={() => {
+                                                    navigator.clipboard.writeText(detailModalData.dp_nama_username_decrypted || '');
+                                                    showSuccess('Username berhasil disalin!', 'Copied!');
+                                                }}
+                                                className="ml-2 p-2 text-amber-400 hover:text-amber-300 hover:bg-amber-500/10 rounded-lg transition-all duration-200"
+                                                title="Salin username"
+                                            >
+                                                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
+                                                    <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Password (Decrypted) */}
+                                    <div className="bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20">
+                                        <h4 className="text-amber-300 font-semibold mb-2">Password</h4>
+                                        <div className="flex items-center justify-between">
+                                            <span className="font-mono bg-gray-900/50 px-3 py-2 rounded-lg text-amber-100 break-all">
+                                                {detailModalData.dp_nama_password_decrypted || '[Error: Cannot decrypt]'}
+                                            </span>
+                                            <button
+                                                onClick={() => {
+                                                    navigator.clipboard.writeText(detailModalData.dp_nama_password_decrypted || '');
+                                                    showSuccess('Password berhasil disalin!', 'Copied!');
+                                                }}
+                                                className="ml-2 p-2 text-amber-400 hover:text-amber-300 hover:bg-amber-500/10 rounded-lg transition-all duration-200"
+                                                title="Salin password"
+                                            >
+                                                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
+                                                    <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Keterangan */}
+                                    <div className="bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20">
+                                        <h4 className="text-amber-300 font-semibold mb-2">Keterangan</h4>
+                                        <p className="text-amber-100 leading-relaxed">
+                                            {detailModalData.dp_keterangan || '-'}
+                                        </p>
+                                    </div>
+
+                                    {/* Informasi Pembuat */}
+                                    <div className="bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20">
+                                        <h4 className="text-amber-300 font-semibold mb-2">Pembuat Password</h4>
+                                        {securityVerification.creatorInfo && (
+                                            <div className="space-y-1 text-sm">
+                                                <p className="text-amber-100"><strong>Nama:</strong> {securityVerification.creatorInfo.nama_pengguna}</p>
+                                                <p className="text-amber-100"><strong>Username:</strong> {securityVerification.creatorInfo.username}</p>
+                                                <p className="text-amber-100"><strong>Email:</strong> {securityVerification.creatorInfo.email_pengguna}</p>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* PIN Status */}
+                                    <div className="bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20">
+                                        <h4 className="text-amber-300 font-semibold mb-2">Keamanan PIN</h4>
+                                        <div className="flex items-center space-x-2">
+                                            {detailModalData.has_pin ? (
+                                                <>
+                                                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                                                    <span className="text-green-300">PIN Aktif</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <div className="w-2 h-2 bg-red-400 rounded-full"></div>
+                                                    <span className="text-red-300">PIN Tidak Diset</span>
+                                                </>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Informasi Sistem */}
+                                    <div className="bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20">
+                                        <h4 className="text-amber-300 font-semibold mb-3">Informasi Sistem</h4>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                                            <div>
+                                                <span className="text-amber-200/60">ID:</span>
+                                                <span className="text-amber-100 ml-2">#{detailModalData.m_detail_password_id}</span>
+                                            </div>
+                                            <div>
+                                                <span className="text-amber-200/60">Dibuat:</span>
+                                                <span className="text-amber-100 ml-2">
+                                                    {new Date(detailModalData.created_at).toLocaleString('id-ID')}
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span className="text-amber-200/60">Diperbarui:</span>
+                                                <span className="text-amber-100 ml-2">
+                                                    {new Date(detailModalData.updated_at).toLocaleString('id-ID')}
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span className="text-amber-200/60">Status:</span>
+                                                <span className="text-green-300 ml-2">Aktif</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Loading State */}
+                            {securityVerification.step === 'completed' && !detailModalData && (
+                                <div className="flex items-center justify-center py-8">
+                                    <div className="flex items-center space-x-3">
+                                        <div className="w-6 h-6 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full animate-spin flex items-center justify-center">
+                                            <div className="w-3 h-3 bg-black rounded-full"></div>
+                                        </div>
+                                        <span className="text-amber-200">Memuat detail data...</span>
+                                    </div>
                                 </div>
                             )}
 

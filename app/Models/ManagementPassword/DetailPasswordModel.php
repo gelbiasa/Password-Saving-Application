@@ -583,4 +583,73 @@ class DetailPasswordModel extends Model
             return collect();
         }
     }
+
+    /**
+     * ✅ Method untuk verifikasi password login pengguna yang membuat password
+     */
+    public function verifyUserPassword($password)
+    {
+        // Load relasi user jika belum di-load
+        if (!$this->relationLoaded('user')) {
+            $this->load('user');
+        }
+
+        if (!$this->user) {
+            return false;
+        }
+
+        return Hash::check($password, $this->user->password);
+    }
+
+    /**
+     * ✅ Method untuk mendapatkan info user pembuat password
+     */
+    public function getCreatorInfo()
+    {
+        // Load relasi user jika belum di-load
+        if (!$this->relationLoaded('user')) {
+            $this->load('user');
+        }
+
+        if (!$this->user) {
+            return null;
+        }
+
+        return [
+            'user_id' => $this->user->m_user_id,
+            'username' => $this->user->username,
+            'nama_pengguna' => $this->user->nama_pengguna,
+            'email_pengguna' => $this->user->email_pengguna
+        ];
+    }
+
+    /**
+     * ✅ Method untuk verifikasi dual security (User Password + PIN)
+     */
+    public function verifyDualSecurity($userPassword, $pin = null)
+    {
+        $results = [
+            'user_password_valid' => false,
+            'pin_valid' => false,
+            'both_valid' => false,
+            'creator_info' => null
+        ];
+
+        // 1. Verifikasi password user pembuat
+        $results['user_password_valid'] = $this->verifyUserPassword($userPassword);
+        $results['creator_info'] = $this->getCreatorInfo();
+
+        // 2. Verifikasi PIN (jika ada)
+        if (!empty($this->getOriginal('dp_pin')) && !empty($pin)) {
+            $results['pin_valid'] = $this->verifyPin($pin);
+        } else if (empty($this->getOriginal('dp_pin'))) {
+            // Jika tidak ada PIN, anggap PIN valid
+            $results['pin_valid'] = true;
+        }
+
+        // 3. Kedua verifikasi harus valid
+        $results['both_valid'] = $results['user_password_valid'] && $results['pin_valid'];
+
+        return $results;
+    }
 }
