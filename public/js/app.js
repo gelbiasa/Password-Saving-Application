@@ -43989,21 +43989,26 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
     formData = _useState18[0],
     setFormData = _useState18[1];
 
-  // ✅ Tambah state untuk modal detail dengan PIN verification
+  // ✅ Update state untuk dual security verification
   var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState20 = _slicedToArray(_useState19, 2),
     detailModalData = _useState20[0],
     setDetailModalData = _useState20[1];
   var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      step: 'user_password',
+      // 'user_password' -> 'pin' -> 'completed'
+      userPasswordVerified: false,
+      pinVerified: false,
       isVerifying: false,
-      isVerified: false,
-      showPinInput: false,
+      creatorInfo: null,
+      hasPin: false,
+      enteredUserPassword: '',
       enteredPin: '',
       error: ''
     }),
     _useState22 = _slicedToArray(_useState21, 2),
-    pinVerification = _useState22[0],
-    setPinVerification = _useState22[1];
+    securityVerification = _useState22[0],
+    setSecurityVerification = _useState22[1];
 
   // Use notification hook
   var _useNotification = (0,_Hooks_useNotification__WEBPACK_IMPORTED_MODULE_13__.useNotification)(),
@@ -44294,23 +44299,22 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
             _context5.p = 0;
             setSelectedItem(item);
             setDetailModalData(null);
-            setPinVerification({
+            setSecurityVerification({
+              step: 'user_password',
+              userPasswordVerified: false,
+              pinVerified: false,
               isVerifying: false,
-              isVerified: false,
-              showPinInput: item.has_pin,
-              // Show PIN input jika ada PIN
+              creatorInfo: null,
+              hasPin: false,
+              enteredUserPassword: '',
               enteredPin: '',
               error: ''
             });
             setShowDetailModal(true);
 
-            // Jika tidak ada PIN, langsung fetch detail
-            if (item.has_pin) {
-              _context5.n = 1;
-              break;
-            }
+            // Fetch basic info untuk mendapatkan creator info
             _context5.n = 1;
-            return fetchDetailData(item.m_detail_password_id);
+            return fetchBasicDetailData(item.m_detail_password_id);
           case 1:
             _context5.n = 3;
             break;
@@ -44329,10 +44333,10 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
     };
   }();
 
-  // ✅ Function untuk fetch detail data yang sudah di-decrypt
-  var fetchDetailData = /*#__PURE__*/function () {
+  // ✅ Function untuk fetch basic info tanpa decrypt sensitive data
+  var fetchBasicDetailData = /*#__PURE__*/function () {
     var _ref6 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6(id) {
-      var response, _error$response3, _t6;
+      var response, _data, _error$response3, _t6;
       return _regenerator().w(function (_context6) {
         while (1) switch (_context6.p = _context6.n) {
           case 0:
@@ -44345,53 +44349,55 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
               _context6.n = 2;
               break;
             }
-            setDetailModalData(response.data.data);
-            setPinVerification(function (prev) {
+            _data = response.data.data;
+            setDetailModalData(_data);
+            setSecurityVerification(function (prev) {
               return _objectSpread(_objectSpread({}, prev), {}, {
-                isVerified: true
+                creatorInfo: _data.creator_info,
+                hasPin: _data.has_pin
               });
             });
             _context6.n = 3;
             break;
           case 2:
-            throw new Error(response.data.message || 'Gagal mengambil detail data');
+            throw new Error(response.data.message || 'Gagal mengambil info dasar');
           case 3:
             _context6.n = 5;
             break;
           case 4:
             _context6.p = 4;
             _t6 = _context6.v;
-            console.error('Error fetching detail data:', _t6);
-            showError(((_error$response3 = _t6.response) === null || _error$response3 === void 0 || (_error$response3 = _error$response3.data) === null || _error$response3 === void 0 ? void 0 : _error$response3.message) || 'Gagal mengambil detail data', 'Error');
+            console.error('Error fetching basic detail data:', _t6);
+            showError(((_error$response3 = _t6.response) === null || _error$response3 === void 0 || (_error$response3 = _error$response3.data) === null || _error$response3 === void 0 ? void 0 : _error$response3.message) || 'Gagal mengambil info dasar', 'Error');
           case 5:
             return _context6.a(2);
         }
       }, _callee6, null, [[0, 4]]);
     }));
-    return function fetchDetailData(_x4) {
+    return function fetchBasicDetailData(_x4) {
       return _ref6.apply(this, arguments);
     };
   }();
 
-  // ✅ Function untuk verifikasi PIN
-  var handlePinVerification = /*#__PURE__*/function () {
+  // ✅ Function untuk verifikasi password user pembuat
+  var handleUserPasswordVerification = /*#__PURE__*/function () {
     var _ref7 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
       var response, _t7;
       return _regenerator().w(function (_context7) {
         while (1) switch (_context7.p = _context7.n) {
           case 0:
-            if (!(!pinVerification.enteredPin || pinVerification.enteredPin.length < 4)) {
+            if (securityVerification.enteredUserPassword.trim()) {
               _context7.n = 1;
               break;
             }
-            setPinVerification(function (prev) {
+            setSecurityVerification(function (prev) {
               return _objectSpread(_objectSpread({}, prev), {}, {
-                error: 'PIN harus minimal 4 digit'
+                error: 'Password pengguna harus diisi'
               });
             });
             return _context7.a(2);
           case 1:
-            setPinVerification(function (prev) {
+            setSecurityVerification(function (prev) {
               return _objectSpread(_objectSpread({}, prev), {}, {
                 isVerifying: true,
                 error: ''
@@ -44399,32 +44405,40 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
             });
             _context7.p = 2;
             _context7.n = 3;
-            return axios.post("/api/detail-password/".concat(selectedItem.m_detail_password_id, "/verify-pin"), {
-              pin: pinVerification.enteredPin
+            return axios.post("/api/detail-password/".concat(selectedItem.m_detail_password_id, "/verify-user-password"), {
+              user_password: securityVerification.enteredUserPassword
             });
           case 3:
             response = _context7.v;
-            if (!(response.data.success && response.data.pin_valid)) {
+            if (!(response.data.success && response.data.user_password_valid)) {
               _context7.n = 5;
               break;
             }
-            _context7.n = 4;
-            return fetchDetailData(selectedItem.m_detail_password_id);
-          case 4:
-            setPinVerification(function (prev) {
+            // Password user valid, lanjut ke step berikutnya
+            setSecurityVerification(function (prev) {
               return _objectSpread(_objectSpread({}, prev), {}, {
+                userPasswordVerified: true,
                 isVerifying: false,
-                isVerified: true,
-                showPinInput: false
+                step: prev.hasPin ? 'pin' : 'completed',
+                error: ''
               });
             });
+
+            // Jika tidak ada PIN, langsung fetch full data
+            if (securityVerification.hasPin) {
+              _context7.n = 4;
+              break;
+            }
+            _context7.n = 4;
+            return fetchFullDecryptedData(selectedItem.m_detail_password_id);
+          case 4:
             _context7.n = 6;
             break;
           case 5:
-            setPinVerification(function (prev) {
+            setSecurityVerification(function (prev) {
               return _objectSpread(_objectSpread({}, prev), {}, {
                 isVerifying: false,
-                error: 'PIN tidak valid'
+                error: 'Password pengguna tidak valid'
               });
             });
           case 6:
@@ -44433,12 +44447,12 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
           case 7:
             _context7.p = 7;
             _t7 = _context7.v;
-            console.error('Error verifying PIN:', _t7);
-            setPinVerification(function (prev) {
+            console.error('Error verifying user password:', _t7);
+            setSecurityVerification(function (prev) {
               var _error$response4;
               return _objectSpread(_objectSpread({}, prev), {}, {
                 isVerifying: false,
-                error: ((_error$response4 = _t7.response) === null || _error$response4 === void 0 || (_error$response4 = _error$response4.data) === null || _error$response4 === void 0 ? void 0 : _error$response4.message) || 'Gagal memverifikasi PIN'
+                error: ((_error$response4 = _t7.response) === null || _error$response4 === void 0 || (_error$response4 = _error$response4.data) === null || _error$response4 === void 0 ? void 0 : _error$response4.message) || 'Gagal memverifikasi password pengguna'
               });
             });
           case 8:
@@ -44446,8 +44460,130 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
         }
       }, _callee7, null, [[2, 7]]);
     }));
-    return function handlePinVerification() {
+    return function handleUserPasswordVerification() {
       return _ref7.apply(this, arguments);
+    };
+  }();
+
+  // ✅ Function untuk verifikasi PIN (step 2)
+  var handlePinVerification = /*#__PURE__*/function () {
+    var _ref8 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+      var response, _t8;
+      return _regenerator().w(function (_context8) {
+        while (1) switch (_context8.p = _context8.n) {
+          case 0:
+            if (!(!securityVerification.enteredPin || securityVerification.enteredPin.length < 4)) {
+              _context8.n = 1;
+              break;
+            }
+            setSecurityVerification(function (prev) {
+              return _objectSpread(_objectSpread({}, prev), {}, {
+                error: 'PIN harus minimal 4 digit'
+              });
+            });
+            return _context8.a(2);
+          case 1:
+            setSecurityVerification(function (prev) {
+              return _objectSpread(_objectSpread({}, prev), {}, {
+                isVerifying: true,
+                error: ''
+              });
+            });
+            _context8.p = 2;
+            _context8.n = 3;
+            return axios.post("/api/detail-password/".concat(selectedItem.m_detail_password_id, "/verify-dual-security"), {
+              user_password: securityVerification.enteredUserPassword,
+              pin: securityVerification.enteredPin
+            });
+          case 3:
+            response = _context8.v;
+            if (!(response.data.success && response.data.verification_results.both_valid)) {
+              _context8.n = 5;
+              break;
+            }
+            // Dual verification berhasil
+            setSecurityVerification(function (prev) {
+              return _objectSpread(_objectSpread({}, prev), {}, {
+                pinVerified: true,
+                isVerifying: false,
+                step: 'completed',
+                error: ''
+              });
+            });
+
+            // Fetch full decrypted data
+            _context8.n = 4;
+            return fetchFullDecryptedData(selectedItem.m_detail_password_id);
+          case 4:
+            _context8.n = 6;
+            break;
+          case 5:
+            setSecurityVerification(function (prev) {
+              return _objectSpread(_objectSpread({}, prev), {}, {
+                isVerifying: false,
+                error: 'PIN tidak valid'
+              });
+            });
+          case 6:
+            _context8.n = 8;
+            break;
+          case 7:
+            _context8.p = 7;
+            _t8 = _context8.v;
+            console.error('Error verifying PIN:', _t8);
+            setSecurityVerification(function (prev) {
+              var _error$response5;
+              return _objectSpread(_objectSpread({}, prev), {}, {
+                isVerifying: false,
+                error: ((_error$response5 = _t8.response) === null || _error$response5 === void 0 || (_error$response5 = _error$response5.data) === null || _error$response5 === void 0 ? void 0 : _error$response5.message) || 'Gagal memverifikasi PIN'
+              });
+            });
+          case 8:
+            return _context8.a(2);
+        }
+      }, _callee8, null, [[2, 7]]);
+    }));
+    return function handlePinVerification() {
+      return _ref8.apply(this, arguments);
+    };
+  }();
+
+  // ✅ Function untuk fetch full decrypted data setelah dual verification
+  var fetchFullDecryptedData = /*#__PURE__*/function () {
+    var _ref9 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9(id) {
+      var response, _error$response6, _t9;
+      return _regenerator().w(function (_context9) {
+        while (1) switch (_context9.p = _context9.n) {
+          case 0:
+            _context9.p = 0;
+            _context9.n = 1;
+            return axios.get("/api/detail-password/".concat(id, "/full-data"));
+          case 1:
+            response = _context9.v;
+            if (!response.data.success) {
+              _context9.n = 2;
+              break;
+            }
+            setDetailModalData(response.data.data);
+            _context9.n = 3;
+            break;
+          case 2:
+            throw new Error(response.data.message || 'Gagal mengambil data lengkap');
+          case 3:
+            _context9.n = 5;
+            break;
+          case 4:
+            _context9.p = 4;
+            _t9 = _context9.v;
+            console.error('Error fetching full decrypted data:', _t9);
+            showError(((_error$response6 = _t9.response) === null || _error$response6 === void 0 || (_error$response6 = _error$response6.data) === null || _error$response6 === void 0 ? void 0 : _error$response6.message) || 'Gagal mengambil data lengkap', 'Error');
+          case 5:
+            return _context9.a(2);
+        }
+      }, _callee9, null, [[0, 4]]);
+    }));
+    return function fetchFullDecryptedData(_x5) {
+      return _ref9.apply(this, arguments);
     };
   }();
 
@@ -44456,10 +44592,14 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
     setShowDetailModal(false);
     setSelectedItem(null);
     setDetailModalData(null);
-    setPinVerification({
+    setSecurityVerification({
+      step: 'user_password',
+      userPasswordVerified: false,
+      pinVerified: false,
       isVerifying: false,
-      isVerified: false,
-      showPinInput: false,
+      creatorInfo: null,
+      hasPin: false,
+      enteredUserPassword: '',
       enteredPin: '',
       error: ''
     });
@@ -44854,7 +44994,7 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
             className: "flex items-center justify-between mb-6",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h3", {
               className: "text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
-              children: "Detail Password"
+              children: "Detail Password - Verifikasi Keamanan"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
               onClick: handleCloseDetailModal,
               className: "text-amber-400 hover:text-amber-300 transition-colors duration-200 p-1 rounded-full hover:bg-amber-500/10",
@@ -44871,246 +45011,410 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                 })
               })
             })]
-          }), pinVerification.showPinInput && !pinVerification.isVerified && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-            className: "mb-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-              className: "flex items-center space-x-2 mb-3",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("svg", {
-                className: "w-5 h-5 text-amber-400",
-                fill: "currentColor",
-                viewBox: "0 0 20 20",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
-                  fillRule: "evenodd",
-                  d: "M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z",
-                  clipRule: "evenodd"
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                className: "text-amber-300 font-semibold",
-                children: "Verifikasi PIN Keamanan"
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
-              className: "text-amber-200/80 text-sm mb-4",
-              children: "Data ini dilindungi dengan PIN keamanan. Masukkan PIN untuk melihat detail."
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-              className: "flex space-x-3",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("input", {
-                type: "password",
-                value: pinVerification.enteredPin,
-                onChange: function onChange(e) {
-                  var numericValue = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
-                  setPinVerification(function (prev) {
-                    return _objectSpread(_objectSpread({}, prev), {}, {
-                      enteredPin: numericValue,
-                      error: ''
-                    });
-                  });
-                },
-                placeholder: "Masukkan PIN",
-                disabled: pinVerification.isVerifying,
-                inputMode: "numeric",
-                pattern: "[0-9]*",
-                className: "flex-1 px-4 py-2 bg-gray-800/50 border border-amber-500/30 rounded-lg text-amber-100 placeholder-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-400/50 transition-all duration-200",
-                onKeyPress: function onKeyPress(e) {
-                  if (e.key === 'Enter') {
-                    handlePinVerification();
-                  }
-                }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
-                onClick: handlePinVerification,
-                disabled: pinVerification.isVerifying || !pinVerification.enteredPin,
-                className: "px-6 py-2 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-black rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed",
-                children: pinVerification.isVerifying ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-                  className: "flex items-center space-x-2",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("svg", {
-                    className: "animate-spin h-4 w-4",
-                    xmlns: "http://www.w3.org/2000/svg",
-                    fill: "none",
-                    viewBox: "0 0 24 24",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("circle", {
-                      className: "opacity-25",
-                      cx: "12",
-                      cy: "12",
-                      r: "10",
-                      stroke: "currentColor",
-                      strokeWidth: "4"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
-                      className: "opacity-75",
-                      fill: "currentColor",
-                      d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                    children: "Verifying..."
-                  })]
-                }) : 'Verifikasi'
-              })]
-            }), pinVerification.error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
-              className: "text-red-400 text-sm mt-2",
-              children: pinVerification.error
-            })]
-          }), (pinVerification.isVerified || !(selectedItem !== null && selectedItem !== void 0 && selectedItem.has_pin)) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
-            className: "space-y-4",
-            children: detailModalData ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.Fragment, {
+          }), securityVerification.step === 'user_password' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+            className: "mb-6",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+              className: "p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl mb-4",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-                className: "bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
-                  className: "text-amber-300 font-semibold mb-2",
-                  children: "Kategori Password"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-                  className: "flex items-center space-x-2",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                    className: "bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent font-semibold",
-                    children: ((_detailModalData$kate = detailModalData.kategori_password) === null || _detailModalData$kate === void 0 ? void 0 : _detailModalData$kate.kp_nama) || 'Unknown'
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("span", {
-                    className: "text-amber-200/60 text-sm",
-                    children: ["(", ((_detailModalData$kate2 = detailModalData.kategori_password) === null || _detailModalData$kate2 === void 0 ? void 0 : _detailModalData$kate2.kp_kode) || 'N/A', ")"]
-                  })]
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-                className: "bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
-                  className: "text-amber-300 font-semibold mb-2",
-                  children: "Username"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-                  className: "flex items-center justify-between",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                    className: "font-mono bg-gray-900/50 px-3 py-2 rounded-lg text-amber-100 break-all",
-                    children: detailModalData.dp_nama_username_decrypted || '[Error: Cannot decrypt]'
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
-                    onClick: function onClick() {
-                      navigator.clipboard.writeText(detailModalData.dp_nama_username_decrypted || '');
-                      showSuccess('Username berhasil disalin!', 'Copied!');
-                    },
-                    className: "ml-2 p-2 text-amber-400 hover:text-amber-300 hover:bg-amber-500/10 rounded-lg transition-all duration-200",
-                    title: "Salin username",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("svg", {
-                      className: "w-4 h-4",
-                      fill: "currentColor",
-                      viewBox: "0 0 20 20",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
-                        d: "M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
-                        d: "M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"
-                      })]
-                    })
-                  })]
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-                className: "bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
-                  className: "text-amber-300 font-semibold mb-2",
-                  children: "Password"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-                  className: "flex items-center justify-between",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                    className: "font-mono bg-gray-900/50 px-3 py-2 rounded-lg text-amber-100 break-all",
-                    children: detailModalData.dp_nama_password_decrypted || '[Error: Cannot decrypt]'
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
-                    onClick: function onClick() {
-                      navigator.clipboard.writeText(detailModalData.dp_nama_password_decrypted || '');
-                      showSuccess('Password berhasil disalin!', 'Copied!');
-                    },
-                    className: "ml-2 p-2 text-amber-400 hover:text-amber-300 hover:bg-amber-500/10 rounded-lg transition-all duration-200",
-                    title: "Salin password",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("svg", {
-                      className: "w-4 h-4",
-                      fill: "currentColor",
-                      viewBox: "0 0 20 20",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
-                        d: "M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
-                        d: "M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"
-                      })]
-                    })
-                  })]
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-                className: "bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
-                  className: "text-amber-300 font-semibold mb-2",
-                  children: "Keterangan"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
-                  className: "text-amber-100 leading-relaxed",
-                  children: detailModalData.dp_keterangan || '-'
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-                className: "bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
-                  className: "text-amber-300 font-semibold mb-2",
-                  children: "Keamanan PIN"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
-                  className: "flex items-center space-x-2",
-                  children: detailModalData.has_pin ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.Fragment, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
-                      className: "w-2 h-2 bg-green-400 rounded-full"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                      className: "text-green-300",
-                      children: "PIN Aktif"
-                    })]
-                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.Fragment, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
-                      className: "w-2 h-2 bg-red-400 rounded-full"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                      className: "text-red-300",
-                      children: "PIN Tidak Diset"
-                    })]
-                  })
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-                className: "bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
-                  className: "text-amber-300 font-semibold mb-3",
-                  children: "Informasi Sistem"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-                  className: "grid grid-cols-1 md:grid-cols-2 gap-3 text-sm",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                      className: "text-amber-200/60",
-                      children: "ID:"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("span", {
-                      className: "text-amber-100 ml-2",
-                      children: ["#", detailModalData.m_detail_password_id]
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                      className: "text-amber-200/60",
-                      children: "Dibuat:"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                      className: "text-amber-100 ml-2",
-                      children: new Date(detailModalData.created_at).toLocaleString('id-ID')
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                      className: "text-amber-200/60",
-                      children: "Diperbarui:"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                      className: "text-amber-100 ml-2",
-                      children: new Date(detailModalData.updated_at).toLocaleString('id-ID')
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                      className: "text-amber-200/60",
-                      children: "Status:"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                      className: "text-green-300 ml-2",
-                      children: "Aktif"
-                    })]
-                  })]
-                })]
-              })]
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
-              className: "flex items-center justify-center py-8",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-                className: "flex items-center space-x-3",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
-                  className: "w-6 h-6 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full animate-spin flex items-center justify-center",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
-                    className: "w-3 h-3 bg-black rounded-full"
+                className: "flex items-center space-x-2 mb-3",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("svg", {
+                  className: "w-5 h-5 text-blue-400",
+                  fill: "currentColor",
+                  viewBox: "0 0 20 20",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
+                    fillRule: "evenodd",
+                    d: "M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z",
+                    clipRule: "evenodd"
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                  className: "text-amber-200",
-                  children: "Memuat detail data..."
+                  className: "text-blue-300 font-semibold",
+                  children: "Verifikasi Identitas Pembuat Password"
                 })]
-              })
+              }), securityVerification.creatorInfo && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                className: "bg-blue-900/20 p-3 rounded-lg mb-4",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+                  className: "text-blue-200 text-sm mb-2",
+                  children: "Password ini dibuat oleh:"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                  className: "space-y-1 text-sm",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("p", {
+                    className: "text-blue-100",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("strong", {
+                      children: "Nama:"
+                    }), " ", securityVerification.creatorInfo.nama_pengguna]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("p", {
+                    className: "text-blue-100",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("strong", {
+                      children: "Username:"
+                    }), " ", securityVerification.creatorInfo.username]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("p", {
+                    className: "text-blue-100",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("strong", {
+                      children: "Email:"
+                    }), " ", securityVerification.creatorInfo.email_pengguna]
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+                className: "text-blue-200/80 text-sm mb-4",
+                children: "Masukkan password login pengguna yang membuat password ini untuk melanjutkan."
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                className: "flex space-x-3",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("input", {
+                  type: "password",
+                  value: securityVerification.enteredUserPassword,
+                  onChange: function onChange(e) {
+                    setSecurityVerification(function (prev) {
+                      return _objectSpread(_objectSpread({}, prev), {}, {
+                        enteredUserPassword: e.target.value,
+                        error: ''
+                      });
+                    });
+                  },
+                  placeholder: "Masukkan password login pengguna",
+                  disabled: securityVerification.isVerifying,
+                  className: "flex-1 px-4 py-2 bg-gray-800/50 border border-blue-500/30 rounded-lg text-blue-100 placeholder-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200",
+                  onKeyPress: function onKeyPress(e) {
+                    if (e.key === 'Enter') {
+                      handleUserPasswordVerification();
+                    }
+                  }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
+                  onClick: handleUserPasswordVerification,
+                  disabled: securityVerification.isVerifying || !securityVerification.enteredUserPassword.trim(),
+                  className: "px-6 py-2 bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed",
+                  children: securityVerification.isVerifying ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                    className: "flex items-center space-x-2",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("svg", {
+                      className: "animate-spin h-4 w-4",
+                      xmlns: "http://www.w3.org/2000/svg",
+                      fill: "none",
+                      viewBox: "0 0 24 24",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("circle", {
+                        className: "opacity-25",
+                        cx: "12",
+                        cy: "12",
+                        r: "10",
+                        stroke: "currentColor",
+                        strokeWidth: "4"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
+                        className: "opacity-75",
+                        fill: "currentColor",
+                        d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      })]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                      children: "Verifying..."
+                    })]
+                  }) : 'Verifikasi'
+                })]
+              }), securityVerification.error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+                className: "text-red-400 text-sm mt-2",
+                children: securityVerification.error
+              })]
+            })
+          }), securityVerification.step === 'pin' && securityVerification.hasPin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+            className: "mb-6",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+              className: "p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                className: "flex items-center space-x-2 mb-3",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("svg", {
+                  className: "w-5 h-5 text-amber-400",
+                  fill: "currentColor",
+                  viewBox: "0 0 20 20",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
+                    fillRule: "evenodd",
+                    d: "M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z",
+                    clipRule: "evenodd"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                  className: "text-amber-300 font-semibold",
+                  children: "Verifikasi PIN Keamanan"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+                className: "bg-green-900/20 p-3 rounded-lg mb-4",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                  className: "flex items-center space-x-2",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("svg", {
+                    className: "w-4 h-4 text-green-400",
+                    fill: "currentColor",
+                    viewBox: "0 0 20 20",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
+                      fillRule: "evenodd",
+                      d: "M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z",
+                      clipRule: "evenodd"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                    className: "text-green-300 text-sm",
+                    children: "Password pengguna terverifikasi"
+                  })]
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+                className: "text-amber-200/80 text-sm mb-4",
+                children: "Sekarang masukkan PIN keamanan untuk mengakses data password."
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                className: "flex space-x-3",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("input", {
+                  type: "password",
+                  value: securityVerification.enteredPin,
+                  onChange: function onChange(e) {
+                    var numericValue = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
+                    setSecurityVerification(function (prev) {
+                      return _objectSpread(_objectSpread({}, prev), {}, {
+                        enteredPin: numericValue,
+                        error: ''
+                      });
+                    });
+                  },
+                  placeholder: "Masukkan PIN",
+                  disabled: securityVerification.isVerifying,
+                  inputMode: "numeric",
+                  pattern: "[0-9]*",
+                  className: "flex-1 px-4 py-2 bg-gray-800/50 border border-amber-500/30 rounded-lg text-amber-100 placeholder-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-400/50 transition-all duration-200",
+                  onKeyPress: function onKeyPress(e) {
+                    if (e.key === 'Enter') {
+                      handlePinVerification();
+                    }
+                  }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
+                  onClick: handlePinVerification,
+                  disabled: securityVerification.isVerifying || !securityVerification.enteredPin,
+                  className: "px-6 py-2 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-black rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed",
+                  children: securityVerification.isVerifying ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                    className: "flex items-center space-x-2",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("svg", {
+                      className: "animate-spin h-4 w-4",
+                      xmlns: "http://www.w3.org/2000/svg",
+                      fill: "none",
+                      viewBox: "0 0 24 24",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("circle", {
+                        className: "opacity-25",
+                        cx: "12",
+                        cy: "12",
+                        r: "10",
+                        stroke: "currentColor",
+                        strokeWidth: "4"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
+                        className: "opacity-75",
+                        fill: "currentColor",
+                        d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      })]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                      children: "Verifying..."
+                    })]
+                  }) : 'Verifikasi'
+                })]
+              }), securityVerification.error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+                className: "text-red-400 text-sm mt-2",
+                children: securityVerification.error
+              })]
+            })
+          }), securityVerification.step === 'completed' && detailModalData && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+            className: "space-y-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+              className: "bg-green-500/10 border border-green-500/30 rounded-xl p-4 mb-6",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                className: "flex items-center space-x-2",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("svg", {
+                  className: "w-5 h-5 text-green-400",
+                  fill: "currentColor",
+                  viewBox: "0 0 20 20",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
+                    fillRule: "evenodd",
+                    d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z",
+                    clipRule: "evenodd"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                  className: "text-green-300 font-semibold",
+                  children: "Verifikasi Keamanan Berhasil"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+                className: "text-green-200/80 text-sm mt-1",
+                children: "Anda dapat melihat detail password yang ter-decrypt di bawah ini."
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+              className: "bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
+                className: "text-amber-300 font-semibold mb-2",
+                children: "Kategori Password"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                className: "flex items-center space-x-2",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                  className: "bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent font-semibold",
+                  children: ((_detailModalData$kate = detailModalData.kategori_password) === null || _detailModalData$kate === void 0 ? void 0 : _detailModalData$kate.kp_nama) || 'Unknown'
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("span", {
+                  className: "text-amber-200/60 text-sm",
+                  children: ["(", ((_detailModalData$kate2 = detailModalData.kategori_password) === null || _detailModalData$kate2 === void 0 ? void 0 : _detailModalData$kate2.kp_kode) || 'N/A', ")"]
+                })]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+              className: "bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
+                className: "text-amber-300 font-semibold mb-2",
+                children: "Username"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                className: "flex items-center justify-between",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                  className: "font-mono bg-gray-900/50 px-3 py-2 rounded-lg text-amber-100 break-all",
+                  children: detailModalData.dp_nama_username_decrypted || '[Error: Cannot decrypt]'
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
+                  onClick: function onClick() {
+                    navigator.clipboard.writeText(detailModalData.dp_nama_username_decrypted || '');
+                    showSuccess('Username berhasil disalin!', 'Copied!');
+                  },
+                  className: "ml-2 p-2 text-amber-400 hover:text-amber-300 hover:bg-amber-500/10 rounded-lg transition-all duration-200",
+                  title: "Salin username",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("svg", {
+                    className: "w-4 h-4",
+                    fill: "currentColor",
+                    viewBox: "0 0 20 20",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
+                      d: "M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
+                      d: "M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"
+                    })]
+                  })
+                })]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+              className: "bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
+                className: "text-amber-300 font-semibold mb-2",
+                children: "Password"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                className: "flex items-center justify-between",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                  className: "font-mono bg-gray-900/50 px-3 py-2 rounded-lg text-amber-100 break-all",
+                  children: detailModalData.dp_nama_password_decrypted || '[Error: Cannot decrypt]'
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
+                  onClick: function onClick() {
+                    navigator.clipboard.writeText(detailModalData.dp_nama_password_decrypted || '');
+                    showSuccess('Password berhasil disalin!', 'Copied!');
+                  },
+                  className: "ml-2 p-2 text-amber-400 hover:text-amber-300 hover:bg-amber-500/10 rounded-lg transition-all duration-200",
+                  title: "Salin password",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("svg", {
+                    className: "w-4 h-4",
+                    fill: "currentColor",
+                    viewBox: "0 0 20 20",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
+                      d: "M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("path", {
+                      d: "M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"
+                    })]
+                  })
+                })]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+              className: "bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
+                className: "text-amber-300 font-semibold mb-2",
+                children: "Keterangan"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+                className: "text-amber-100 leading-relaxed",
+                children: detailModalData.dp_keterangan || '-'
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+              className: "bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
+                className: "text-amber-300 font-semibold mb-2",
+                children: "Pembuat Password"
+              }), securityVerification.creatorInfo && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                className: "space-y-1 text-sm",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("p", {
+                  className: "text-amber-100",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("strong", {
+                    children: "Nama:"
+                  }), " ", securityVerification.creatorInfo.nama_pengguna]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("p", {
+                  className: "text-amber-100",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("strong", {
+                    children: "Username:"
+                  }), " ", securityVerification.creatorInfo.username]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("p", {
+                  className: "text-amber-100",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("strong", {
+                    children: "Email:"
+                  }), " ", securityVerification.creatorInfo.email_pengguna]
+                })]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+              className: "bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
+                className: "text-amber-300 font-semibold mb-2",
+                children: "Keamanan PIN"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+                className: "flex items-center space-x-2",
+                children: detailModalData.has_pin ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.Fragment, {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+                    className: "w-2 h-2 bg-green-400 rounded-full"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                    className: "text-green-300",
+                    children: "PIN Aktif"
+                  })]
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.Fragment, {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+                    className: "w-2 h-2 bg-red-400 rounded-full"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                    className: "text-red-300",
+                    children: "PIN Tidak Diset"
+                  })]
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+              className: "bg-gradient-to-r from-gray-800/60 to-gray-700/60 p-4 rounded-xl border border-amber-500/20",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
+                className: "text-amber-300 font-semibold mb-3",
+                children: "Informasi Sistem"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                className: "grid grid-cols-1 md:grid-cols-2 gap-3 text-sm",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                    className: "text-amber-200/60",
+                    children: "ID:"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("span", {
+                    className: "text-amber-100 ml-2",
+                    children: ["#", detailModalData.m_detail_password_id]
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                    className: "text-amber-200/60",
+                    children: "Dibuat:"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                    className: "text-amber-100 ml-2",
+                    children: new Date(detailModalData.created_at).toLocaleString('id-ID')
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                    className: "text-amber-200/60",
+                    children: "Diperbarui:"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                    className: "text-amber-100 ml-2",
+                    children: new Date(detailModalData.updated_at).toLocaleString('id-ID')
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                    className: "text-amber-200/60",
+                    children: "Status:"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                    className: "text-green-300 ml-2",
+                    children: "Aktif"
+                  })]
+                })]
+              })]
+            })]
+          }), securityVerification.step === 'completed' && !detailModalData && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+            className: "flex items-center justify-center py-8",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+              className: "flex items-center space-x-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+                className: "w-6 h-6 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full animate-spin flex items-center justify-center",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+                  className: "w-3 h-3 bg-black rounded-full"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                className: "text-amber-200",
+                children: "Memuat detail data..."
+              })]
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
             className: "flex justify-end pt-4 mt-6 border-t border-amber-500/20",
