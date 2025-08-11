@@ -44664,7 +44664,7 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("th", {
                       className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
                       children: "PIN"
-                    }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("th", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("th", {
                       className: "px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider",
                       children: "Keterangan"
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("th", {
@@ -44678,10 +44678,10 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("tbody", {
                   className: "divide-y divide-amber-500/10",
                   children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("tr", {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("td", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
                       colSpan: "8",
                       className: "px-6 py-8 text-center",
-                      children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
                         className: "flex items-center justify-center space-x-3",
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
                           className: "w-6 h-6 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full animate-spin flex items-center justify-center",
@@ -44692,13 +44692,13 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                           className: "text-amber-200",
                           children: "Memuat data..."
                         })]
-                      })]
+                      })
                     })
                   }) : data.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("tr", {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("td", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
                       colSpan: "8",
                       className: "px-6 py-8 text-center",
-                      children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
                         className: "text-amber-300/60",
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("svg", {
                           className: "w-12 h-12 mx-auto mb-3 opacity-50",
@@ -44715,7 +44715,7 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                           className: "text-xs mt-1",
                           children: "Klik tombol \"Tambah Password\" untuk mulai menambahkan"
                         })]
-                      })]
+                      })
                     })
                   }) : data.map(function (item, index) {
                     var _item$kategori_passwo2;
@@ -44732,26 +44732,41 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
                         className: "px-6 py-4 whitespace-nowrap",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                          className: "text-sm text-amber-100 font-mono bg-gray-800/50 px-2 py-1 rounded",
-                          children: item.dp_nama_username_masked || '***'
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
-                        className: "px-6 py-4 whitespace-nowrap",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                          className: "text-sm text-amber-100 font-mono bg-gray-800/50 px-2 py-1 rounded",
-                          children: item.dp_nama_password_masked || '***'
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                          className: "flex items-center space-x-2",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                            className: "text-sm text-amber-100 font-mono bg-gray-800/50 px-3 py-2 rounded-lg border border-amber-500/20",
+                            children: "***"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+                            className: "w-2 h-2 bg-amber-400 rounded-full opacity-50",
+                            title: "Data terenkripsi"
+                          })]
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
                         className: "px-6 py-4 whitespace-nowrap",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
                           className: "flex items-center space-x-2",
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
-                            className: "text-sm text-amber-100 font-mono bg-gray-800/50 px-2 py-1 rounded",
-                            children: item.dp_pin_masked || '****'
-                          }), item.has_pin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+                            className: "text-sm text-amber-100 font-mono bg-gray-800/50 px-3 py-2 rounded-lg border border-amber-500/20",
+                            children: "***"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+                            className: "w-2 h-2 bg-red-400 rounded-full opacity-50",
+                            title: "Data terenkripsi"
+                          })]
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
+                        className: "px-6 py-4 whitespace-nowrap",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+                          className: "flex items-center space-x-2",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+                            className: "text-sm text-amber-100 font-mono bg-gray-800/50 px-3 py-2 rounded-lg border border-amber-500/20",
+                            children: "***"
+                          }), item.has_pin ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
                             className: "w-2 h-2 bg-green-400 rounded-full",
                             title: "PIN telah diset"
+                          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+                            className: "w-2 h-2 bg-gray-400 rounded-full opacity-30",
+                            title: "PIN belum diset"
                           })]
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("td", {
