@@ -133,11 +133,12 @@ class DetailPasswordModel extends Model
                     // Data dalam format base64 encrypted Laravel
                     $decrypted = Crypt::decryptString($data['dp_nama_username']);
                     $data['dp_nama_username_decrypted'] = $decrypted;
-                    $data['dp_nama_username_masked'] = $this->maskSensitiveData($decrypted);
+                    // ✅ Ubah mask menjadi 3 bintang untuk list
+                    $data['dp_nama_username_masked'] = '***';
                 } else {
                     // Data mungkin plain text atau format lain
                     $data['dp_nama_username_decrypted'] = $data['dp_nama_username'];
-                    $data['dp_nama_username_masked'] = $this->maskSensitiveData($data['dp_nama_username']);
+                    $data['dp_nama_username_masked'] = '***';
                 }
             } catch (\Exception $e) {
                 Log::error('Error decrypting username for ID ' . $this->m_detail_password_id . ': ' . $e->getMessage());
@@ -161,11 +162,12 @@ class DetailPasswordModel extends Model
                     // Data dalam format base64 encrypted Laravel
                     $decrypted = Crypt::decryptString($data['dp_nama_password']);
                     $data['dp_nama_password_decrypted'] = $decrypted;
-                    $data['dp_nama_password_masked'] = $this->maskPassword($decrypted);
+                    // ✅ Ubah mask menjadi 3 bintang untuk list
+                    $data['dp_nama_password_masked'] = '***';
                 } else {
                     // Data mungkin plain text atau format lain
                     $data['dp_nama_password_decrypted'] = $data['dp_nama_password'];
-                    $data['dp_nama_password_masked'] = $this->maskPassword($data['dp_nama_password']);
+                    $data['dp_nama_password_masked'] = '***';
                 }
             } catch (\Exception $e) {
                 Log::error('Error decrypting password for ID ' . $this->m_detail_password_id . ': ' . $e->getMessage());
@@ -180,8 +182,8 @@ class DetailPasswordModel extends Model
             $data['dp_nama_password_masked'] = '***';
         }
 
-        // ✅ PIN status dan masking
-        $data['dp_pin_masked'] = !empty($data['dp_pin']) ? '****' : 'Not Set';
+        // ✅ PIN status dan masking - ubah menjadi 3 bintang
+        $data['dp_pin_masked'] = !empty($data['dp_pin']) ? '***' : '***'; // Selalu 3 bintang
         $data['has_pin'] = !empty($data['dp_pin']);
 
         return $data;
@@ -201,26 +203,6 @@ class DetailPasswordModel extends Model
             'username_starts_with' => substr($this->getOriginal('dp_nama_username'), 0, 10),
             'password_starts_with' => substr($this->getOriginal('dp_nama_password'), 0, 10),
         ];
-    }
-
-    /**
-     * Mask sensitive data untuk tampilan
-     */
-    private function maskSensitiveData($data)
-    {
-        if (strlen($data) <= 3) {
-            return str_repeat('*', strlen($data));
-        }
-        
-        return substr($data, 0, 2) . str_repeat('*', strlen($data) - 4) . substr($data, -2);
-    }
-
-    /**
-     * Mask password untuk tampilan
-     */
-    private function maskPassword($password)
-    {
-        return str_repeat('*', strlen($password));
     }
 
     // ✅ Method untuk tes decryption
