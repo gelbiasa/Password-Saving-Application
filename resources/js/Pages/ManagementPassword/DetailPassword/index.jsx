@@ -482,7 +482,7 @@ const DetailPasswordIndex = () => {
                                             <th className="px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider">Kategori</th>
                                             <th className="px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider">Username</th>
                                             <th className="px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider">Password</th>
-                                            <th className="px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider">PIN</th> {/* ✅ Tambah kolom PIN */}
+                                            <th className="px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider">PIN</th>
                                             <th className="px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider">Keterangan</th>
                                             <th className="px-6 py-4 text-left text-xs font-semibold text-amber-300 uppercase tracking-wider">Tanggal Dibuat</th>
                                             <th className="px-6 py-4 text-center text-xs font-semibold text-amber-300 uppercase tracking-wider">Aksi</th>
@@ -491,7 +491,7 @@ const DetailPasswordIndex = () => {
                                     <tbody className="divide-y divide-amber-500/10">
                                         {loading ? (
                                             <tr>
-                                                <td colSpan="8" className="px-6 py-8 text-center"> {/* ✅ Update colspan */}
+                                                <td colSpan="8" className="px-6 py-8 text-center">
                                                     <div className="flex items-center justify-center space-x-3">
                                                         <div className="w-6 h-6 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full animate-spin flex items-center justify-center">
                                                             <div className="w-3 h-3 bg-black rounded-full"></div>
@@ -502,7 +502,7 @@ const DetailPasswordIndex = () => {
                                             </tr>
                                         ) : data.length === 0 ? (
                                             <tr>
-                                                <td colSpan="8" className="px-6 py-8 text-center"> {/* ✅ Update colspan */}
+                                                <td colSpan="8" className="px-6 py-8 text-center">
                                                     <div className="text-amber-300/60">
                                                         <svg className="w-12 h-12 mx-auto mb-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
                                                             <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"></path>
@@ -521,24 +521,34 @@ const DetailPasswordIndex = () => {
                                                             {item.kategori_password?.kp_nama || 'Unknown'}
                                                         </span>
                                                     </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap">
-                                                        <span className="text-sm text-amber-100 font-mono bg-gray-800/50 px-2 py-1 rounded">
-                                                            {item.dp_nama_username_masked || '***'}
-                                                        </span>
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap">
-                                                        <span className="text-sm text-amber-100 font-mono bg-gray-800/50 px-2 py-1 rounded">
-                                                            {item.dp_nama_password_masked || '***'}
-                                                        </span>
-                                                    </td>
-                                                    {/* ✅ Tambah kolom PIN */}
+                                                    {/* ✅ Username - hanya tampilkan 3 bintang */}
                                                     <td className="px-6 py-4 whitespace-nowrap">
                                                         <div className="flex items-center space-x-2">
-                                                            <span className="text-sm text-amber-100 font-mono bg-gray-800/50 px-2 py-1 rounded">
-                                                                {item.dp_pin_masked || '****'}
+                                                            <span className="text-sm text-amber-100 font-mono bg-gray-800/50 px-3 py-2 rounded-lg border border-amber-500/20">
+                                                                ***
                                                             </span>
-                                                            {item.has_pin && (
+                                                            <div className="w-2 h-2 bg-amber-400 rounded-full opacity-50" title="Data terenkripsi"></div>
+                                                        </div>
+                                                    </td>
+                                                    {/* ✅ Password - hanya tampilkan 3 bintang */}
+                                                    <td className="px-6 py-4 whitespace-nowrap">
+                                                        <div className="flex items-center space-x-2">
+                                                            <span className="text-sm text-amber-100 font-mono bg-gray-800/50 px-3 py-2 rounded-lg border border-amber-500/20">
+                                                                ***
+                                                            </span>
+                                                            <div className="w-2 h-2 bg-red-400 rounded-full opacity-50" title="Data terenkripsi"></div>
+                                                        </div>
+                                                    </td>
+                                                    {/* ✅ PIN - hanya tampilkan 3 bintang */}
+                                                    <td className="px-6 py-4 whitespace-nowrap">
+                                                        <div className="flex items-center space-x-2">
+                                                            <span className="text-sm text-amber-100 font-mono bg-gray-800/50 px-3 py-2 rounded-lg border border-amber-500/20">
+                                                                ***
+                                                            </span>
+                                                            {item.has_pin ? (
                                                                 <div className="w-2 h-2 bg-green-400 rounded-full" title="PIN telah diset"></div>
+                                                            ) : (
+                                                                <div className="w-2 h-2 bg-gray-400 rounded-full opacity-30" title="PIN belum diset"></div>
                                                             )}
                                                         </div>
                                                     </td>
