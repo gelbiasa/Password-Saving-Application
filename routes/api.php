@@ -28,6 +28,8 @@ Route::post('/set-hak-akses', [AuthController::class, 'setHakAkses'])->middlewar
 Route::get('/current-user', [AuthController::class, 'getCurrentUser'])->middleware('web'); // Route baru
 
 Route::get('/dashboard-data', [DashboardController::class, 'getDashboardData']);
+Route::get('/dashboard-admin-data', [DashboardController::class, 'getDashboardAdminData'])->middleware('web'); // ✅ New route
+
 Route::middleware('web')->group(function () {
     Route::get('/kategori-password', [KategoriPasswordController::class, 'getData']);
     Route::get('/kategori-password/count', [KategoriPasswordController::class, 'getCount']); // New route
