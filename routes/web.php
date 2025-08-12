@@ -29,6 +29,7 @@ Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard-admin', [DashboardController::class, 'index'])->name('dashboard-admin'); // ✅ New route
     Route::get('/kategori-password', [KategoriPasswordController::class, 'index'])->name('kategori-password');
     Route::get('/detail-password', [DetailPasswordController::class, 'index']); // Add this
 });
