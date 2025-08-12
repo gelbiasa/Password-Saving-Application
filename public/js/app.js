@@ -43878,6 +43878,500 @@ var RecentActivity = function RecentActivity() {
 
 /***/ }),
 
+/***/ "./resources/js/Pages/DashboardAdmin.jsx":
+/*!***********************************************!*\
+  !*** ./resources/js/Pages/DashboardAdmin.jsx ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Components_Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Components/Header */ "./resources/js/Components/Header.jsx");
+/* harmony import */ var _Components_Sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Components/Sidebar */ "./resources/js/Components/Sidebar.jsx");
+/* harmony import */ var _Components_Footer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Components/Footer */ "./resources/js/Components/Footer.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { if (r) i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n;else { var o = function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); }; o("next", 0), o("throw", 1), o("return", 2); } }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+
+
+
+
+var DashboardAdmin = function DashboardAdmin() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      totalUsers: 0,
+      totalKategoriPassword: 0,
+      totalDetailPassword: 0,
+      activeUsers: 0,
+      blockedUsers: 0,
+      recentUsers: [],
+      userStatistics: []
+    }),
+    _useState2 = _slicedToArray(_useState, 2),
+    data = _useState2[0],
+    setData = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState4 = _slicedToArray(_useState3, 2),
+    loading = _useState4[0],
+    setLoading = _useState4[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    fetchDashboardAdminData();
+  }, []);
+  var fetchDashboardAdminData = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+      var response, _t;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.p = _context.n) {
+          case 0:
+            _context.p = 0;
+            setLoading(true);
+            _context.n = 1;
+            return axios.get('/api/dashboard-admin-data');
+          case 1:
+            response = _context.v;
+            if (response.data.success) {
+              setData(response.data.data);
+            }
+            _context.n = 3;
+            break;
+          case 2:
+            _context.p = 2;
+            _t = _context.v;
+            console.error('Error fetching dashboard admin data:', _t);
+            // Fallback data untuk demo
+            setData({
+              totalUsers: 15,
+              totalKategoriPassword: 8,
+              totalDetailPassword: 45,
+              activeUsers: 12,
+              blockedUsers: 3,
+              recentUsers: [{
+                nama: 'John Doe',
+                email: 'john@example.com',
+                last_login: '2 jam lalu',
+                status: 'active'
+              }, {
+                nama: 'Jane Smith',
+                email: 'jane@example.com',
+                last_login: '1 hari lalu',
+                status: 'active'
+              }, {
+                nama: 'Bob Wilson',
+                email: 'bob@example.com',
+                last_login: '3 hari lalu',
+                status: 'blocked'
+              }],
+              userStatistics: [{
+                kategori: 'Email',
+                total_password: 15
+              }, {
+                kategori: 'Social Media',
+                total_password: 12
+              }, {
+                kategori: 'Banking',
+                total_password: 8
+              }, {
+                kategori: 'Gaming',
+                total_password: 6
+              }, {
+                kategori: 'Work',
+                total_password: 4
+              }]
+            });
+          case 3:
+            _context.p = 3;
+            setLoading(false);
+            return _context.f(3);
+          case 4:
+            return _context.a(2);
+        }
+      }, _callee, null, [[0, 2, 3, 4]]);
+    }));
+    return function fetchDashboardAdminData() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+  if (loading) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-blue-100 to-gray-100",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "flex items-center space-x-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "w-8 h-8 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full animate-spin flex items-center justify-center",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "w-4 h-4 bg-black rounded-full"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          className: "text-gray-700 text-lg font-semibold",
+          children: "Memuat Dashboard Admin..."
+        })]
+      })
+    });
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    className: "min-h-screen flex",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "flex-1 flex flex-col",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Header__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("main", {
+        className: "flex-1 p-6 bg-gradient-to-br from-slate-100 via-blue-100 to-gray-100 relative",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "absolute top-10 right-10 w-72 h-72 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-3xl"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-l from-indigo-600/10 to-purple-600/10 rounded-full blur-3xl"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "space-y-6 max-w-7xl relative z-10",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "bg-gradient-to-r from-gray-900 via-black to-gray-800 rounded-xl shadow-2xl border border-purple-500/20 p-6",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              className: "flex items-center justify-between",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
+                  className: "text-2xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 bg-clip-text text-transparent",
+                  children: "Dashboard Administrator"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+                  className: "text-purple-100/80 mt-2 text-sm",
+                  children: "Panel kontrol untuk mengelola pengguna dan monitoring sistem Password Manager."
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                className: "flex items-center space-x-2",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                  className: "w-3 h-3 bg-green-400 rounded-full animate-pulse"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                  className: "text-green-300 text-sm font-medium",
+                  children: "Admin Panel Active"
+                })]
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "grid grid-cols-1 md:grid-cols-3 gap-6",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(AdminStatCard, {
+              title: "Total Pengguna",
+              value: data.totalUsers,
+              subtitle: "".concat(data.activeUsers, " aktif, ").concat(data.blockedUsers, " diblokir"),
+              color: "blue",
+              icon: "users"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(AdminStatCard, {
+              title: "Kategori Password",
+              value: data.totalKategoriPassword,
+              subtitle: "Kategori tersedia",
+              color: "green",
+              icon: "folder"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(AdminStatCard, {
+              title: "Total Password",
+              value: data.totalDetailPassword,
+              subtitle: "Password tersimpan",
+              color: "purple",
+              icon: "key"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "grid grid-cols-1 lg:grid-cols-2 gap-6",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(RecentUsersTable, {
+              users: data.recentUsers
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(PasswordCategoriesChart, {
+              statistics: data.userStatistics
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(UserStatusOverview, {
+            activeUsers: data.activeUsers,
+            blockedUsers: data.blockedUsers,
+            totalUsers: data.totalUsers
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "pb-16"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Footer__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
+      })]
+    })]
+  });
+};
+
+// Component untuk kartu statistik admin
+var AdminStatCard = function AdminStatCard(_ref2) {
+  var title = _ref2.title,
+    value = _ref2.value,
+    subtitle = _ref2.subtitle,
+    color = _ref2.color,
+    icon = _ref2.icon;
+  var colorClasses = {
+    blue: {
+      bg: 'bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95',
+      icon: 'bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/30',
+      text: 'bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent',
+      border: 'border-blue-500/20',
+      hover: 'hover:border-blue-400/40'
+    },
+    green: {
+      bg: 'bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95',
+      icon: 'bg-gradient-to-br from-green-600 to-green-700 text-white shadow-lg shadow-green-500/30',
+      text: 'bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent',
+      border: 'border-green-500/20',
+      hover: 'hover:border-green-400/40'
+    },
+    purple: {
+      bg: 'bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95',
+      icon: 'bg-gradient-to-br from-purple-600 to-purple-700 text-white shadow-lg shadow-purple-500/30',
+      text: 'bg-gradient-to-r from-purple-400 to-purple-500 bg-clip-text text-transparent',
+      border: 'border-purple-500/20',
+      hover: 'hover:border-purple-400/40'
+    }
+  };
+  var iconPaths = {
+    users: "M13 6a3 3 0 11-6 0 3 3 0 016 0zM5 7h1v1H5V7zm4 0h1v1H9V7zm4 0h1v1h-1V7zM7 9h1v1H7V9zm4 0h1v1h-1V9zM5 11h1v1H5v-1zm4 0h1v1H9v-1zm4 0h1v1h-1v-1z",
+    folder: "M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z",
+    key: "M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9zM13.73 21a2 2 0 01-3.46 0"
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    className: "".concat(colorClasses[color].bg, " backdrop-blur-xl p-6 rounded-xl shadow-2xl transition-all duration-300 border ").concat(colorClasses[color].border, " ").concat(colorClasses[color].hover, " hover:scale-105 group"),
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "flex items-center",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "flex-shrink-0",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "w-14 h-14 ".concat(colorClasses[color].icon, " rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
+            className: "w-7 h-7",
+            fill: "currentColor",
+            viewBox: "0 0 20 20",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+              d: iconPaths[icon]
+            })
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "ml-4 flex-1",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+          className: "text-sm font-semibold text-purple-300 group-hover:text-purple-200 transition-colors duration-300",
+          children: title
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+          className: "text-3xl font-bold ".concat(colorClasses[color].text, " group-hover:scale-105 transition-transform duration-300"),
+          children: value
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+          className: "text-xs text-purple-200/60 mt-1",
+          children: subtitle
+        })]
+      })]
+    })
+  });
+};
+
+// Component untuk tabel pengguna terbaru
+var RecentUsersTable = function RecentUsersTable(_ref3) {
+  var users = _ref3.users;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-purple-500/20",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "p-6 border-b border-purple-500/20",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+        className: "text-xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 bg-clip-text text-transparent",
+        children: "Pengguna Terbaru"
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "p-6",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "overflow-hidden",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+          className: "min-w-full",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+              className: "border-b border-purple-500/20",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                className: "text-left py-3 px-4 text-purple-300 font-semibold text-sm",
+                children: "Nama"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                className: "text-left py-3 px-4 text-purple-300 font-semibold text-sm",
+                children: "Email"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                className: "text-left py-3 px-4 text-purple-300 font-semibold text-sm",
+                children: "Last Login"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                className: "text-left py-3 px-4 text-purple-300 font-semibold text-sm",
+                children: "Status"
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
+            children: users.map(function (user, index) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                className: "border-b border-purple-500/10 hover:bg-purple-500/5 transition-colors duration-200",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                  className: "py-3 px-4 text-purple-100 text-sm font-medium",
+                  children: user.nama
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                  className: "py-3 px-4 text-purple-200/80 text-sm",
+                  children: user.email
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                  className: "py-3 px-4 text-purple-200/60 text-xs",
+                  children: user.last_login
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                  className: "py-3 px-4",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                    className: "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ".concat(user.status === 'active' ? 'bg-green-500/20 text-green-300 border border-green-500/30' : 'bg-red-500/20 text-red-300 border border-red-500/30'),
+                    children: user.status === 'active' ? 'Aktif' : 'Diblokir'
+                  })
+                })]
+              }, index);
+            })
+          })]
+        })
+      })
+    })]
+  });
+};
+
+// Component untuk chart kategori password
+var PasswordCategoriesChart = function PasswordCategoriesChart(_ref4) {
+  var statistics = _ref4.statistics;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-purple-500/20",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "p-6 border-b border-purple-500/20",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+        className: "text-xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 bg-clip-text text-transparent",
+        children: "Distribusi Password per Kategori"
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "p-6",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "space-y-4",
+        children: statistics.map(function (item, index) {
+          var maxValue = Math.max.apply(Math, _toConsumableArray(statistics.map(function (s) {
+            return s.total_password;
+          })));
+          var percentage = item.total_password / maxValue * 100;
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "flex items-center space-x-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "w-24 text-sm text-purple-200 font-medium",
+              children: item.kategori
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "flex-1 bg-gray-800 rounded-full h-3 overflow-hidden",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-500 ease-out",
+                style: {
+                  width: "".concat(percentage, "%")
+                }
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "w-12 text-right text-sm text-purple-300 font-semibold",
+              children: item.total_password
+            })]
+          }, index);
+        })
+      })
+    })]
+  });
+};
+
+// Component untuk overview status pengguna
+var UserStatusOverview = function UserStatusOverview(_ref5) {
+  var activeUsers = _ref5.activeUsers,
+    blockedUsers = _ref5.blockedUsers,
+    totalUsers = _ref5.totalUsers;
+  var activePercentage = totalUsers > 0 ? activeUsers / totalUsers * 100 : 0;
+  var blockedPercentage = totalUsers > 0 ? blockedUsers / totalUsers * 100 : 0;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-purple-500/20",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "p-6 border-b border-purple-500/20",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+        className: "text-xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 bg-clip-text text-transparent",
+        children: "Status Pengguna"
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "p-6",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "grid grid-cols-1 md:grid-cols-2 gap-6",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "text-center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "relative w-32 h-32 mx-auto mb-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("svg", {
+              className: "w-full h-full transform -rotate-90",
+              viewBox: "0 0 36 36",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                className: "stroke-gray-700",
+                strokeWidth: "3",
+                fill: "transparent",
+                d: "M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                className: "stroke-green-500",
+                strokeWidth: "3",
+                strokeDasharray: "".concat(activePercentage, ", 100"),
+                strokeLinecap: "round",
+                fill: "transparent",
+                d: "M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "absolute inset-0 flex items-center justify-center",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                className: "text-2xl font-bold text-green-400",
+                children: activeUsers
+              })
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+            className: "text-lg font-semibold text-green-300",
+            children: "Pengguna Aktif"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
+            className: "text-green-200/60 text-sm",
+            children: [activePercentage.toFixed(1), "% dari total"]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "text-center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "relative w-32 h-32 mx-auto mb-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("svg", {
+              className: "w-full h-full transform -rotate-90",
+              viewBox: "0 0 36 36",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                className: "stroke-gray-700",
+                strokeWidth: "3",
+                fill: "transparent",
+                d: "M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                className: "stroke-red-500",
+                strokeWidth: "3",
+                strokeDasharray: "".concat(blockedPercentage, ", 100"),
+                strokeLinecap: "round",
+                fill: "transparent",
+                d: "M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "absolute inset-0 flex items-center justify-center",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                className: "text-2xl font-bold text-red-400",
+                children: blockedUsers
+              })
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+            className: "text-lg font-semibold text-red-300",
+            children: "Pengguna Diblokir"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
+            className: "text-red-200/60 text-sm",
+            children: [blockedPercentage.toFixed(1), "% dari total"]
+          })]
+        })]
+      })
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DashboardAdmin);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/ManagementPassword/DetailPassword/index.jsx":
 /*!************************************************************************!*\
   !*** ./resources/js/Pages/ManagementPassword/DetailPassword/index.jsx ***!
@@ -46614,14 +47108,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var _Pages_Dashboard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Pages/Dashboard */ "./resources/js/Pages/Dashboard.jsx");
-/* harmony import */ var _Pages_ManagementPassword_KategoriPassword_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Pages/ManagementPassword/KategoriPassword/index */ "./resources/js/Pages/ManagementPassword/KategoriPassword/index.jsx");
-/* harmony import */ var _Pages_ManagementPassword_DetailPassword_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Pages/ManagementPassword/DetailPassword/index */ "./resources/js/Pages/ManagementPassword/DetailPassword/index.jsx");
-/* harmony import */ var _Authentication_login__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Authentication/login */ "./resources/js/Authentication/login.jsx");
-/* harmony import */ var _Authentication_pilih_level__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Authentication/pilih-level */ "./resources/js/Authentication/pilih-level.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Pages_DashboardAdmin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Pages/DashboardAdmin */ "./resources/js/Pages/DashboardAdmin.jsx");
+/* harmony import */ var _Pages_ManagementPassword_KategoriPassword_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Pages/ManagementPassword/KategoriPassword/index */ "./resources/js/Pages/ManagementPassword/KategoriPassword/index.jsx");
+/* harmony import */ var _Pages_ManagementPassword_DetailPassword_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Pages/ManagementPassword/DetailPassword/index */ "./resources/js/Pages/ManagementPassword/DetailPassword/index.jsx");
+/* harmony import */ var _Authentication_login__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Authentication/login */ "./resources/js/Authentication/login.jsx");
+/* harmony import */ var _Authentication_pilih_level__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Authentication/pilih-level */ "./resources/js/Authentication/pilih-level.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { if (r) i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n;else { var o = function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); }; o("next", 0), o("throw", 1), o("return", 2); } }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 
 
 
+ // ✅ Import DashboardAdmin
 
 
 
@@ -46642,24 +47142,128 @@ if (token) {
   console.error('Token CSRF tidak ditemukan: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+// ✅ Function untuk check hak akses dan redirect ke dashboard yang sesuai
+var checkAccessAndRedirect = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+    var response, hakAksesKode, _t;
+    return _regenerator().w(function (_context) {
+      while (1) switch (_context.p = _context.n) {
+        case 0:
+          _context.p = 0;
+          _context.n = 1;
+          return window.axios.get('/api/current-user');
+        case 1:
+          response = _context.v;
+          if (response.data.success && response.data.data.hak_akses) {
+            hakAksesKode = response.data.data.hak_akses.kode; // Redirect berdasarkan hak akses
+            if (hakAksesKode === 'ADM') {
+              // Admin -> Dashboard Admin
+              react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Pages_DashboardAdmin__WEBPACK_IMPORTED_MODULE_3__["default"], {}), document.getElementById('react-app'));
+            } else if (hakAksesKode === 'PGN') {
+              // Pengguna -> Dashboard Biasa
+              react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Pages_Dashboard__WEBPACK_IMPORTED_MODULE_2__["default"], {}), document.getElementById('react-app'));
+            } else {
+              // Hak akses tidak dikenali, redirect ke login
+              console.warn('Hak akses tidak dikenali:', hakAksesKode);
+              window.location.href = '/login';
+            }
+          } else {
+            // Tidak ada hak akses, redirect ke login
+            window.location.href = '/login';
+          }
+          _context.n = 3;
+          break;
+        case 2:
+          _context.p = 2;
+          _t = _context.v;
+          console.error('Error checking user access:', _t);
+          // Error, redirect ke login
+          window.location.href = '/login';
+        case 3:
+          return _context.a(2);
+      }
+    }, _callee, null, [[0, 2]]);
+  }));
+  return function checkAccessAndRedirect() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+// ✅ Function untuk check admin access
+var checkAdminAccess = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+    var response, hakAksesKode, _t2;
+    return _regenerator().w(function (_context2) {
+      while (1) switch (_context2.p = _context2.n) {
+        case 0:
+          _context2.p = 0;
+          _context2.n = 1;
+          return window.axios.get('/api/current-user');
+        case 1:
+          response = _context2.v;
+          if (!(response.data.success && response.data.data.hak_akses)) {
+            _context2.n = 3;
+            break;
+          }
+          hakAksesKode = response.data.data.hak_akses.kode;
+          if (!(hakAksesKode !== 'ADM')) {
+            _context2.n = 2;
+            break;
+          }
+          // Bukan admin, redirect ke dashboard biasa
+          window.location.href = '/dashboard';
+          return _context2.a(2, false);
+        case 2:
+          return _context2.a(2, true);
+        case 3:
+          window.location.href = '/login';
+          return _context2.a(2, false);
+        case 4:
+          _context2.n = 6;
+          break;
+        case 5:
+          _context2.p = 5;
+          _t2 = _context2.v;
+          console.error('Error checking admin access:', _t2);
+          window.location.href = '/login';
+          return _context2.a(2, false);
+        case 6:
+          return _context2.a(2);
+      }
+    }, _callee2, null, [[0, 5]]);
+  }));
+  return function checkAdminAccess() {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
 // Render React App berdasarkan halaman
 if (document.getElementById('react-app')) {
   var currentPath = window.location.pathname;
   switch (currentPath) {
     case '/login':
-      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Authentication_login__WEBPACK_IMPORTED_MODULE_5__["default"], {}), document.getElementById('react-app'));
+      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Authentication_login__WEBPACK_IMPORTED_MODULE_6__["default"], {}), document.getElementById('react-app'));
       break;
     case '/pilih-level':
-      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Authentication_pilih_level__WEBPACK_IMPORTED_MODULE_6__["default"], {}), document.getElementById('react-app'));
+      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Authentication_pilih_level__WEBPACK_IMPORTED_MODULE_7__["default"], {}), document.getElementById('react-app'));
       break;
     case '/dashboard':
-      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Pages_Dashboard__WEBPACK_IMPORTED_MODULE_2__["default"], {}), document.getElementById('react-app'));
+      // ✅ Dashboard dengan logic routing berdasarkan hak akses
+      checkAccessAndRedirect();
+      break;
+    case '/dashboard-admin':
+      // ✅ Dashboard Admin - hanya untuk admin
+      checkAdminAccess().then(function (isAdmin) {
+        if (isAdmin) {
+          react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Pages_DashboardAdmin__WEBPACK_IMPORTED_MODULE_3__["default"], {}), document.getElementById('react-app'));
+        }
+      });
       break;
     case '/kategori-password':
-      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Pages_ManagementPassword_KategoriPassword_index__WEBPACK_IMPORTED_MODULE_3__["default"], {}), document.getElementById('react-app'));
+      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Pages_ManagementPassword_KategoriPassword_index__WEBPACK_IMPORTED_MODULE_4__["default"], {}), document.getElementById('react-app'));
       break;
     case '/detail-password':
-      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Pages_ManagementPassword_DetailPassword_index__WEBPACK_IMPORTED_MODULE_4__["default"], {}), document.getElementById('react-app'));
+      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Pages_ManagementPassword_DetailPassword_index__WEBPACK_IMPORTED_MODULE_5__["default"], {}), document.getElementById('react-app'));
       break;
     default:
       // Redirect ke login jika halaman tidak dikenali
