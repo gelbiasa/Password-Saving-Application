@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -100,7 +101,9 @@ class AuthController extends Controller
         }
     }
 
-    // Tambahkan method baru untuk mendapatkan data user yang login
+    /**
+     * ✅ Update getCurrentUser - Fix storage link path untuk foto profile
+     */
     public function getCurrentUser()
     {
         try {
@@ -114,10 +117,20 @@ class AuthController extends Controller
             $user = Auth::user();
             $selectedHakAkses = Session::get('selected_hak_akses');
 
-            // Format foto profil URL
-            $fotoProfile = $user->foto_profil 
-                ? asset('storage/foto-profile/' . $user->foto_profil)
-                : asset('images/default-picture.jpg');
+            // ✅ Fix foto profil URL - handle storage link dengan benar
+            $fotoProfile = asset('storage/foto-profile/default-picture.jpg'); // Default dengan asset() helper
+            
+            if (!empty($user->foto_profil) && $user->foto_profil !== null && $user->foto_profil !== 'NULL') {
+                // Jika ada foto profil dan bukan NULL, gunakan foto tersebut
+                // Check apakah file exists di storage
+                if (Storage::disk('public')->exists('foto-profile/' . $user->foto_profil)) {
+                    $fotoProfile = asset('storage/foto-profile/' . $user->foto_profil);
+                } else {
+                    // File tidak ada, gunakan default
+                    Log::warning('Foto profil tidak ditemukan: ' . $user->foto_profil . ' untuk user ID: ' . $user->m_user_id);
+                    $fotoProfile = asset('storage/foto-profile/default-picture.jpg');
+                }
+            }
 
             return response()->json([
                 'success' => true,

@@ -8,7 +8,7 @@ const Header = () => {
     const [userData, setUserData] = useState({
         nama_pengguna: 'Loading...',
         email_pengguna: 'Loading...',
-        foto_profil: '/foto-profile/default-picture.jpg',
+        foto_profil: null, // ✅ Set ke null dulu
         hak_akses: null
     });
     const { notification, showSuccess, showError, showLogout, hideNotification } = useNotification();
@@ -28,7 +28,7 @@ const Header = () => {
             setUserData({
                 nama_pengguna: 'User',
                 email_pengguna: 'user@example.com',
-                foto_profil: '/foto-profile/default-picture.jpg',
+                foto_profil: null, // ✅ Set ke null untuk fallback
                 hak_akses: null
             });
         }
@@ -71,30 +71,43 @@ const Header = () => {
     };
 
     const getInitials = (name) => {
-        if (!name) return 'U';
+        if (!name || name === 'Loading...') return 'U';
         return name.split(' ').map(word => word.charAt(0)).join('').substring(0, 2).toUpperCase();
     };
 
-    // ✅ Update Function untuk badge dengan warna hijau gradasi yang lebih jelas
+    // ✅ Update function untuk check apakah foto profile adalah default atau custom
+    const isDefaultPhoto = (fotoPath) => {
+        return !fotoPath || 
+               fotoPath === null ||
+               fotoPath.includes('default-picture.jpg') ||
+               fotoPath === '';
+    };
+
+    // ✅ Function untuk handle foto profile dengan error handling
+    const handlePhotoError = (e) => {
+        console.log('Error loading photo:', e.target.src);
+        // Hide image dan show initials
+        e.target.style.display = 'none';
+        const initialsElement = e.target.parentNode.querySelector('.initials-fallback');
+        if (initialsElement) {
+            initialsElement.style.display = 'flex';
+        }
+    };
+
     const getBadgeColor = (hakAkses) => {
         if (!hakAkses) return 'bg-gray-500/30 text-gray-200 border-gray-400/40';
         
         const nama = hakAkses.nama.toLowerCase();
         
         if (nama.includes('administrator') || nama.includes('admin')) {
-            // ✅ Gradasi Hijau Terang untuk Administrator
             return 'bg-gradient-to-r from-emerald-400/30 to-green-500/30 text-emerald-200 border-emerald-400/50 shadow-lg shadow-emerald-500/20';
         } else if (nama.includes('manager') || nama.includes('supervisor')) {
-            // ✅ Gradasi Hijau-Biru untuk Manager
             return 'bg-gradient-to-r from-teal-400/30 to-cyan-500/30 text-teal-200 border-teal-400/50 shadow-lg shadow-teal-500/20';
         } else if (nama.includes('user') || nama.includes('pengguna')) {
-            // ✅ Gradasi Hijau Mint untuk User
             return 'bg-gradient-to-r from-green-400/30 to-lime-500/30 text-green-200 border-green-400/50 shadow-lg shadow-green-500/20';
         } else if (nama.includes('guest') || nama.includes('tamu')) {
-            // ✅ Gradasi Abu-abu Hijau untuk Guest
             return 'bg-gradient-to-r from-slate-400/30 to-gray-500/30 text-slate-200 border-slate-400/50 shadow-lg shadow-slate-500/20';
         } else {
-            // ✅ Gradasi Hijau Kuning untuk Default
             return 'bg-gradient-to-r from-lime-400/30 to-yellow-500/30 text-lime-200 border-lime-400/50 shadow-lg shadow-lime-500/20';
         }
     };
@@ -117,20 +130,25 @@ const Header = () => {
                     <nav className="flex items-center space-x-3">
                         <div className="relative flex items-center space-x-3">
                             <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center overflow-hidden relative shadow-lg shadow-amber-500/30">
-                                {userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? (
+                                {/* ✅ Conditional rendering untuk foto profil */}
+                                {!isDefaultPhoto(userData.foto_profil) && (
                                     <img 
                                         src={userData.foto_profil} 
                                         alt="Profile" 
                                         className="w-full h-full object-cover"
-                                        onError={(e) => {
-                                            e.target.style.display = 'none';
-                                            e.target.nextSibling.style.display = 'flex';
-                                        }}
+                                        onError={handlePhotoError}
+                                        style={{ display: 'block' }}
                                     />
-                                ) : null}
+                                )}
+                                
+                                {/* ✅ Initials fallback */}
                                 <span 
-                                    className="text-sm font-bold absolute inset-0 flex items-center justify-center text-black"
-                                    style={{ display: userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? 'none' : 'flex' }}
+                                    className={`initials-fallback text-sm font-bold absolute inset-0 flex items-center justify-center text-black ${
+                                        isDefaultPhoto(userData.foto_profil) ? 'flex' : 'none'
+                                    }`}
+                                    style={{ 
+                                        display: isDefaultPhoto(userData.foto_profil) ? 'flex' : 'none' 
+                                    }}
                                 >
                                     {getInitials(userData.nama_pengguna)}
                                 </span>
@@ -141,7 +159,6 @@ const Header = () => {
                                     <span className="text-sm font-medium text-amber-100">
                                         {userData.nama_pengguna}
                                     </span>
-                                    {/* ✅ Badge dengan Gradasi Hijau yang Lebih Jelas */}
                                     {userData.hak_akses && (
                                         <span className={`px-3 py-1 text-xs font-bold rounded-full border-2 backdrop-blur-sm transform hover:scale-105 transition-all duration-200 ${getBadgeColor(userData.hak_akses)}`}>
                                             {userData.hak_akses.nama}
