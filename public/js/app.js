@@ -42044,7 +42044,8 @@ var Header = function Header() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       nama_pengguna: 'Loading...',
       email_pengguna: 'Loading...',
-      foto_profil: '/foto-profile/default-picture.jpg',
+      foto_profil: null,
+      // ✅ Set ke null dulu
       hak_akses: null
     }),
     _useState2 = _slicedToArray(_useState, 2),
@@ -42082,7 +42083,8 @@ var Header = function Header() {
             setUserData({
               nama_pengguna: 'User',
               email_pengguna: 'user@example.com',
-              foto_profil: '/foto-profile/default-picture.jpg',
+              foto_profil: null,
+              // ✅ Set ke null untuk fallback
               hak_akses: null
             });
           case 3:
@@ -42135,30 +42137,39 @@ var Header = function Header() {
     };
   }();
   var getInitials = function getInitials(name) {
-    if (!name) return 'U';
+    if (!name || name === 'Loading...') return 'U';
     return name.split(' ').map(function (word) {
       return word.charAt(0);
     }).join('').substring(0, 2).toUpperCase();
   };
 
-  // ✅ Update Function untuk badge dengan warna hijau gradasi yang lebih jelas
+  // ✅ Update function untuk check apakah foto profile adalah default atau custom
+  var isDefaultPhoto = function isDefaultPhoto(fotoPath) {
+    return !fotoPath || fotoPath === null || fotoPath.includes('default-picture.jpg') || fotoPath === '';
+  };
+
+  // ✅ Function untuk handle foto profile dengan error handling
+  var handlePhotoError = function handlePhotoError(e) {
+    console.log('Error loading photo:', e.target.src);
+    // Hide image dan show initials
+    e.target.style.display = 'none';
+    var initialsElement = e.target.parentNode.querySelector('.initials-fallback');
+    if (initialsElement) {
+      initialsElement.style.display = 'flex';
+    }
+  };
   var getBadgeColor = function getBadgeColor(hakAkses) {
     if (!hakAkses) return 'bg-gray-500/30 text-gray-200 border-gray-400/40';
     var nama = hakAkses.nama.toLowerCase();
     if (nama.includes('administrator') || nama.includes('admin')) {
-      // ✅ Gradasi Hijau Terang untuk Administrator
       return 'bg-gradient-to-r from-emerald-400/30 to-green-500/30 text-emerald-200 border-emerald-400/50 shadow-lg shadow-emerald-500/20';
     } else if (nama.includes('manager') || nama.includes('supervisor')) {
-      // ✅ Gradasi Hijau-Biru untuk Manager
       return 'bg-gradient-to-r from-teal-400/30 to-cyan-500/30 text-teal-200 border-teal-400/50 shadow-lg shadow-teal-500/20';
     } else if (nama.includes('user') || nama.includes('pengguna')) {
-      // ✅ Gradasi Hijau Mint untuk User
       return 'bg-gradient-to-r from-green-400/30 to-lime-500/30 text-green-200 border-green-400/50 shadow-lg shadow-green-500/20';
     } else if (nama.includes('guest') || nama.includes('tamu')) {
-      // ✅ Gradasi Abu-abu Hijau untuk Guest
       return 'bg-gradient-to-r from-slate-400/30 to-gray-500/30 text-slate-200 border-slate-400/50 shadow-lg shadow-slate-500/20';
     } else {
-      // ✅ Gradasi Hijau Kuning untuk Default
       return 'bg-gradient-to-r from-lime-400/30 to-yellow-500/30 text-lime-200 border-lime-400/50 shadow-lg shadow-lime-500/20';
     }
   };
@@ -42191,18 +42202,18 @@ var Header = function Header() {
             className: "relative flex items-center space-x-3",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
               className: "w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center overflow-hidden relative shadow-lg shadow-amber-500/30",
-              children: [userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+              children: [!isDefaultPhoto(userData.foto_profil) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
                 src: userData.foto_profil,
                 alt: "Profile",
                 className: "w-full h-full object-cover",
-                onError: function onError(e) {
-                  e.target.style.display = 'none';
-                  e.target.nextSibling.style.display = 'flex';
-                }
-              }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                className: "text-sm font-bold absolute inset-0 flex items-center justify-center text-black",
+                onError: handlePhotoError,
                 style: {
-                  display: userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? 'none' : 'flex'
+                  display: 'block'
+                }
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                className: "initials-fallback text-sm font-bold absolute inset-0 flex items-center justify-center text-black ".concat(isDefaultPhoto(userData.foto_profil) ? 'flex' : 'none'),
+                style: {
+                  display: isDefaultPhoto(userData.foto_profil) ? 'flex' : 'none'
                 },
                 children: getInitials(userData.nama_pengguna)
               })]
@@ -42412,9 +42423,10 @@ var Sidebar = function Sidebar(_ref) {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       nama_pengguna: 'Loading...',
       email_pengguna: 'Loading...',
-      foto_profil: '/foto-profile/default-picture.jpg',
+      foto_profil: null,
+      // ✅ Set ke null dulu, nanti akan diisi dari API
       hak_akses: null,
-      alias_pengguna: 'Loading...' // ✅ Tambah field alias
+      alias_pengguna: 'Loading...'
     }),
     _useState2 = _slicedToArray(_useState, 2),
     userData = _useState2[0],
@@ -42463,7 +42475,8 @@ var Sidebar = function Sidebar(_ref) {
             setUserData({
               nama_pengguna: 'User',
               email_pengguna: 'user@example.com',
-              foto_profil: '/foto-profile/default-picture.jpg',
+              foto_profil: null,
+              // ✅ Set ke null untuk fallback ke initials
               hak_akses: null,
               alias_pengguna: 'User'
             });
@@ -42562,13 +42575,27 @@ var Sidebar = function Sidebar(_ref) {
     }
   };
   var getInitials = function getInitials(name) {
-    if (!name) return 'U';
+    if (!name || name === 'Loading...') return 'U';
     return name.split(' ').map(function (word) {
       return word.charAt(0);
     }).join('').substring(0, 2).toUpperCase();
   };
 
-  // ✅ Function untuk generate alias dari nama pengguna
+  // ✅ Update function untuk check apakah foto profile adalah default atau custom
+  var isDefaultPhoto = function isDefaultPhoto(fotoPath) {
+    return !fotoPath || fotoPath === null || fotoPath.includes('default-picture.jpg') || fotoPath === '';
+  };
+
+  // ✅ Function untuk handle foto profile dengan error handling
+  var handlePhotoError = function handlePhotoError(e) {
+    console.log('Error loading photo:', e.target.src);
+    // Hide image dan show initials
+    e.target.style.display = 'none';
+    var initialsElement = e.target.parentNode.querySelector('.initials-fallback');
+    if (initialsElement) {
+      initialsElement.style.display = 'flex';
+    }
+  };
   var generateAlias = function generateAlias(namaPengguna) {
     if (!namaPengguna || namaPengguna === 'Loading...') return 'Loading...';
     var kata = namaPengguna.trim().split(' ');
@@ -42580,12 +42607,10 @@ var Sidebar = function Sidebar(_ref) {
     for (var i = 0; i < kata.length; i++) {
       var kataSekarang = kata[i];
       if (i === kata.length - 1) {
-        // Untuk kata terakhir, ambil huruf pertama + titik
         var tambahan = kataSekarang.substring(0, 1) + '.';
         if (panjangTotalKarakter + tambahan.length <= 10) {
           alias += tambahan;
         } else {
-          // Jika tidak muat, potong kata sebelumnya
           var sisaRuang = 10 - tambahan.length;
           if (sisaRuang > 0) {
             alias = alias.substring(0, sisaRuang) + tambahan;
@@ -42598,17 +42623,13 @@ var Sidebar = function Sidebar(_ref) {
         var spasi = i > 0 ? ' ' : '';
         var _tambahan = spasi + kataSekarang;
         if (panjangTotalKarakter + _tambahan.length + 3 <= 10) {
-          // 3 untuk " X."
           alias += _tambahan;
           panjangTotalKarakter += _tambahan.length;
         } else {
-          // Jika tidak muat, potong kata ini dan lanjut ke kata terakhir
           var _sisaRuang = 10 - panjangTotalKarakter - 3;
           if (_sisaRuang > 0) {
             alias += spasi + kataSekarang.substring(0, _sisaRuang);
           }
-
-          // Tambahkan kata terakhir
           var kataTerakir = kata[kata.length - 1];
           alias += ' ' + kataTerakir.substring(0, 1) + '.';
           break;
@@ -42663,18 +42684,18 @@ var Sidebar = function Sidebar(_ref) {
           className: "flex items-center space-x-3 p-3 bg-gradient-to-br from-gray-800/60 via-black/60 to-gray-700/60 backdrop-blur-xl rounded-xl border border-amber-500/20 ring-1 ring-amber-400/10",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
             className: "w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center overflow-hidden relative shadow-lg shadow-amber-500/30",
-            children: [userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+            children: [!isDefaultPhoto(userData.foto_profil) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
               src: userData.foto_profil,
               alt: "Profile",
               className: "w-full h-full object-cover",
-              onError: function onError(e) {
-                e.target.style.display = 'none';
-                e.target.nextSibling.style.display = 'flex';
-              }
-            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-              className: "text-xs font-bold absolute inset-0 flex items-center justify-center text-black",
+              onError: handlePhotoError,
               style: {
-                display: userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? 'none' : 'flex'
+                display: 'block'
+              }
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              className: "initials-fallback text-xs font-bold absolute inset-0 flex items-center justify-center text-black ".concat(isDefaultPhoto(userData.foto_profil) ? 'flex' : 'none'),
+              style: {
+                display: isDefaultPhoto(userData.foto_profil) ? 'flex' : 'none'
               },
               children: getInitials(userData.nama_pengguna)
             })]

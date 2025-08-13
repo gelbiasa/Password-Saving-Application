@@ -4,9 +4,9 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
     const [userData, setUserData] = useState({
         nama_pengguna: 'Loading...',
         email_pengguna: 'Loading...',
-        foto_profil: '/foto-profile/default-picture.jpg',
+        foto_profil: null, // ✅ Set ke null dulu, nanti akan diisi dari API
         hak_akses: null,
-        alias_pengguna: 'Loading...' // ✅ Tambah field alias
+        alias_pengguna: 'Loading...'
     });
 
     const [kategoriCount, setKategoriCount] = useState(0);
@@ -31,7 +31,7 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
             setUserData({
                 nama_pengguna: 'User',
                 email_pengguna: 'user@example.com',
-                foto_profil: '/foto-profile/default-picture.jpg',
+                foto_profil: null, // ✅ Set ke null untuk fallback ke initials
                 hak_akses: null,
                 alias_pengguna: 'User'
             });
@@ -87,11 +87,29 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
     };
 
     const getInitials = (name) => {
-        if (!name) return 'U';
+        if (!name || name === 'Loading...') return 'U';
         return name.split(' ').map(word => word.charAt(0)).join('').substring(0, 2).toUpperCase();
     };
 
-    // ✅ Function untuk generate alias dari nama pengguna
+    // ✅ Update function untuk check apakah foto profile adalah default atau custom
+    const isDefaultPhoto = (fotoPath) => {
+        return !fotoPath || 
+               fotoPath === null ||
+               fotoPath.includes('default-picture.jpg') ||
+               fotoPath === '';
+    };
+
+    // ✅ Function untuk handle foto profile dengan error handling
+    const handlePhotoError = (e) => {
+        console.log('Error loading photo:', e.target.src);
+        // Hide image dan show initials
+        e.target.style.display = 'none';
+        const initialsElement = e.target.parentNode.querySelector('.initials-fallback');
+        if (initialsElement) {
+            initialsElement.style.display = 'flex';
+        }
+    };
+
     const generateAlias = (namaPengguna) => {
         if (!namaPengguna || namaPengguna === 'Loading...') return 'Loading...';
         
@@ -108,13 +126,11 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
             const kataSekarang = kata[i];
             
             if (i === kata.length - 1) {
-                // Untuk kata terakhir, ambil huruf pertama + titik
                 const tambahan = kataSekarang.substring(0, 1) + '.';
                 
                 if (panjangTotalKarakter + tambahan.length <= 10) {
                     alias += tambahan;
                 } else {
-                    // Jika tidak muat, potong kata sebelumnya
                     const sisaRuang = 10 - tambahan.length;
                     if (sisaRuang > 0) {
                         alias = alias.substring(0, sisaRuang) + tambahan;
@@ -127,17 +143,15 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                 const spasi = (i > 0) ? ' ' : '';
                 const tambahan = spasi + kataSekarang;
                 
-                if (panjangTotalKarakter + tambahan.length + 3 <= 10) { // 3 untuk " X."
+                if (panjangTotalKarakter + tambahan.length + 3 <= 10) {
                     alias += tambahan;
                     panjangTotalKarakter += tambahan.length;
                 } else {
-                    // Jika tidak muat, potong kata ini dan lanjut ke kata terakhir
                     const sisaRuang = 10 - panjangTotalKarakter - 3;
                     if (sisaRuang > 0) {
                         alias += spasi + kataSekarang.substring(0, sisaRuang);
                     }
                     
-                    // Tambahkan kata terakhir
                     const kataTerakir = kata[kata.length - 1];
                     alias += ' ' + kataTerakir.substring(0, 1) + '.';
                     break;
@@ -184,34 +198,37 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                     </div>
                 </div>
 
-                {/* ✅ Update User Profile Section - Gunakan Alias & Hilangkan Email */}
+                {/* ✅ Update User Profile Section - Better foto profil handling */}
                 <div className="mb-6">
                     <div className="flex items-center space-x-3 p-3 bg-gradient-to-br from-gray-800/60 via-black/60 to-gray-700/60 backdrop-blur-xl rounded-xl border border-amber-500/20 ring-1 ring-amber-400/10">
                         <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center overflow-hidden relative shadow-lg shadow-amber-500/30">
-                            {userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? (
+                            {/* ✅ Conditional rendering untuk foto profil */}
+                            {!isDefaultPhoto(userData.foto_profil) && (
                                 <img 
                                     src={userData.foto_profil} 
                                     alt="Profile" 
                                     className="w-full h-full object-cover"
-                                    onError={(e) => {
-                                        e.target.style.display = 'none';
-                                        e.target.nextSibling.style.display = 'flex';
-                                    }}
+                                    onError={handlePhotoError}
+                                    style={{ display: 'block' }}
                                 />
-                            ) : null}
+                            )}
+                            
+                            {/* ✅ Initials fallback - tampil jika default photo atau error */}
                             <span 
-                                className="text-xs font-bold absolute inset-0 flex items-center justify-center text-black"
-                                style={{ display: userData.foto_profil && userData.foto_profil !== '/foto-profile/default-picture.jpg' ? 'none' : 'flex' }}
+                                className={`initials-fallback text-xs font-bold absolute inset-0 flex items-center justify-center text-black ${
+                                    isDefaultPhoto(userData.foto_profil) ? 'flex' : 'none'
+                                }`}
+                                style={{ 
+                                    display: isDefaultPhoto(userData.foto_profil) ? 'flex' : 'none' 
+                                }}
                             >
                                 {getInitials(userData.nama_pengguna)}
                             </span>
                         </div>
                         <div className="flex-1 min-w-0">
-                            {/* ✅ Gunakan Alias yang di-generate dari nama pengguna */}
                             <p className="font-medium text-sm text-amber-100" title={userData.nama_pengguna}>
                                 {generateAlias(userData.nama_pengguna)}
                             </p>
-                            {/* ✅ Tampilkan Hak Akses (tanpa email) */}
                             {userData.hak_akses && (
                                 <p className="text-xs text-amber-300" title={userData.hak_akses.nama}>
                                     {userData.hak_akses.nama}
@@ -221,7 +238,7 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                     </div>
                 </div>
                 
-                {/* Navigation Menu */}
+                {/* Navigation Menu - existing code unchanged */}
                 <nav className="flex-1">
                     <ul className="space-y-2">
                         <li>
