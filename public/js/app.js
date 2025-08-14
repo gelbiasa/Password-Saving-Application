@@ -42024,6 +42024,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Feedback_Message_logout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Feedback-Message/logout */ "./resources/js/Feedback-Message/logout.jsx");
 /* harmony import */ var _Hooks_useNotification__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Hooks/useNotification */ "./resources/js/Hooks/useNotification.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { if (r) i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n;else { var o = function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); }; o("next", 0), o("throw", 1), o("return", 2); } }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -42045,12 +42051,25 @@ var Header = function Header() {
       nama_pengguna: 'Loading...',
       email_pengguna: 'Loading...',
       foto_profil: null,
-      // ✅ Set ke null dulu
       hak_akses: null
     }),
     _useState2 = _slicedToArray(_useState, 2),
     userData = _useState2[0],
     setUserData = _useState2[1];
+
+  // ✅ New state untuk dropdown dan hak akses list
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    isDropdownOpen = _useState4[0],
+    setIsDropdownOpen = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState6 = _slicedToArray(_useState5, 2),
+    hakAksesList = _useState6[0],
+    setHakAksesList = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    loadingSwitch = _useState8[0],
+    setLoadingSwitch = _useState8[1];
   var _useNotification = (0,_Hooks_useNotification__WEBPACK_IMPORTED_MODULE_4__.useNotification)(),
     notification = _useNotification.notification,
     showSuccess = _useNotification.showSuccess,
@@ -42059,6 +42078,7 @@ var Header = function Header() {
     hideNotification = _useNotification.hideNotification;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     fetchCurrentUser();
+    fetchUserHakAksesList();
   }, []);
   var fetchCurrentUser = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
@@ -42067,11 +42087,14 @@ var Header = function Header() {
         while (1) switch (_context.p = _context.n) {
           case 0:
             _context.p = 0;
+            console.log('📸 Header - Calling API /api/current-user...');
             _context.n = 1;
             return axios.get('/api/current-user');
           case 1:
             response = _context.v;
+            console.log('📸 Header - API Response:', response.data);
             if (response.data.success) {
+              console.log('📸 Header - Setting userData:', response.data.data);
               setUserData(response.data.data);
             }
             _context.n = 3;
@@ -42079,12 +42102,11 @@ var Header = function Header() {
           case 2:
             _context.p = 2;
             _t = _context.v;
-            console.error('Error fetching user data:', _t);
+            console.error('📸 Header - Error fetching user data:', _t);
             setUserData({
               nama_pengguna: 'User',
               email_pengguna: 'user@example.com',
               foto_profil: null,
-              // ✅ Set ke null untuk fallback
               hak_akses: null
             });
           case 3:
@@ -42096,20 +42118,125 @@ var Header = function Header() {
       return _ref.apply(this, arguments);
     };
   }();
+
+  // ✅ New function untuk fetch hak akses list
+  var fetchUserHakAksesList = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var response, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            _context2.p = 0;
+            _context2.n = 1;
+            return axios.get('/api/user-hak-akses-list');
+          case 1:
+            response = _context2.v;
+            if (response.data.success) {
+              setHakAksesList(response.data.data.hak_akses_list);
+              console.log('📋 Header - Hak akses list:', response.data.data.hak_akses_list);
+            }
+            _context2.n = 3;
+            break;
+          case 2:
+            _context2.p = 2;
+            _t2 = _context2.v;
+            console.error('📋 Header - Error fetching hak akses list:', _t2);
+          case 3:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[0, 2]]);
+    }));
+    return function fetchUserHakAksesList() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  // ✅ New function untuk switch hak akses
+  var _handleSwitchHakAkses = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(hakAksesId, hakAksesNama) {
+      var response, _t3;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.p = _context3.n) {
+          case 0:
+            if (!loadingSwitch) {
+              _context3.n = 1;
+              break;
+            }
+            return _context3.a(2);
+          case 1:
+            _context3.p = 1;
+            setLoadingSwitch(true);
+            setIsDropdownOpen(false);
+            showSuccess('Mengubah hak akses...', 'Sedang Memproses');
+            _context3.n = 2;
+            return axios.post('/api/switch-hak-akses', {
+              hak_akses_id: hakAksesId
+            });
+          case 2:
+            response = _context3.v;
+            if (!response.data.success) {
+              _context3.n = 4;
+              break;
+            }
+            // Update userData dengan hak akses baru
+            setUserData(function (prev) {
+              return _objectSpread(_objectSpread({}, prev), {}, {
+                hak_akses: response.data.data.hak_akses
+              });
+            });
+
+            // Refresh hak akses list untuk update status 'is_current'
+            _context3.n = 3;
+            return fetchUserHakAksesList();
+          case 3:
+            showSuccess("Hak akses berhasil diubah ke: ".concat(hakAksesNama), 'Berhasil!');
+
+            // Refresh halaman setelah 2 detik untuk memastikan UI ter-update
+            setTimeout(function () {
+              window.location.reload();
+            }, 2000);
+            _context3.n = 5;
+            break;
+          case 4:
+            showError(response.data.message || 'Gagal mengubah hak akses', 'Error!');
+          case 5:
+            _context3.n = 7;
+            break;
+          case 6:
+            _context3.p = 6;
+            _t3 = _context3.v;
+            console.error('Error switching hak akses:', _t3);
+            showError('Terjadi kesalahan saat mengubah hak akses', 'Error!', function () {
+              return _handleSwitchHakAkses(hakAksesId, hakAksesNama);
+            });
+          case 7:
+            _context3.p = 7;
+            setLoadingSwitch(false);
+            return _context3.f(7);
+          case 8:
+            return _context3.a(2);
+        }
+      }, _callee3, null, [[1, 6, 7, 8]]);
+    }));
+    return function handleSwitchHakAkses(_x, _x2) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
   var handleLogout = function handleLogout() {
+    setIsDropdownOpen(false);
     showLogout('Semua sesi aktif akan berakhir dan Anda perlu login kembali untuk mengakses aplikasi.', 'Konfirmasi Logout', function () {
       _performLogout();
     }, userData.nama_pengguna || 'User');
   };
   var _performLogout = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-      var _t2;
-      return _regenerator().w(function (_context2) {
-        while (1) switch (_context2.p = _context2.n) {
+    var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      var _t4;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.p = _context4.n) {
           case 0:
-            _context2.p = 0;
+            _context4.p = 0;
             showSuccess('Sedang memproses logout...', 'Memproses...');
-            _context2.n = 1;
+            _context4.n = 1;
             return new Promise(function (resolve) {
               return setTimeout(resolve, 1000);
             });
@@ -42118,22 +42245,22 @@ var Header = function Header() {
             setTimeout(function () {
               window.location.href = '/logout';
             }, 2000);
-            _context2.n = 3;
+            _context4.n = 3;
             break;
           case 2:
-            _context2.p = 2;
-            _t2 = _context2.v;
-            console.error('Error during logout:', _t2);
+            _context4.p = 2;
+            _t4 = _context4.v;
+            console.error('Error during logout:', _t4);
             showError('Terjadi kesalahan saat logout. Silakan coba lagi.', 'Logout Gagal!', function () {
               return _performLogout();
             });
           case 3:
-            return _context2.a(2);
+            return _context4.a(2);
         }
-      }, _callee2, null, [[0, 2]]);
+      }, _callee4, null, [[0, 2]]);
     }));
     return function performLogout() {
-      return _ref2.apply(this, arguments);
+      return _ref4.apply(this, arguments);
     };
   }();
   var getInitials = function getInitials(name) {
@@ -42142,21 +42269,8 @@ var Header = function Header() {
       return word.charAt(0);
     }).join('').substring(0, 2).toUpperCase();
   };
-
-  // ✅ Update function untuk check apakah foto profile adalah default atau custom
   var isDefaultPhoto = function isDefaultPhoto(fotoPath) {
-    return !fotoPath || fotoPath === null || fotoPath.includes('default-picture.jpg') || fotoPath === '';
-  };
-
-  // ✅ Function untuk handle foto profile dengan error handling
-  var handlePhotoError = function handlePhotoError(e) {
-    console.log('Error loading photo:', e.target.src);
-    // Hide image dan show initials
-    e.target.style.display = 'none';
-    var initialsElement = e.target.parentNode.querySelector('.initials-fallback');
-    if (initialsElement) {
-      initialsElement.style.display = 'flex';
-    }
+    return true; // Force true untuk testing
   };
   var getBadgeColor = function getBadgeColor(hakAkses) {
     if (!hakAkses) return 'bg-gray-500/30 text-gray-200 border-gray-400/40';
@@ -42173,6 +42287,26 @@ var Header = function Header() {
       return 'bg-gradient-to-r from-lime-400/30 to-yellow-500/30 text-lime-200 border-lime-400/50 shadow-lg shadow-lime-500/20';
     }
   };
+
+  // ✅ Function untuk get available hak akses (yang bukan current)
+  var getAvailableHakAkses = function getAvailableHakAkses() {
+    return hakAksesList.filter(function (item) {
+      return !item.is_current;
+    });
+  };
+
+  // ✅ Close dropdown when clicking outside
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var handleClickOutside = function handleClickOutside(event) {
+      if (!event.target.closest('.dropdown-container')) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return function () {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("header", {
       className: "bg-gradient-to-r from-gray-900 via-black to-amber-900 text-white p-3 shadow-2xl border-b border-amber-500/20",
@@ -42200,23 +42334,15 @@ var Header = function Header() {
           className: "flex items-center space-x-3",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             className: "relative flex items-center space-x-3",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
               className: "w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center overflow-hidden relative shadow-lg shadow-amber-500/30",
-              children: [!isDefaultPhoto(userData.foto_profil) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-                src: userData.foto_profil,
-                alt: "Profile",
-                className: "w-full h-full object-cover",
-                onError: handlePhotoError,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                className: "initials-fallback text-sm font-bold absolute inset-0 flex items-center justify-center text-black",
                 style: {
-                  display: 'block'
-                }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                className: "initials-fallback text-sm font-bold absolute inset-0 flex items-center justify-center text-black ".concat(isDefaultPhoto(userData.foto_profil) ? 'flex' : 'none'),
-                style: {
-                  display: isDefaultPhoto(userData.foto_profil) ? 'flex' : 'none'
+                  display: 'flex'
                 },
                 children: getInitials(userData.nama_pengguna)
-              })]
+              })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
               className: "flex flex-col text-right",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
@@ -42233,20 +42359,90 @@ var Header = function Header() {
                 children: userData.email_pengguna
               })]
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
-            onClick: handleLogout,
-            className: "bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-black px-3 py-1.5 rounded-lg transition-all duration-200 flex items-center space-x-2 text-sm font-semibold transform hover:scale-105 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
-              className: "w-3 h-3",
-              fill: "currentColor",
-              viewBox: "0 0 20 20",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
-                fillRule: "evenodd",
-                d: "M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z",
-                clipRule: "evenodd"
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-              children: "Keluar"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            className: "relative dropdown-container",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+              onClick: function onClick() {
+                return setIsDropdownOpen(!isDropdownOpen);
+              },
+              disabled: loadingSwitch,
+              className: "bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-black px-3 py-1.5 rounded-lg transition-all duration-200 flex items-center space-x-2 text-sm font-semibold transform hover:scale-105 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 disabled:opacity-50 disabled:cursor-not-allowed",
+              children: [loadingSwitch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "w-3 h-3 border-2 border-black/30 border-t-black rounded-full animate-spin"
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
+                className: "w-3 h-3",
+                fill: "currentColor",
+                viewBox: "0 0 20 20",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
+                  fillRule: "evenodd",
+                  d: "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z",
+                  clipRule: "evenodd"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                children: "Menu"
+              })]
+            }), isDropdownOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              className: "absolute right-0 mt-2 w-64 bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-amber-500/30 ring-1 ring-amber-400/20 z-50 overflow-hidden",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "px-4 py-3 border-b border-amber-500/20",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+                  className: "text-xs text-amber-200/80 font-medium",
+                  children: "Aksi Tersedia"
+                })
+              }), getAvailableHakAkses().length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                  className: "px-4 py-2",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+                    className: "text-xs text-amber-300 font-semibold mb-2",
+                    children: "Ganti Hak Akses:"
+                  }), getAvailableHakAkses().map(function (hakAkses) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+                      onClick: function onClick() {
+                        return _handleSwitchHakAkses(hakAkses.m_hak_akses_id, hakAkses.hak_akses_nama);
+                      },
+                      disabled: loadingSwitch,
+                      className: "w-full text-left px-3 py-2 text-sm text-amber-100 hover:bg-gradient-to-r hover:from-amber-500/10 hover:to-yellow-600/10 rounded-lg transition-all duration-200 flex items-center space-x-3 group disabled:opacity-50 disabled:cursor-not-allowed",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                        className: "w-2 h-2 bg-amber-400 rounded-full group-hover:bg-yellow-400 transition-colors duration-200"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                        className: "font-medium",
+                        children: hakAkses.hak_akses_nama
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
+                        className: "w-3 h-3 ml-auto text-amber-400 group-hover:text-yellow-400 transition-colors duration-200",
+                        fill: "currentColor",
+                        viewBox: "0 0 20 20",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
+                          fillRule: "evenodd",
+                          d: "M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z",
+                          clipRule: "evenodd"
+                        })
+                      })]
+                    }, hakAkses.m_hak_akses_id);
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                  className: "border-t border-amber-500/20"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "p-2",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+                  onClick: handleLogout,
+                  disabled: loadingSwitch,
+                  className: "w-full text-left px-3 py-2 text-sm text-red-300 hover:bg-gradient-to-r hover:from-red-500/10 hover:to-red-600/10 rounded-lg transition-all duration-200 flex items-center space-x-3 group disabled:opacity-50 disabled:cursor-not-allowed",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
+                    className: "w-4 h-4 text-red-400 group-hover:text-red-300 transition-colors duration-200",
+                    fill: "currentColor",
+                    viewBox: "0 0 20 20",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
+                      fillRule: "evenodd",
+                      d: "M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z",
+                      clipRule: "evenodd"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                    className: "font-medium",
+                    children: "Keluar"
+                  })]
+                })
+              })]
             })]
           })]
         })]
