@@ -1,8 +1,12 @@
 <?php
+// filepath: c:\xampp\htdocs\Password-Saving-Application\app\Http\Controllers\Api\AuthController.php
 
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\TraitsController;
+use App\Models\ManagePengguna\UserModel;
+use App\Models\ManagePengguna\HakAksesModel;
+use App\Models\ManagePengguna\SetUserHakAksesModel;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -107,7 +111,10 @@ class AuthController extends Controller
     public function getCurrentUser()
     {
         try {
+            Log::info('=== getCurrentUser API called ===');
+            
             if (!Auth::check()) {
+                Log::warning('User not authenticated');
                 return response()->json([
                     'success' => false,
                     'message' => 'User tidak terautentikasi'
@@ -117,22 +124,18 @@ class AuthController extends Controller
             $user = Auth::user();
             $selectedHakAkses = Session::get('selected_hak_akses');
 
-            // ✅ Fix foto profil URL - handle storage link dengan benar
-            $fotoProfile = asset('storage/foto-profile/default-picture.jpg'); // Default dengan asset() helper
-            
-            if (!empty($user->foto_profil) && $user->foto_profil !== null && $user->foto_profil !== 'NULL') {
-                // Jika ada foto profil dan bukan NULL, gunakan foto tersebut
-                // Check apakah file exists di storage
-                if (Storage::disk('public')->exists('foto-profile/' . $user->foto_profil)) {
-                    $fotoProfile = asset('storage/foto-profile/' . $user->foto_profil);
-                } else {
-                    // File tidak ada, gunakan default
-                    Log::warning('Foto profil tidak ditemukan: ' . $user->foto_profil . ' untuk user ID: ' . $user->m_user_id);
-                    $fotoProfile = asset('storage/foto-profile/default-picture.jpg');
-                }
-            }
+            // ✅ Debug user data
+            Log::info('User data:', [
+                'user_id' => $user->m_user_id ?? 'N/A',
+                'nama_pengguna' => $user->nama_pengguna ?? 'N/A',
+                'foto_profil_raw' => $user->foto_profil,
+            ]);
 
-            return response()->json([
+            // ✅ Force default untuk testing
+            $fotoProfile = asset('storage/foto-profile/default-picture.jpg');
+            Log::info('Default foto profile URL: ' . $fotoProfile);
+
+            $responseData = [
                 'success' => true,
                 'data' => [
                     'nama_pengguna' => $user->nama_pengguna,
@@ -144,10 +147,153 @@ class AuthController extends Controller
                         'nama' => $selectedHakAkses['hak_akses_nama']
                     ] : null
                 ]
-            ]);
+            ];
+
+            Log::info('Response data:', $responseData);
+            
+            return response()->json($responseData);
 
         } catch (\Exception $e) {
             Log::error('Error dalam getCurrentUser: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * ✅ Fixed method untuk switching hak akses
+     */
+    public function switchHakAkses(Request $request)
+    {
+        try {
+            $request->validate([
+                'hak_akses_id' => 'required|integer'
+            ]);
+
+            if (!Auth::check()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User tidak terautentikasi'
+                ], 401);
+            }
+
+            $user = Auth::user();
+            $userId = $user->m_user_id;
+            
+            Log::info('switchHakAkses - User ID: ' . $userId);
+            Log::info('switchHakAkses - Requested hak_akses_id: ' . $request->input('hak_akses_id'));
+
+            // ✅ Fixed: Ambil semua hak akses user menggunakan model yang tepat
+            $userHakAkses = UserModel::find($userId)
+                                   ->hakAkses()
+                                   ->where('m_hak_akses.isDeleted', 0)
+                                   ->where('set_user_hak_akses.isDeleted', 0)
+                                   ->get();
+
+            Log::info('switchHakAkses - User hak akses found: ', $userHakAkses->toArray());
+
+            // Cari hak akses yang dipilih
+            $selectedHakAkses = $userHakAkses->where('m_hak_akses_id', $request->input('hak_akses_id'))->first();
+            
+            if (!$selectedHakAkses) {
+                Log::warning('switchHakAkses - Hak akses tidak ditemukan untuk user');
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Hak akses tidak valid atau tidak tersedia untuk user ini!'
+                ], 400);
+            }
+
+            // Update session dengan hak akses yang baru
+            $newHakAkses = [
+                'm_hak_akses_id' => $selectedHakAkses->m_hak_akses_id,
+                'hak_akses_kode' => $selectedHakAkses->hak_akses_kode,
+                'hak_akses_nama' => $selectedHakAkses->hak_akses_nama
+            ];
+
+            Session::put('selected_hak_akses', $newHakAkses);
+
+            Log::info('Hak akses berhasil diganti:', [
+                'user_id' => $userId,
+                'username' => $user->username,
+                'new_access' => $newHakAkses
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Hak akses berhasil diubah ke: ' . $selectedHakAkses->hak_akses_nama,
+                'data' => [
+                    'hak_akses' => [
+                        'kode' => $selectedHakAkses->hak_akses_kode,
+                        'nama' => $selectedHakAkses->hak_akses_nama
+                    ]
+                ]
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Error dalam switchHakAkses: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * ✅ Fixed method untuk mendapatkan semua hak akses user
+     */
+    public function getAllUserHakAkses()
+    {
+        try {
+            if (!Auth::check()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User tidak terautentikasi'
+                ], 401);
+            }
+
+            $user = Auth::user();
+            $userId = $user->m_user_id;
+            $currentHakAkses = Session::get('selected_hak_akses');
+            
+            Log::info('getAllUserHakAkses - User ID: ' . $userId);
+            Log::info('getAllUserHakAkses - Current hak akses: ', $currentHakAkses ?? []);
+
+            // ✅ Fixed: Ambil semua hak akses user menggunakan model yang tepat
+            $userHakAkses = UserModel::find($userId)
+                                   ->hakAkses()
+                                   ->where('m_hak_akses.isDeleted', 0)
+                                   ->where('set_user_hak_akses.isDeleted', 0)
+                                   ->get();
+
+            Log::info('getAllUserHakAkses - User hak akses found: ', $userHakAkses->toArray());
+
+            // Format data dan tandai yang sedang aktif
+            $hakAksesData = $userHakAkses->map(function($item) use ($currentHakAkses) {
+                return [
+                    'm_hak_akses_id' => $item->m_hak_akses_id,
+                    'hak_akses_kode' => $item->hak_akses_kode,
+                    'hak_akses_nama' => $item->hak_akses_nama,
+                    'is_current' => $currentHakAkses && $currentHakAkses['m_hak_akses_id'] == $item->m_hak_akses_id
+                ];
+            });
+
+            Log::info('getAllUserHakAkses - Formatted data: ', $hakAksesData->toArray());
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'hak_akses_list' => $hakAksesData,
+                    'current_hak_akses' => $currentHakAkses,
+                    'total' => $hakAksesData->count()
+                ]
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Error dalam getAllUserHakAkses: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
             return response()->json([
                 'success' => false,
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage()
