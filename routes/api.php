@@ -27,6 +27,10 @@ Route::get('/hak-akses-user', [AuthController::class, 'getHakAksesUser'])->middl
 Route::post('/set-hak-akses', [AuthController::class, 'setHakAkses'])->middleware('web');
 Route::get('/current-user', [AuthController::class, 'getCurrentUser'])->middleware('web'); // Route baru
 
+// ✅ New routes untuk switching hak akses
+Route::get('/user-hak-akses-list', [AuthController::class, 'getAllUserHakAkses'])->middleware('web');
+Route::post('/switch-hak-akses', [AuthController::class, 'switchHakAkses'])->middleware('web');
+
 Route::get('/dashboard-data', [DashboardController::class, 'getDashboardData']);
 Route::get('/dashboard-admin-data', [DashboardController::class, 'getDashboardAdminData'])->middleware('web'); // ✅ New route
 
