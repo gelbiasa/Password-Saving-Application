@@ -43882,6 +43882,16 @@ var Dashboard = function Dashboard() {
     _useState2 = _slicedToArray(_useState, 2),
     data = _useState2[0],
     setData = _useState2[1];
+
+  // ✅ Add loading and error states
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState4 = _slicedToArray(_useState3, 2),
+    loading = _useState4[0],
+    setLoading = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState6 = _slicedToArray(_useState5, 2),
+    error = _useState6[0],
+    setError = _useState6[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     fetchDashboardData();
   }, []);
@@ -43892,31 +43902,92 @@ var Dashboard = function Dashboard() {
         while (1) switch (_context.p = _context.n) {
           case 0:
             _context.p = 0;
+            setLoading(true);
+            setError(null);
+            console.log('📊 Dashboard - Fetching data from /api/dashboard-data...');
             _context.n = 1;
             return axios.get('/api/dashboard-data');
           case 1:
             response = _context.v;
-            setData(response.data);
+            console.log('📊 Dashboard - API Response:', response.data);
+            if (!response.data.success) {
+              _context.n = 2;
+              break;
+            }
+            setData(response.data.data);
+            console.log('📊 Dashboard - Data set:', response.data.data);
             _context.n = 3;
             break;
           case 2:
-            _context.p = 2;
-            _t = _context.v;
-            console.error('Error fetching dashboard data:', _t);
-            setData({
-              totalPasswords: 25,
-              weakPasswords: 3,
-              strongPasswords: 22
-            });
+            throw new Error(response.data.message || 'Failed to fetch data');
           case 3:
+            _context.n = 5;
+            break;
+          case 4:
+            _context.p = 4;
+            _t = _context.v;
+            console.error('📊 Dashboard - Error fetching data:', _t);
+            setError(_t.message);
+
+            // Fallback data
+            setData({
+              totalPasswords: 0,
+              weakPasswords: 0,
+              strongPasswords: 0
+            });
+          case 5:
+            _context.p = 5;
+            setLoading(false);
+            return _context.f(5);
+          case 6:
             return _context.a(2);
         }
-      }, _callee, null, [[0, 2]]);
+      }, _callee, null, [[0, 4, 5, 6]]);
     }));
     return function fetchDashboardData() {
       return _ref.apply(this, arguments);
     };
   }();
+
+  // ✅ Function untuk test password strength (untuk debugging)
+  var testPasswordStrength = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(password) {
+      var response, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            _context2.p = 0;
+            _context2.n = 1;
+            return axios.post('/api/test-password-strength', {
+              password: password
+            });
+          case 1:
+            response = _context2.v;
+            console.log('🔐 Password Test Result:', response.data);
+            _context2.n = 3;
+            break;
+          case 2:
+            _context2.p = 2;
+            _t2 = _context2.v;
+            console.error('🔐 Password Test Error:', _t2);
+          case 3:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[0, 2]]);
+    }));
+    return function testPasswordStrength(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  // ✅ Test different passwords (uncomment untuk testing)
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // Testing password strength logic
+    // testPasswordStrength('michaelkertanegara'); // Should be strong (> 12 chars)
+    // testPasswordStrength('Adam@11'); // Should be strong (symbol + number + uppercase)
+    // testPasswordStrength('michaelbob'); // Should be weak (< 12 chars, no symbol/number/uppercase)
+    // testPasswordStrength('adamsmith12'); // Should be weak (no symbol, no uppercase)
+  }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: "min-h-screen flex",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -43931,9 +44002,9 @@ var Dashboard = function Dashboard() {
           className: "space-y-6 max-w-7xl relative z-10",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "bg-gradient-to-r from-gray-900 via-black to-gray-800 rounded-xl shadow-2xl border border-amber-500/20 p-6",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
               className: "flex items-center justify-between",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
                   className: "text-2xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
                   children: "Dashboard"
@@ -43941,7 +44012,30 @@ var Dashboard = function Dashboard() {
                   className: "text-amber-100/80 mt-2 text-sm",
                   children: "Selamat datang kembali di Password Manager! Berikut adalah ringkasan keamanan password Anda."
                 })]
-              })
+              }), loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                className: "flex items-center space-x-2 text-amber-300",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                  className: "w-4 h-4 border-2 border-amber-300/30 border-t-amber-300 rounded-full animate-spin"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                  className: "text-sm",
+                  children: "Memuat data..."
+                })]
+              }), error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                className: "flex items-center space-x-2 text-red-300",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
+                  className: "w-4 h-4",
+                  fill: "currentColor",
+                  viewBox: "0 0 20 20",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                    fillRule: "evenodd",
+                    d: "M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z",
+                    clipRule: "evenodd"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                  className: "text-sm",
+                  children: "Error memuat data"
+                })]
+              })]
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
             className: "grid grid-cols-1 md:grid-cols-3 gap-6",
@@ -43949,19 +44043,22 @@ var Dashboard = function Dashboard() {
               title: "Total Password",
               value: data.totalPasswords,
               color: "blue",
-              icon: "lock"
+              icon: "lock",
+              loading: loading
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(StatCard, {
               title: "Password Lemah",
               value: data.weakPasswords,
               color: "red",
-              icon: "warning"
+              icon: "warning",
+              loading: loading
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(StatCard, {
               title: "Password Kuat",
               value: data.strongPasswords,
               color: "green",
-              icon: "check"
+              icon: "check",
+              loading: loading
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(RecentActivity, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(PasswordStrengthInfo, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(RecentActivity, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "pb-16"
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Footer__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
@@ -43970,12 +44067,88 @@ var Dashboard = function Dashboard() {
   });
 };
 
-// Component untuk kartu statistik - dengan tema hitam emas
-var StatCard = function StatCard(_ref2) {
-  var title = _ref2.title,
-    value = _ref2.value,
-    color = _ref2.color,
-    icon = _ref2.icon;
+// ✅ Component untuk informasi password strength
+var PasswordStrengthInfo = function PasswordStrengthInfo() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-amber-500/20",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "p-6 border-b border-amber-500/20",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+        className: "text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
+        children: "Kriteria Password Kuat"
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "p-6",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "grid grid-cols-1 md:grid-cols-2 gap-6",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "space-y-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+            className: "text-lg font-semibold text-green-400",
+            children: "\u2705 Password Kuat"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "space-y-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              className: "p-3 bg-green-500/10 border border-green-500/20 rounded-lg",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "font-mono text-green-300",
+                children: "michaelkertanegara"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "text-sm text-green-200/80 mt-1",
+                children: "Lebih dari 12 karakter"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              className: "p-3 bg-green-500/10 border border-green-500/20 rounded-lg",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "font-mono text-green-300",
+                children: "Adam@11"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "text-sm text-green-200/80 mt-1",
+                children: "Symbol (@) + Number (11) + Huruf Kapital (A)"
+              })]
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "space-y-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+            className: "text-lg font-semibold text-red-400",
+            children: "\u274C Password Lemah"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "space-y-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              className: "p-3 bg-red-500/10 border border-red-500/20 rounded-lg",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "font-mono text-red-300",
+                children: "michaelbob"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "text-sm text-red-200/80 mt-1",
+                children: "Kurang dari 12 karakter, tidak ada symbol/number/kapital"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              className: "p-3 bg-red-500/10 border border-red-500/20 rounded-lg",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "font-mono text-red-300",
+                children: "adamsmith12"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "text-sm text-red-200/80 mt-1",
+                children: "Tidak ada symbol dan huruf kapital"
+              })]
+            })]
+          })]
+        })]
+      })
+    })]
+  });
+};
+
+// Component untuk kartu statistik - dengan loading state
+var StatCard = function StatCard(_ref3) {
+  var title = _ref3.title,
+    value = _ref3.value,
+    color = _ref3.color,
+    icon = _ref3.icon,
+    _ref3$loading = _ref3.loading,
+    loading = _ref3$loading === void 0 ? false : _ref3$loading;
   var colorClasses = {
     blue: {
       bg: 'bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95',
@@ -44012,7 +44185,9 @@ var StatCard = function StatCard(_ref2) {
         className: "flex-shrink-0",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "w-12 h-12 ".concat(colorClasses[color].icon, " rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
+          children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
             className: "w-6 h-6",
             fill: "currentColor",
             viewBox: "0 0 20 20",
@@ -44030,7 +44205,7 @@ var StatCard = function StatCard(_ref2) {
           children: title
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
           className: "text-3xl font-bold ".concat(colorClasses[color].text, " group-hover:scale-105 transition-transform duration-300"),
-          children: value
+          children: loading ? '...' : value
         })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
@@ -44041,7 +44216,7 @@ var StatCard = function StatCard(_ref2) {
   });
 };
 
-// Component untuk recent activity - dengan tema hitam emas
+// Component untuk recent activity - unchanged
 var RecentActivity = function RecentActivity() {
   var activities = [{
     text: "Password Gmail diperbarui",

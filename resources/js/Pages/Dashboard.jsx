@@ -9,6 +9,10 @@ const Dashboard = () => {
         weakPasswords: 0,
         strongPasswords: 0
     });
+    
+    // ✅ Add loading and error states
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetchDashboardData();
@@ -16,17 +20,55 @@ const Dashboard = () => {
 
     const fetchDashboardData = async () => {
         try {
+            setLoading(true);
+            setError(null);
+            
+            console.log('📊 Dashboard - Fetching data from /api/dashboard-data...');
             const response = await axios.get('/api/dashboard-data');
-            setData(response.data);
+            
+            console.log('📊 Dashboard - API Response:', response.data);
+            
+            if (response.data.success) {
+                setData(response.data.data);
+                console.log('📊 Dashboard - Data set:', response.data.data);
+            } else {
+                throw new Error(response.data.message || 'Failed to fetch data');
+            }
         } catch (error) {
-            console.error('Error fetching dashboard data:', error);
+            console.error('📊 Dashboard - Error fetching data:', error);
+            setError(error.message);
+            
+            // Fallback data
             setData({
-                totalPasswords: 25,
-                weakPasswords: 3,
-                strongPasswords: 22
+                totalPasswords: 0,
+                weakPasswords: 0,
+                strongPasswords: 0
             });
+        } finally {
+            setLoading(false);
         }
     };
+
+    // ✅ Function untuk test password strength (untuk debugging)
+    const testPasswordStrength = async (password) => {
+        try {
+            const response = await axios.post('/api/test-password-strength', {
+                password: password
+            });
+            console.log('🔐 Password Test Result:', response.data);
+        } catch (error) {
+            console.error('🔐 Password Test Error:', error);
+        }
+    };
+
+    // ✅ Test different passwords (uncomment untuk testing)
+    useEffect(() => {
+        // Testing password strength logic
+        // testPasswordStrength('michaelkertanegara'); // Should be strong (> 12 chars)
+        // testPasswordStrength('Adam@11'); // Should be strong (symbol + number + uppercase)
+        // testPasswordStrength('michaelbob'); // Should be weak (< 12 chars, no symbol/number/uppercase)
+        // testPasswordStrength('adamsmith12'); // Should be weak (no symbol, no uppercase)
+    }, []);
 
     return (
         <div className="min-h-screen flex">
@@ -55,6 +97,24 @@ const Dashboard = () => {
                                         Selamat datang kembali di Password Manager! Berikut adalah ringkasan keamanan password Anda.
                                     </p>
                                 </div>
+                                
+                                {/* ✅ Loading indicator */}
+                                {loading && (
+                                    <div className="flex items-center space-x-2 text-amber-300">
+                                        <div className="w-4 h-4 border-2 border-amber-300/30 border-t-amber-300 rounded-full animate-spin"></div>
+                                        <span className="text-sm">Memuat data...</span>
+                                    </div>
+                                )}
+                                
+                                {/* ✅ Error indicator */}
+                                {error && (
+                                    <div className="flex items-center space-x-2 text-red-300">
+                                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"></path>
+                                        </svg>
+                                        <span className="text-sm">Error memuat data</span>
+                                    </div>
+                                )}
                             </div>
                         </div>
 
@@ -65,20 +125,26 @@ const Dashboard = () => {
                                 value={data.totalPasswords}
                                 color="blue"
                                 icon="lock"
+                                loading={loading}
                             />
                             <StatCard 
                                 title="Password Lemah"
                                 value={data.weakPasswords}
                                 color="red"
                                 icon="warning"
+                                loading={loading}
                             />
                             <StatCard 
                                 title="Password Kuat"
                                 value={data.strongPasswords}
                                 color="green"
                                 icon="check"
+                                loading={loading}
                             />
                         </div>
+
+                        {/* ✅ Password Strength Info */}
+                        <PasswordStrengthInfo />
 
                         {/* Recent Activity */}
                         <RecentActivity />
@@ -95,8 +161,54 @@ const Dashboard = () => {
     );
 };
 
-// Component untuk kartu statistik - dengan tema hitam emas
-const StatCard = ({ title, value, color, icon }) => {
+// ✅ Component untuk informasi password strength
+const PasswordStrengthInfo = () => {
+    return (
+        <div className="bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-amber-500/20">
+            <div className="p-6 border-b border-amber-500/20">
+                <h2 className="text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent">
+                    Kriteria Password Kuat
+                </h2>
+            </div>
+            <div className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Strong Password Examples */}
+                    <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-green-400">✅ Password Kuat</h3>
+                        <div className="space-y-3">
+                            <div className="p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
+                                <div className="font-mono text-green-300">michaelkertanegara</div>
+                                <div className="text-sm text-green-200/80 mt-1">Lebih dari 12 karakter</div>
+                            </div>
+                            <div className="p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
+                                <div className="font-mono text-green-300">Adam@11</div>
+                                <div className="text-sm text-green-200/80 mt-1">Symbol (@) + Number (11) + Huruf Kapital (A)</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {/* Weak Password Examples */}
+                    <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-red-400">❌ Password Lemah</h3>
+                        <div className="space-y-3">
+                            <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
+                                <div className="font-mono text-red-300">michaelbob</div>
+                                <div className="text-sm text-red-200/80 mt-1">Kurang dari 12 karakter, tidak ada symbol/number/kapital</div>
+                            </div>
+                            <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
+                                <div className="font-mono text-red-300">adamsmith12</div>
+                                <div className="text-sm text-red-200/80 mt-1">Tidak ada symbol dan huruf kapital</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// Component untuk kartu statistik - dengan loading state
+const StatCard = ({ title, value, color, icon, loading = false }) => {
     const colorClasses = {
         blue: {
             bg: 'bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95',
@@ -132,9 +244,13 @@ const StatCard = ({ title, value, color, icon }) => {
             <div className="flex items-center">
                 <div className="flex-shrink-0">
                     <div className={`w-12 h-12 ${colorClasses[color].icon} rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110`}>
-                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d={iconPaths[icon]} clipRule="evenodd"></path>
-                        </svg>
+                        {loading ? (
+                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        ) : (
+                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d={iconPaths[icon]} clipRule="evenodd"></path>
+                            </svg>
+                        )}
                     </div>
                 </div>
                 <div className="ml-4">
@@ -142,7 +258,7 @@ const StatCard = ({ title, value, color, icon }) => {
                         {title}
                     </h3>
                     <p className={`text-3xl font-bold ${colorClasses[color].text} group-hover:scale-105 transition-transform duration-300`}>
-                        {value}
+                        {loading ? '...' : value}
                     </p>
                 </div>
             </div>
@@ -154,7 +270,7 @@ const StatCard = ({ title, value, color, icon }) => {
     );
 };
 
-// Component untuk recent activity - dengan tema hitam emas
+// Component untuk recent activity - unchanged
 const RecentActivity = () => {
     const activities = [
         { text: "Password Gmail diperbarui", time: "2 jam yang lalu", color: "green" },

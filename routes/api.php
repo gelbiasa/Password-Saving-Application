@@ -31,8 +31,12 @@ Route::get('/current-user', [AuthController::class, 'getCurrentUser'])->middlewa
 Route::get('/user-hak-akses-list', [AuthController::class, 'getAllUserHakAkses'])->middleware('web');
 Route::post('/switch-hak-akses', [AuthController::class, 'switchHakAkses'])->middleware('web');
 
-Route::get('/dashboard-data', [DashboardController::class, 'getDashboardData']);
+// ✅ Updated dashboard routes - user-specific data
+Route::get('/dashboard-data', [DashboardController::class, 'getDashboardData'])->middleware('web');
 Route::get('/dashboard-admin-data', [DashboardController::class, 'getDashboardAdminData'])->middleware('web'); // ✅ New route
+
+// ✅ New route untuk testing password strength
+Route::post('/test-password-strength', [DashboardController::class, 'testPasswordStrength'])->middleware('web');
 
 Route::middleware('web')->group(function () {
     Route::get('/kategori-password', [KategoriPasswordController::class, 'getData']);
