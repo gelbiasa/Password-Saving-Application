@@ -43858,6 +43858,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_Sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Components/Sidebar */ "./resources/js/Components/Sidebar.jsx");
 /* harmony import */ var _Components_Footer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Components/Footer */ "./resources/js/Components/Footer.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { if (r) i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n;else { var o = function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); }; o("next", 0), o("throw", 1), o("return", 2); } }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -43877,7 +43881,8 @@ var Dashboard = function Dashboard() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       totalPasswords: 0,
       weakPasswords: 0,
-      strongPasswords: 0
+      strongPasswords: 0,
+      recentActivities: [] // ✅ Add recent activities
     }),
     _useState2 = _slicedToArray(_useState, 2),
     data = _useState2[0],
@@ -43916,6 +43921,7 @@ var Dashboard = function Dashboard() {
             }
             setData(response.data.data);
             console.log('📊 Dashboard - Data set:', response.data.data);
+            console.log('📊 Dashboard - Recent Activities:', response.data.data.recentActivities);
             _context.n = 3;
             break;
           case 2:
@@ -43933,7 +43939,8 @@ var Dashboard = function Dashboard() {
             setData({
               totalPasswords: 0,
               weakPasswords: 0,
-              strongPasswords: 0
+              strongPasswords: 0,
+              recentActivities: []
             });
           case 5:
             _context.p = 5;
@@ -44058,7 +44065,10 @@ var Dashboard = function Dashboard() {
               icon: "check",
               loading: loading
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(PasswordStrengthInfo, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(RecentActivity, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(PasswordStrengthInfo, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(RecentActivity, {
+            activities: data.recentActivities,
+            loading: loading
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "pb-16"
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Footer__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
@@ -44067,7 +44077,7 @@ var Dashboard = function Dashboard() {
   });
 };
 
-// ✅ Component untuk informasi password strength
+// ✅ Component untuk informasi password strength - UNCHANGED
 var PasswordStrengthInfo = function PasswordStrengthInfo() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-amber-500/20",
@@ -44141,7 +44151,7 @@ var PasswordStrengthInfo = function PasswordStrengthInfo() {
   });
 };
 
-// Component untuk kartu statistik - dengan loading state
+// Component untuk kartu statistik - dengan loading state - UNCHANGED
 var StatCard = function StatCard(_ref3) {
   var title = _ref3.title,
     value = _ref3.value,
@@ -44216,52 +44226,89 @@ var StatCard = function StatCard(_ref3) {
   });
 };
 
-// Component untuk recent activity - unchanged
-var RecentActivity = function RecentActivity() {
-  var activities = [{
-    text: "Password Gmail diperbarui",
-    time: "2 jam yang lalu",
-    color: "green"
-  }, {
-    text: "Password baru ditambahkan untuk Facebook",
-    time: "1 hari yang lalu",
-    color: "blue"
-  }, {
-    text: "Password lemah terdeteksi untuk Instagram",
-    time: "3 hari yang lalu",
-    color: "yellow"
-  }];
+// ✅ Component untuk recent activity - NOW DYNAMIC
+var RecentActivity = function RecentActivity(_ref4) {
+  var _ref4$activities = _ref4.activities,
+    activities = _ref4$activities === void 0 ? [] : _ref4$activities,
+    _ref4$loading = _ref4.loading,
+    loading = _ref4$loading === void 0 ? false : _ref4$loading;
+  console.log('📅 RecentActivity - Received activities:', activities);
   var activityColors = {
     green: 'bg-green-500 shadow-green-500/50',
     blue: 'bg-blue-500 shadow-blue-500/50',
-    yellow: 'bg-yellow-500 shadow-yellow-500/50'
+    yellow: 'bg-yellow-500 shadow-yellow-500/50',
+    red: 'bg-red-500 shadow-red-500/50'
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-amber-500/20",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "p-6 border-b border-amber-500/20",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
-        className: "text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
-        children: "Aktivitas Terbaru"
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "flex items-center justify-between",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+          className: "text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
+          children: "Aktivitas Terbaru"
+        }), loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "w-4 h-4 border-2 border-amber-300/30 border-t-amber-300 rounded-full animate-spin"
+        })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "p-6",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "space-y-4",
-        children: activities.map(function (activity, index) {
+        children: [loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "space-y-4",
+          children: _toConsumableArray(Array(3)).map(function (_, index) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              className: "flex items-center space-x-4 p-4 rounded-xl bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-amber-500/10 animate-pulse",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "w-3 h-3 bg-gray-600 rounded-full"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "flex-1 space-y-2",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                  className: "h-4 bg-gray-600 rounded w-3/4"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "h-3 bg-gray-600 rounded w-20"
+              })]
+            }, index);
+          })
+        }), !loading && activities.length > 0 && activities.map(function (activity, index) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
             className: "flex items-center space-x-4 p-4 rounded-xl bg-gradient-to-r from-gray-800/50 to-gray-700/50 hover:from-gray-700/60 hover:to-gray-600/60 transition-all duration-300 group border border-amber-500/10 hover:border-amber-400/20",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              className: "w-3 h-3 ".concat(activityColors[activity.color], " rounded-full shadow-lg animate-pulse")
+              className: "w-3 h-3 ".concat(activityColors[activity.color] || activityColors.blue, " rounded-full shadow-lg animate-pulse")
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
               className: "text-sm text-amber-100 group-hover:text-amber-50 transition-colors duration-300 flex-1 font-medium",
+              title: "Kategori: ".concat(activity.kategori, " - ").concat(activity.is_strong ? 'Password Kuat' : 'Password Lemah'),
               children: activity.text
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
               className: "text-xs text-amber-300/80 group-hover:text-amber-200 transition-colors duration-300 font-medium",
               children: activity.time
             })]
           }, index);
-        })
+        }), !loading && activities.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "text-center py-8",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "w-16 h-16 bg-gradient-to-br from-amber-600/20 to-yellow-600/20 rounded-full flex items-center justify-center mx-auto mb-4",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
+              className: "w-8 h-8 text-amber-400/60",
+              fill: "currentColor",
+              viewBox: "0 0 20 20",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                fillRule: "evenodd",
+                d: "M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z",
+                clipRule: "evenodd"
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+            className: "text-amber-200/60 text-sm",
+            children: "Belum ada aktivitas password"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+            className: "text-amber-300/40 text-xs mt-1",
+            children: "Mulai tambahkan password untuk melihat aktivitas"
+          })]
+        })]
       })
     })]
   });

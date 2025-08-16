@@ -7,7 +7,8 @@ const Dashboard = () => {
     const [data, setData] = useState({
         totalPasswords: 0,
         weakPasswords: 0,
-        strongPasswords: 0
+        strongPasswords: 0,
+        recentActivities: [] // ✅ Add recent activities
     });
     
     // ✅ Add loading and error states
@@ -31,6 +32,7 @@ const Dashboard = () => {
             if (response.data.success) {
                 setData(response.data.data);
                 console.log('📊 Dashboard - Data set:', response.data.data);
+                console.log('📊 Dashboard - Recent Activities:', response.data.data.recentActivities);
             } else {
                 throw new Error(response.data.message || 'Failed to fetch data');
             }
@@ -42,7 +44,8 @@ const Dashboard = () => {
             setData({
                 totalPasswords: 0,
                 weakPasswords: 0,
-                strongPasswords: 0
+                strongPasswords: 0,
+                recentActivities: []
             });
         } finally {
             setLoading(false);
@@ -146,8 +149,8 @@ const Dashboard = () => {
                         {/* ✅ Password Strength Info */}
                         <PasswordStrengthInfo />
 
-                        {/* Recent Activity */}
-                        <RecentActivity />
+                        {/* ✅ Recent Activity - Now Dynamic */}
+                        <RecentActivity activities={data.recentActivities} loading={loading} />
                         
                         {/* Add padding bottom untuk footer */}
                         <div className="pb-16"></div>
@@ -161,7 +164,7 @@ const Dashboard = () => {
     );
 };
 
-// ✅ Component untuk informasi password strength
+// ✅ Component untuk informasi password strength - UNCHANGED
 const PasswordStrengthInfo = () => {
     return (
         <div className="bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-amber-500/20">
@@ -207,7 +210,7 @@ const PasswordStrengthInfo = () => {
     );
 };
 
-// Component untuk kartu statistik - dengan loading state
+// Component untuk kartu statistik - dengan loading state - UNCHANGED
 const StatCard = ({ title, value, color, icon, loading = false }) => {
     const colorClasses = {
         blue: {
@@ -270,33 +273,51 @@ const StatCard = ({ title, value, color, icon, loading = false }) => {
     );
 };
 
-// Component untuk recent activity - unchanged
-const RecentActivity = () => {
-    const activities = [
-        { text: "Password Gmail diperbarui", time: "2 jam yang lalu", color: "green" },
-        { text: "Password baru ditambahkan untuk Facebook", time: "1 hari yang lalu", color: "blue" },
-        { text: "Password lemah terdeteksi untuk Instagram", time: "3 hari yang lalu", color: "yellow" }
-    ];
-
+// ✅ Component untuk recent activity - NOW DYNAMIC
+const RecentActivity = ({ activities = [], loading = false }) => {
+    console.log('📅 RecentActivity - Received activities:', activities);
+    
     const activityColors = {
         green: 'bg-green-500 shadow-green-500/50',
         blue: 'bg-blue-500 shadow-blue-500/50',
-        yellow: 'bg-yellow-500 shadow-yellow-500/50'
+        yellow: 'bg-yellow-500 shadow-yellow-500/50',
+        red: 'bg-red-500 shadow-red-500/50'
     };
 
     return (
         <div className="bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-amber-500/20">
             <div className="p-6 border-b border-amber-500/20">
-                <h2 className="text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent">
-                    Aktivitas Terbaru
-                </h2>
+                <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent">
+                        Aktivitas Terbaru
+                    </h2>
+                    {loading && (
+                        <div className="w-4 h-4 border-2 border-amber-300/30 border-t-amber-300 rounded-full animate-spin"></div>
+                    )}
+                </div>
             </div>
             <div className="p-6">
                 <div className="space-y-4">
-                    {activities.map((activity, index) => (
+                    {/* ✅ Loading state */}
+                    {loading && (
+                        <div className="space-y-4">
+                            {[...Array(3)].map((_, index) => (
+                                <div key={index} className="flex items-center space-x-4 p-4 rounded-xl bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-amber-500/10 animate-pulse">
+                                    <div className="w-3 h-3 bg-gray-600 rounded-full"></div>
+                                    <div className="flex-1 space-y-2">
+                                        <div className="h-4 bg-gray-600 rounded w-3/4"></div>
+                                    </div>
+                                    <div className="h-3 bg-gray-600 rounded w-20"></div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* ✅ Real activities data */}
+                    {!loading && activities.length > 0 && activities.map((activity, index) => (
                         <div key={index} className="flex items-center space-x-4 p-4 rounded-xl bg-gradient-to-r from-gray-800/50 to-gray-700/50 hover:from-gray-700/60 hover:to-gray-600/60 transition-all duration-300 group border border-amber-500/10 hover:border-amber-400/20">
-                            <div className={`w-3 h-3 ${activityColors[activity.color]} rounded-full shadow-lg animate-pulse`}></div>
-                            <span className="text-sm text-amber-100 group-hover:text-amber-50 transition-colors duration-300 flex-1 font-medium">
+                            <div className={`w-3 h-3 ${activityColors[activity.color] || activityColors.blue} rounded-full shadow-lg animate-pulse`}></div>
+                            <span className="text-sm text-amber-100 group-hover:text-amber-50 transition-colors duration-300 flex-1 font-medium" title={`Kategori: ${activity.kategori} - ${activity.is_strong ? 'Password Kuat' : 'Password Lemah'}`}>
                                 {activity.text}
                             </span>
                             <span className="text-xs text-amber-300/80 group-hover:text-amber-200 transition-colors duration-300 font-medium">
@@ -304,6 +325,19 @@ const RecentActivity = () => {
                             </span>
                         </div>
                     ))}
+
+                    {/* ✅ Empty state */}
+                    {!loading && activities.length === 0 && (
+                        <div className="text-center py-8">
+                            <div className="w-16 h-16 bg-gradient-to-br from-amber-600/20 to-yellow-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg className="w-8 h-8 text-amber-400/60" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <p className="text-amber-200/60 text-sm">Belum ada aktivitas password</p>
+                            <p className="text-amber-300/40 text-xs mt-1">Mulai tambahkan password untuk melihat aktivitas</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
