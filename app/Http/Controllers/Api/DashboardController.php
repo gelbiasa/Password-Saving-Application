@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -67,10 +68,14 @@ class DashboardController extends Controller
                 }
             }
 
+            // ✅ Ambil aktivitas terbaru user
+            $recentActivities = $this->getRecentActivities($userId);
+
             $data = [
                 'totalPasswords' => $totalPasswords,
                 'weakPasswords' => $weakPasswords,
-                'strongPasswords' => $strongPasswords
+                'strongPasswords' => $strongPasswords,
+                'recentActivities' => $recentActivities
             ];
 
             Log::info('getDashboardData - Final data:', $data);
@@ -89,9 +94,136 @@ class DashboardController extends Controller
                 'data' => [
                     'totalPasswords' => 0,
                     'weakPasswords' => 0,
-                    'strongPasswords' => 0
+                    'strongPasswords' => 0,
+                    'recentActivities' => []
                 ]
             ]);
+        }
+    }
+
+    private function getRecentActivities($userId, $limit = 5)
+    {
+        try {
+            // Set timezone ke Asia/Jakarta
+            Carbon::setLocale('id');
+            
+            // Ambil detail password terbaru dengan kategori
+            $recentPasswords = DetailPasswordModel::with('kategoriPassword')
+                                                 ->where('fk_m_user', $userId)
+                                                 ->where('isDeleted', 0)
+                                                 ->orderBy('created_at', 'desc')
+                                                 ->take($limit)
+                                                 ->get();
+
+            Log::info('getRecentActivities - Found activities: ' . $recentPasswords->count());
+
+            $activities = [];
+
+            foreach ($recentPasswords as $password) {
+                try {
+                    // Ambil nama kategori
+                    $kategoriNama = $password->kategoriPassword ? $password->kategoriPassword->kp_nama : 'Kategori Tidak Diketahui';
+                    
+                    // Decrypt password untuk analisis kekuatan
+                    $isStrong = false;
+                    try {
+                        $encryptedPassword = $password->getOriginal('dp_nama_password');
+                        if (!empty($encryptedPassword)) {
+                            $decryptedPassword = Crypt::decryptString($encryptedPassword);
+                            $isStrong = $this->isStrongPassword($decryptedPassword);
+                        }
+                    } catch (\Exception $e) {
+                        Log::warning('Could not decrypt password for activity analysis: ' . $e->getMessage());
+                    }
+
+                    // Tentukan warna berdasarkan kekuatan password dan waktu
+                    $color = $this->getActivityColor($password->created_at, $isStrong);
+                    
+                    // Format waktu dengan Carbon
+                    $createdAt = Carbon::parse($password->created_at)->setTimezone('Asia/Jakarta');
+                    $timeAgo = $createdAt->diffForHumans();
+                    
+                    // Buat teks aktivitas berdasarkan waktu dan kekuatan password
+                    $activityText = $this->generateActivityText($kategoriNama, $password->created_at, $isStrong);
+
+                    $activities[] = [
+                        'text' => $activityText,
+                        'time' => $timeAgo,
+                        'color' => $color,
+                        'kategori' => $kategoriNama,
+                        'is_strong' => $isStrong,
+                        'created_at' => $createdAt->toDateTimeString()
+                    ];
+
+                    Log::info('Activity created: ' . $activityText . ' - ' . $timeAgo);
+
+                } catch (\Exception $e) {
+                    Log::error('Error processing activity for password ID ' . $password->m_detail_password_id . ': ' . $e->getMessage());
+                    continue;
+                }
+            }
+
+            // Jika tidak ada aktivitas, berikan contoh default
+            if (empty($activities)) {
+                $activities = [
+                    [
+                        'text' => 'Belum ada aktivitas password',
+                        'time' => 'Baru saja',
+                        'color' => 'blue',
+                        'kategori' => 'System',
+                        'is_strong' => false,
+                        'created_at' => now()->toDateTimeString()
+                    ]
+                ];
+            }
+
+            return $activities;
+
+        } catch (\Exception $e) {
+            Log::error('Error getting recent activities: ' . $e->getMessage());
+            return [];
+        }
+    }
+
+    private function generateActivityText($kategoriNama, $createdAt, $isStrong)
+    {
+        $templates = [
+            'strong' => [
+                "Password kuat untuk kategori {kategori} berhasil ditambahkan",
+                "Password dengan kategori {kategori} baru ditambahkan",
+                "Password aman kategori {kategori} telah disimpan",
+            ],
+            'weak' => [
+                "Password lemah terdeteksi untuk kategori {kategori}",
+                "Password kategori {kategori} memerlukan penguatan",
+                "Password dengan kategori {kategori} perlu diperbaiki",
+            ]
+        ];
+
+        // Pilih template berdasarkan kekuatan password
+        $selectedTemplates = $isStrong ? $templates['strong'] : $templates['weak'];
+        
+        // Pilih template secara acak atau berdasarkan waktu
+        $templateIndex = abs(crc32($createdAt . $kategoriNama)) % count($selectedTemplates);
+        $template = $selectedTemplates[$templateIndex];
+
+        // Replace placeholder
+        return str_replace('{kategori}', $kategoriNama, $template);
+    }
+
+    private function getActivityColor($createdAt, $isStrong)
+    {
+        $createdTime = Carbon::parse($createdAt);
+        $now = Carbon::now();
+        $hoursDiff = $now->diffInHours($createdTime);
+
+        // Logika warna berdasarkan kondisi
+        if (!$isStrong) {
+            return 'yellow'; // Password lemah = kuning (warning)
+        } elseif ($hoursDiff <= 24) {
+            return 'green'; // Baru (< 24 jam) dan kuat = hijau
+        } else {
+            return 'blue'; // Lama tapi kuat = biru
         }
     }
 
