@@ -66,11 +66,6 @@ const Dashboard = () => {
 
     // ✅ Test different passwords (uncomment untuk testing)
     useEffect(() => {
-        // Testing password strength logic
-        // testPasswordStrength('michaelkertanegara'); // Should be strong (> 12 chars)
-        // testPasswordStrength('Adam@11'); // Should be strong (symbol + number + uppercase)
-        // testPasswordStrength('michaelbob'); // Should be weak (< 12 chars, no symbol/number/uppercase)
-        // testPasswordStrength('adamsmith12'); // Should be weak (no symbol, no uppercase)
     }, []);
 
     return (
@@ -180,11 +175,11 @@ const PasswordStrengthInfo = () => {
                         <h3 className="text-lg font-semibold text-green-400">✅ Password Kuat</h3>
                         <div className="space-y-3">
                             <div className="p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
-                                <div className="font-mono text-green-300">michaelkertanegara</div>
+                                <div className="font-mono text-green-300">sulaimankertanegara</div>
                                 <div className="text-sm text-green-200/80 mt-1">Lebih dari 12 karakter</div>
                             </div>
                             <div className="p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
-                                <div className="font-mono text-green-300">Adam@11</div>
+                                <div className="font-mono text-green-300">Agus@11</div>
                                 <div className="text-sm text-green-200/80 mt-1">Symbol (@) + Number (11) + Huruf Kapital (A)</div>
                             </div>
                         </div>
@@ -195,11 +190,11 @@ const PasswordStrengthInfo = () => {
                         <h3 className="text-lg font-semibold text-red-400">❌ Password Lemah</h3>
                         <div className="space-y-3">
                             <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
-                                <div className="font-mono text-red-300">michaelbob</div>
+                                <div className="font-mono text-red-300">valenandra</div>
                                 <div className="text-sm text-red-200/80 mt-1">Kurang dari 12 karakter, tidak ada symbol/number/kapital</div>
                             </div>
                             <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
-                                <div className="font-mono text-red-300">adamsmith12</div>
+                                <div className="font-mono text-red-300">leonardo12</div>
                                 <div className="text-sm text-red-200/80 mt-1">Tidak ada symbol dan huruf kapital</div>
                             </div>
                         </div>
