@@ -4,20 +4,23 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
     const [userData, setUserData] = useState({
         nama_pengguna: 'Loading...',
         email_pengguna: 'Loading...',
-        foto_profil: null, // ✅ Set ke null dulu, nanti akan diisi dari API
+        foto_profil: null,
         hak_akses: null,
         alias_pengguna: 'Loading...'
     });
 
     const [kategoriCount, setKategoriCount] = useState(0);
     const [detailPasswordCount, setDetailPasswordCount] = useState(0);
+    const [userCount, setUserCount] = useState(0); // ✅ Add user count state
     const [loadingCount, setLoadingCount] = useState(true);
     const [loadingDetailCount, setLoadingDetailCount] = useState(true);
+    const [loadingUserCount, setLoadingUserCount] = useState(true); // ✅ Add user count loading state
 
     useEffect(() => {
         fetchCurrentUser();
         fetchKategoriCount();
         fetchDetailPasswordCount();
+        fetchUserCount(); // ✅ Add user count fetch
     }, []);
 
     const fetchCurrentUser = async () => {
@@ -31,7 +34,7 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
             setUserData({
                 nama_pengguna: 'User',
                 email_pengguna: 'user@example.com',
-                foto_profil: null, // ✅ Set ke null untuk fallback ke initials
+                foto_profil: null,
                 hak_akses: null,
                 alias_pengguna: 'User'
             });
@@ -76,6 +79,31 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
         }
     };
 
+    // ✅ New function to fetch user count
+    const fetchUserCount = async () => {
+        try {
+            setLoadingUserCount(true);
+            const response = await axios.get('/api/users/count');
+            
+            if (response.data.success) {
+                setUserCount(response.data.data.total_users);
+            } else {
+                console.warn('Failed to fetch user count:', response.data.message);
+                setUserCount(0);
+            }
+        } catch (error) {
+            console.error('Error fetching user count:', error);
+            setUserCount(0);
+        } finally {
+            setLoadingUserCount(false);
+        }
+    };
+
+    // ✅ Check if current user is admin
+    const isAdmin = () => {
+        return userData.hak_akses && userData.hak_akses.kode === 'ADM';
+    };
+
     const handleNavigation = (page) => {
         if (page === 'dashboard') {
             window.location.href = '/dashboard';
@@ -83,6 +111,8 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
             window.location.href = '/kategori-password';
         } else if (page === 'detail-password') {
             window.location.href = '/detail-password';
+        } else if (page === 'management-user') { // ✅ Add management user navigation
+            window.location.href = '/management-user';
         }
     };
 
@@ -91,7 +121,6 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
         return name.split(' ').map(word => word.charAt(0)).join('').substring(0, 2).toUpperCase();
     };
 
-    // ✅ Update function untuk check apakah foto profile adalah default atau custom
     const isDefaultPhoto = (fotoPath) => {
         return !fotoPath || 
                fotoPath === null ||
@@ -99,10 +128,8 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                fotoPath === '';
     };
 
-    // ✅ Function untuk handle foto profile dengan error handling
     const handlePhotoError = (e) => {
         console.log('Error loading photo:', e.target.src);
-        // Hide image dan show initials
         e.target.style.display = 'none';
         const initialsElement = e.target.parentNode.querySelector('.initials-fallback');
         if (initialsElement) {
@@ -170,10 +197,16 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
         fetchDetailPasswordCount();
     };
 
+    // ✅ Add refresh user count function
+    const refreshUserCount = () => {
+        fetchUserCount();
+    };
+
     useEffect(() => {
         window.refreshSidebarCounts = () => {
             refreshKategoriCount();
             refreshDetailPasswordCount();
+            refreshUserCount(); // ✅ Add user count refresh
         };
         
         return () => {
@@ -198,11 +231,10 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                     </div>
                 </div>
 
-                {/* ✅ Update User Profile Section - Better foto profil handling */}
+                {/* User Profile Section */}
                 <div className="mb-6">
                     <div className="flex items-center space-x-3 p-3 bg-gradient-to-br from-gray-800/60 via-black/60 to-gray-700/60 backdrop-blur-xl rounded-xl border border-amber-500/20 ring-1 ring-amber-400/10">
                         <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center overflow-hidden relative shadow-lg shadow-amber-500/30">
-                            {/* ✅ Conditional rendering untuk foto profil */}
                             {!isDefaultPhoto(userData.foto_profil) && (
                                 <img 
                                     src={userData.foto_profil} 
@@ -213,7 +245,6 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                                 />
                             )}
                             
-                            {/* ✅ Initials fallback - tampil jika default photo atau error */}
                             <span 
                                 className={`initials-fallback text-xs font-bold absolute inset-0 flex items-center justify-center text-black ${
                                     isDefaultPhoto(userData.foto_profil) ? 'flex' : 'none'
@@ -238,9 +269,10 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                     </div>
                 </div>
                 
-                {/* Navigation Menu - existing code unchanged */}
+                {/* ✅ Enhanced Navigation Menu dengan Management User */}
                 <nav className="flex-1">
                     <ul className="space-y-2">
+                        {/* Dashboard Menu */}
                         <li>
                             <button 
                                 onClick={() => handleNavigation('dashboard')}
@@ -262,6 +294,7 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                             </button>
                         </li>
                         
+                        {/* Kategori Password Menu */}
                         <li>
                             <button 
                                 onClick={() => handleNavigation('kategori-password')}
@@ -292,6 +325,7 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                             </button>
                         </li>
 
+                        {/* Detail Password Menu */}
                         <li>
                             <button 
                                 onClick={() => handleNavigation('detail-password')}
@@ -321,8 +355,68 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                                 </div>
                             </button>
                         </li>
+
+                        {/* ✅ Management User Menu - Only for Admin */}
+                        {isAdmin() && (
+                            <li>
+                                <button 
+                                    onClick={() => handleNavigation('management-user')}
+                                    className={`w-full flex items-center space-x-3 p-3 rounded-xl transition-all duration-300 text-sm group ${
+                                        activeMenu === 'management-user' 
+                                            ? 'bg-gradient-to-r from-purple-500/20 to-indigo-600/20 border border-purple-400/30 shadow-lg shadow-purple-500/25 text-purple-100' 
+                                            : 'hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-indigo-600/10 hover:border-purple-400/20 border border-transparent text-amber-200/80 hover:text-amber-100'
+                                    }`}
+                                >
+                                    <svg className={`w-4 h-4 ${activeMenu === 'management-user' ? 'text-purple-400' : 'text-amber-300/70 group-hover:text-purple-400'}`} fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                                    </svg>
+                                    <span className="font-medium">Management User</span>
+                                    
+                                    <div className="ml-auto flex items-center space-x-2">
+                                        {loadingUserCount ? (
+                                            <div className="w-4 h-4 border-2 border-purple-400/30 border-t-purple-400 rounded-full animate-spin"></div>
+                                        ) : (
+                                            <span className="bg-gradient-to-r from-purple-400 to-indigo-500 text-white text-xs px-2 py-0.5 rounded-full font-semibold shadow-lg min-w-[1.5rem] text-center">
+                                                {userCount}
+                                            </span>
+                                        )}
+                                        
+                                        {activeMenu === 'management-user' && (
+                                            <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                                        )}
+                                    </div>
+                                </button>
+                            </li>
+                        )}
+
+                        {/* ✅ Admin Divider - Visual separator untuk admin menu */}
+                        {isAdmin() && (
+                            <li className="py-2">
+                                <div className="border-t border-amber-500/20 relative">
+                                    <span className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-gray-900 to-black px-3 text-xs text-amber-300/60">
+                                        Admin Only
+                                    </span>
+                                </div>
+                            </li>
+                        )}
                     </ul>
                 </nav>
+
+                {/* ✅ Admin Badge - Tampil hanya untuk admin */}
+                {isAdmin() && (
+                    <div className="mb-4">
+                        <div className="p-3 bg-gradient-to-br from-purple-800/60 via-indigo-900/60 to-purple-700/60 backdrop-blur-xl rounded-xl border border-purple-500/20 ring-1 ring-purple-400/10">
+                            <div className="flex items-center space-x-2 text-xs">
+                                <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse shadow-lg shadow-purple-400/50"></div>
+                                <span className="text-purple-200/80">Level: </span>
+                                <span className="text-purple-300 font-semibold">Administrator</span>
+                            </div>
+                            <div className="mt-2 text-xs text-purple-300/70">
+                                Full system access
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
             
             {/* Status Sistem */}

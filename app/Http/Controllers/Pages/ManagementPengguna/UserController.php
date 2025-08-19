@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Pages\ManagePengguna;
+namespace App\Http\Controllers\Pages\ManagementPengguna;
 
 use App\Http\Controllers\TraitsController;
 use App\Models\ManagePengguna\UserModel;
@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('Pages.ManagePengguna.User.index');
+        return view('Pages.ManagementUser.index');
     }
 
     /**
