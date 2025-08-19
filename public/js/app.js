@@ -42620,7 +42620,6 @@ var Sidebar = function Sidebar(_ref) {
       nama_pengguna: 'Loading...',
       email_pengguna: 'Loading...',
       foto_profil: null,
-      // ✅ Set ke null dulu, nanti akan diisi dari API
       hak_akses: null,
       alias_pengguna: 'Loading...'
     }),
@@ -42635,18 +42634,28 @@ var Sidebar = function Sidebar(_ref) {
     _useState6 = _slicedToArray(_useState5, 2),
     detailPasswordCount = _useState6[0],
     setDetailPasswordCount = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState8 = _slicedToArray(_useState7, 2),
-    loadingCount = _useState8[0],
-    setLoadingCount = _useState8[1];
+    userCount = _useState8[0],
+    setUserCount = _useState8[1]; // ✅ Add user count state
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
     _useState0 = _slicedToArray(_useState9, 2),
-    loadingDetailCount = _useState0[0],
-    setLoadingDetailCount = _useState0[1];
+    loadingCount = _useState0[0],
+    setLoadingCount = _useState0[1];
+  var _useState1 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState10 = _slicedToArray(_useState1, 2),
+    loadingDetailCount = _useState10[0],
+    setLoadingDetailCount = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState12 = _slicedToArray(_useState11, 2),
+    loadingUserCount = _useState12[0],
+    setLoadingUserCount = _useState12[1]; // ✅ Add user count loading state
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     fetchCurrentUser();
     fetchKategoriCount();
     fetchDetailPasswordCount();
+    fetchUserCount(); // ✅ Add user count fetch
   }, []);
   var fetchCurrentUser = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
@@ -42672,7 +42681,6 @@ var Sidebar = function Sidebar(_ref) {
               nama_pengguna: 'User',
               email_pengguna: 'user@example.com',
               foto_profil: null,
-              // ✅ Set ke null untuk fallback ke initials
               hak_akses: null,
               alias_pengguna: 'User'
             });
@@ -42761,6 +42769,51 @@ var Sidebar = function Sidebar(_ref) {
       return _ref4.apply(this, arguments);
     };
   }();
+
+  // ✅ New function to fetch user count
+  var fetchUserCount = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      var response, _t4;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.p = _context4.n) {
+          case 0:
+            _context4.p = 0;
+            setLoadingUserCount(true);
+            _context4.n = 1;
+            return axios.get('/api/users/count');
+          case 1:
+            response = _context4.v;
+            if (response.data.success) {
+              setUserCount(response.data.data.total_users);
+            } else {
+              console.warn('Failed to fetch user count:', response.data.message);
+              setUserCount(0);
+            }
+            _context4.n = 3;
+            break;
+          case 2:
+            _context4.p = 2;
+            _t4 = _context4.v;
+            console.error('Error fetching user count:', _t4);
+            setUserCount(0);
+          case 3:
+            _context4.p = 3;
+            setLoadingUserCount(false);
+            return _context4.f(3);
+          case 4:
+            return _context4.a(2);
+        }
+      }, _callee4, null, [[0, 2, 3, 4]]);
+    }));
+    return function fetchUserCount() {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+
+  // ✅ Check if current user is admin
+  var isAdmin = function isAdmin() {
+    return userData.hak_akses && userData.hak_akses.kode === 'ADM';
+  };
   var handleNavigation = function handleNavigation(page) {
     if (page === 'dashboard') {
       window.location.href = '/dashboard';
@@ -42768,6 +42821,9 @@ var Sidebar = function Sidebar(_ref) {
       window.location.href = '/kategori-password';
     } else if (page === 'detail-password') {
       window.location.href = '/detail-password';
+    } else if (page === 'management-user') {
+      // ✅ Add management user navigation
+      window.location.href = '/management-user';
     }
   };
   var getInitials = function getInitials(name) {
@@ -42776,16 +42832,11 @@ var Sidebar = function Sidebar(_ref) {
       return word.charAt(0);
     }).join('').substring(0, 2).toUpperCase();
   };
-
-  // ✅ Update function untuk check apakah foto profile adalah default atau custom
   var isDefaultPhoto = function isDefaultPhoto(fotoPath) {
     return !fotoPath || fotoPath === null || fotoPath.includes('default-picture.jpg') || fotoPath === '';
   };
-
-  // ✅ Function untuk handle foto profile dengan error handling
   var handlePhotoError = function handlePhotoError(e) {
     console.log('Error loading photo:', e.target.src);
-    // Hide image dan show initials
     e.target.style.display = 'none';
     var initialsElement = e.target.parentNode.querySelector('.initials-fallback');
     if (initialsElement) {
@@ -42840,10 +42891,16 @@ var Sidebar = function Sidebar(_ref) {
   var refreshDetailPasswordCount = function refreshDetailPasswordCount() {
     fetchDetailPasswordCount();
   };
+
+  // ✅ Add refresh user count function
+  var refreshUserCount = function refreshUserCount() {
+    fetchUserCount();
+  };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     window.refreshSidebarCounts = function () {
       refreshKategoriCount();
       refreshDetailPasswordCount();
+      refreshUserCount(); // ✅ Add user count refresh
     };
     return function () {
       delete window.refreshSidebarCounts;
@@ -42994,6 +43051,63 @@ var Sidebar = function Sidebar(_ref) {
                 })]
               })]
             })
+          }), isAdmin() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
+              onClick: function onClick() {
+                return handleNavigation('management-user');
+              },
+              className: "w-full flex items-center space-x-3 p-3 rounded-xl transition-all duration-300 text-sm group ".concat(activeMenu === 'management-user' ? 'bg-gradient-to-r from-purple-500/20 to-indigo-600/20 border border-purple-400/30 shadow-lg shadow-purple-500/25 text-purple-100' : 'hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-indigo-600/10 hover:border-purple-400/20 border border-transparent text-amber-200/80 hover:text-amber-100'),
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+                className: "w-4 h-4 ".concat(activeMenu === 'management-user' ? 'text-purple-400' : 'text-amber-300/70 group-hover:text-purple-400'),
+                fill: "currentColor",
+                viewBox: "0 0 20 20",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+                  d: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                className: "font-medium",
+                children: "Management User"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                className: "ml-auto flex items-center space-x-2",
+                children: [loadingUserCount ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                  className: "w-4 h-4 border-2 border-purple-400/30 border-t-purple-400 rounded-full animate-spin"
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                  className: "bg-gradient-to-r from-purple-400 to-indigo-500 text-white text-xs px-2 py-0.5 rounded-full font-semibold shadow-lg min-w-[1.5rem] text-center",
+                  children: userCount
+                }), activeMenu === 'management-user' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                  className: "w-2 h-2 bg-purple-400 rounded-full animate-pulse"
+                })]
+              })]
+            })
+          }), isAdmin() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+            className: "py-2",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+              className: "border-t border-amber-500/20 relative",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                className: "absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-gray-900 to-black px-3 text-xs text-amber-300/60",
+                children: "Admin Only"
+              })
+            })
+          })]
+        })
+      }), isAdmin() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "mb-4",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "p-3 bg-gradient-to-br from-purple-800/60 via-indigo-900/60 to-purple-700/60 backdrop-blur-xl rounded-xl border border-purple-500/20 ring-1 ring-purple-400/10",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "flex items-center space-x-2 text-xs",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+              className: "w-2 h-2 bg-purple-400 rounded-full animate-pulse shadow-lg shadow-purple-400/50"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              className: "text-purple-200/80",
+              children: "Level: "
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              className: "text-purple-300 font-semibold",
+              children: "Administrator"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+            className: "mt-2 text-xs text-purple-300/70",
+            children: "Full system access"
           })]
         })
       })]
@@ -43988,13 +44102,7 @@ var Dashboard = function Dashboard() {
   }();
 
   // ✅ Test different passwords (uncomment untuk testing)
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    // Testing password strength logic
-    // testPasswordStrength('michaelkertanegara'); // Should be strong (> 12 chars)
-    // testPasswordStrength('Adam@11'); // Should be strong (symbol + number + uppercase)
-    // testPasswordStrength('michaelbob'); // Should be weak (< 12 chars, no symbol/number/uppercase)
-    // testPasswordStrength('adamsmith12'); // Should be weak (no symbol, no uppercase)
-  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {}, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: "min-h-screen flex",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -44102,7 +44210,7 @@ var PasswordStrengthInfo = function PasswordStrengthInfo() {
               className: "p-3 bg-green-500/10 border border-green-500/20 rounded-lg",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                 className: "font-mono text-green-300",
-                children: "michaelkertanegara"
+                children: "sulaimankertanegara"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                 className: "text-sm text-green-200/80 mt-1",
                 children: "Lebih dari 12 karakter"
@@ -44111,7 +44219,7 @@ var PasswordStrengthInfo = function PasswordStrengthInfo() {
               className: "p-3 bg-green-500/10 border border-green-500/20 rounded-lg",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                 className: "font-mono text-green-300",
-                children: "Adam@11"
+                children: "Agus@11"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                 className: "text-sm text-green-200/80 mt-1",
                 children: "Symbol (@) + Number (11) + Huruf Kapital (A)"
@@ -44129,7 +44237,7 @@ var PasswordStrengthInfo = function PasswordStrengthInfo() {
               className: "p-3 bg-red-500/10 border border-red-500/20 rounded-lg",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                 className: "font-mono text-red-300",
-                children: "michaelbob"
+                children: "valenandra"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                 className: "text-sm text-red-200/80 mt-1",
                 children: "Kurang dari 12 karakter, tidak ada symbol/number/kapital"
@@ -44138,7 +44246,7 @@ var PasswordStrengthInfo = function PasswordStrengthInfo() {
               className: "p-3 bg-red-500/10 border border-red-500/20 rounded-lg",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                 className: "font-mono text-red-300",
-                children: "adamsmith12"
+                children: "leonardo12"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                 className: "text-sm text-red-200/80 mt-1",
                 children: "Tidak ada symbol dan huruf kapital"
