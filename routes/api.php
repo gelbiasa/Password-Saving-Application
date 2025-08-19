@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Pages\ManagementPassword\DetailPasswordController;
 use App\Http\Controllers\Pages\ManagementPassword\KategoriPasswordController;
+use App\Http\Controllers\Pages\ManagementPengguna\UserController; // ✅ Add this import
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,29 @@ Route::get('/dashboard-admin-data', [DashboardController::class, 'getDashboardAd
 // ✅ New route untuk testing password strength
 Route::post('/test-password-strength', [DashboardController::class, 'testPasswordStrength'])->middleware('web');
 
+// ✅ User Management Routes - NEW
+Route::middleware('web')->prefix('users')->group(function () {
+    // Get data routes
+    Route::get('/', [UserController::class, 'getData']);
+    Route::get('/blocked', [UserController::class, 'getBlockedUsers']);
+    Route::get('/statistics', [UserController::class, 'getStatistics']);
+    Route::get('/count', [UserController::class, 'getCount']);
+    Route::get('/search', [UserController::class, 'search']);
+    
+    // User specific routes
+    Route::get('/{id}', [UserController::class, 'show']);
+    Route::get('/{id}/hak-akses', [UserController::class, 'getHakAksesDetails']);
+    
+    // Block/Unblock routes
+    Route::post('/{id}/block', [UserController::class, 'blockUser']);
+    Route::post('/{id}/unblock', [UserController::class, 'unblockUser']);
+    
+    // Batch operations
+    Route::post('/batch-block', [UserController::class, 'batchBlock']);
+    Route::post('/batch-unblock', [UserController::class, 'batchUnblock']);
+});
+
+// Kategori Password Management Routes - EXISTING
 Route::middleware('web')->group(function () {
     Route::get('/kategori-password', [KategoriPasswordController::class, 'getData']);
     Route::get('/kategori-password/count', [KategoriPasswordController::class, 'getCount']); // New route
@@ -48,7 +72,7 @@ Route::middleware('web')->group(function () {
     Route::post('/kategori-password/{id}/restore', [KategoriPasswordController::class, 'restore']);
 });
 
-// Detail Password Management Routes
+// Detail Password Management Routes - EXISTING
 Route::prefix('detail-password')->group(function () {
     Route::get('/', [DetailPasswordController::class, 'getData']);
     Route::get('/deleted', [DetailPasswordController::class, 'getDeletedData']);
