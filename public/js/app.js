@@ -47148,6 +47148,1078 @@ var KategoriPasswordIndex = function KategoriPasswordIndex() {
 
 /***/ }),
 
+/***/ "./resources/js/Pages/ManagementUser/index.jsx":
+/*!*****************************************************!*\
+  !*** ./resources/js/Pages/ManagementUser/index.jsx ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Components_Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Components/Header */ "./resources/js/Components/Header.jsx");
+/* harmony import */ var _Components_Sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Components/Sidebar */ "./resources/js/Components/Sidebar.jsx");
+/* harmony import */ var _Components_Footer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Components/Footer */ "./resources/js/Components/Footer.jsx");
+/* harmony import */ var _Hooks_useNotification__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Hooks/useNotification */ "./resources/js/Hooks/useNotification.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { if (r) i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n;else { var o = function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); }; o("next", 0), o("throw", 1), o("return", 2); } }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+
+
+
+
+
+var ManagementUserIndex = function ManagementUserIndex() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState2 = _slicedToArray(_useState, 2),
+    data = _useState2[0],
+    setData = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    loading = _useState4[0],
+    setLoading = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState6 = _slicedToArray(_useState5, 2),
+    searchKeyword = _useState6[0],
+    setSearchKeyword = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    showDetailModal = _useState8[0],
+    setShowDetailModal = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState0 = _slicedToArray(_useState9, 2),
+    selectedUser = _useState0[0],
+    setSelectedUser = _useState0[1];
+  var _useState1 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState10 = _slicedToArray(_useState1, 2),
+    loadingAction = _useState10[0],
+    setLoadingAction = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      total_users: 0,
+      active_users: 0,
+      blocked_users: 0
+    }),
+    _useState12 = _slicedToArray(_useState11, 2),
+    statistics = _useState12[0],
+    setStatistics = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState14 = _slicedToArray(_useState13, 2),
+    currentUser = _useState14[0],
+    setCurrentUser = _useState14[1];
+
+  // Use notification hook
+  var _useNotification = (0,_Hooks_useNotification__WEBPACK_IMPORTED_MODULE_4__.useNotification)(),
+    notification = _useNotification.notification,
+    showSuccess = _useNotification.showSuccess,
+    showError = _useNotification.showError,
+    showWarning = _useNotification.showWarning,
+    hideNotification = _useNotification.hideNotification;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    fetchData();
+    fetchStatistics();
+    fetchCurrentUser();
+  }, []);
+
+  // ✅ Fetch current user untuk cek permission
+  var fetchCurrentUser = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+      var response, _t;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.p = _context.n) {
+          case 0:
+            _context.p = 0;
+            _context.n = 1;
+            return axios.get('/api/current-user');
+          case 1:
+            response = _context.v;
+            if (response.data.success) {
+              setCurrentUser(response.data.data);
+            }
+            _context.n = 3;
+            break;
+          case 2:
+            _context.p = 2;
+            _t = _context.v;
+            console.error('Error fetching current user:', _t);
+          case 3:
+            return _context.a(2);
+        }
+      }, _callee, null, [[0, 2]]);
+    }));
+    return function fetchCurrentUser() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  // ✅ Check if current user is admin
+  var isAdmin = function isAdmin() {
+    return currentUser && currentUser.hak_akses && currentUser.hak_akses.kode === 'ADM';
+  };
+  var fetchData = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var response, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            _context2.p = 0;
+            setLoading(true);
+            console.log('🔍 Management User - Fetching data...');
+            _context2.n = 1;
+            return axios.get('/api/users');
+          case 1:
+            response = _context2.v;
+            console.log('📊 Management User - Response:', response.data);
+            if (!response.data.success) {
+              _context2.n = 2;
+              break;
+            }
+            setData(response.data.data);
+            console.log('✅ Management User - Data loaded:', response.data.data.length, 'users');
+            _context2.n = 3;
+            break;
+          case 2:
+            throw new Error(response.data.message || 'Failed to fetch data');
+          case 3:
+            _context2.n = 5;
+            break;
+          case 4:
+            _context2.p = 4;
+            _t2 = _context2.v;
+            console.error('❌ Management User - Error:', _t2);
+            showError('Gagal memuat data user: ' + _t2.message);
+            setData([]);
+          case 5:
+            _context2.p = 5;
+            setLoading(false);
+            return _context2.f(5);
+          case 6:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[0, 4, 5, 6]]);
+    }));
+    return function fetchData() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+  var fetchStatistics = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+      var response, _t3;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.p = _context3.n) {
+          case 0:
+            _context3.p = 0;
+            _context3.n = 1;
+            return axios.get('/api/users/statistics');
+          case 1:
+            response = _context3.v;
+            if (response.data.success) {
+              setStatistics(response.data.data);
+            }
+            _context3.n = 3;
+            break;
+          case 2:
+            _context3.p = 2;
+            _t3 = _context3.v;
+            console.error('Error fetching statistics:', _t3);
+          case 3:
+            return _context3.a(2);
+        }
+      }, _callee3, null, [[0, 2]]);
+    }));
+    return function fetchStatistics() {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+  var handleSearch = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      var response, _t4;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.p = _context4.n) {
+          case 0:
+            if (searchKeyword.trim()) {
+              _context4.n = 1;
+              break;
+            }
+            fetchData();
+            return _context4.a(2);
+          case 1:
+            _context4.p = 1;
+            setLoading(true);
+            _context4.n = 2;
+            return axios.get('/api/users/search', {
+              params: {
+                keyword: searchKeyword
+              }
+            });
+          case 2:
+            response = _context4.v;
+            if (!response.data.success) {
+              _context4.n = 3;
+              break;
+            }
+            setData(response.data.data);
+            showSuccess("Ditemukan ".concat(response.data.total, " user dengan keyword \"").concat(searchKeyword, "\""));
+            _context4.n = 4;
+            break;
+          case 3:
+            throw new Error(response.data.message);
+          case 4:
+            _context4.n = 6;
+            break;
+          case 5:
+            _context4.p = 5;
+            _t4 = _context4.v;
+            console.error('Error searching users:', _t4);
+            showError('Gagal melakukan pencarian: ' + _t4.message);
+          case 6:
+            _context4.p = 6;
+            setLoading(false);
+            return _context4.f(6);
+          case 7:
+            return _context4.a(2);
+        }
+      }, _callee4, null, [[1, 5, 6, 7]]);
+    }));
+    return function handleSearch() {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+  var handleShowDetail = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5(user) {
+      var response, _t5;
+      return _regenerator().w(function (_context5) {
+        while (1) switch (_context5.p = _context5.n) {
+          case 0:
+            _context5.p = 0;
+            console.log('🔍 Fetching user detail for ID:', user.m_user_id);
+            _context5.n = 1;
+            return axios.get("/api/users/".concat(user.m_user_id));
+          case 1:
+            response = _context5.v;
+            if (!response.data.success) {
+              _context5.n = 2;
+              break;
+            }
+            setSelectedUser(response.data.data);
+            setShowDetailModal(true);
+            _context5.n = 3;
+            break;
+          case 2:
+            throw new Error(response.data.message);
+          case 3:
+            _context5.n = 5;
+            break;
+          case 4:
+            _context5.p = 4;
+            _t5 = _context5.v;
+            console.error('Error fetching user detail:', _t5);
+            showError('Gagal memuat detail user: ' + _t5.message);
+          case 5:
+            return _context5.a(2);
+        }
+      }, _callee5, null, [[0, 4]]);
+    }));
+    return function handleShowDetail(_x) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+  var handleBlockUser = /*#__PURE__*/function () {
+    var _ref6 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6(userId) {
+      var response, _error$response, errorMessage, _t6;
+      return _regenerator().w(function (_context6) {
+        while (1) switch (_context6.p = _context6.n) {
+          case 0:
+            if (isAdmin()) {
+              _context6.n = 1;
+              break;
+            }
+            showError('Anda tidak memiliki hak akses untuk memblokir user');
+            return _context6.a(2);
+          case 1:
+            if (!confirm('Apakah Anda yakin ingin memblokir user ini?')) {
+              _context6.n = 8;
+              break;
+            }
+            _context6.p = 2;
+            setLoadingAction(true);
+            _context6.n = 3;
+            return axios.post("/api/users/".concat(userId, "/block"));
+          case 3:
+            response = _context6.v;
+            if (!response.data.success) {
+              _context6.n = 4;
+              break;
+            }
+            showSuccess(response.data.message);
+            fetchData(); // Refresh data
+            fetchStatistics(); // Refresh statistics
+
+            if (selectedUser && selectedUser.m_user_id === userId) {
+              setShowDetailModal(false); // Close modal if blocking current viewed user
+            }
+            _context6.n = 5;
+            break;
+          case 4:
+            throw new Error(response.data.message);
+          case 5:
+            _context6.n = 7;
+            break;
+          case 6:
+            _context6.p = 6;
+            _t6 = _context6.v;
+            console.error('Error blocking user:', _t6);
+            errorMessage = ((_error$response = _t6.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _t6.message;
+            showError('Gagal memblokir user: ' + errorMessage);
+          case 7:
+            _context6.p = 7;
+            setLoadingAction(false);
+            return _context6.f(7);
+          case 8:
+            return _context6.a(2);
+        }
+      }, _callee6, null, [[2, 6, 7, 8]]);
+    }));
+    return function handleBlockUser(_x2) {
+      return _ref6.apply(this, arguments);
+    };
+  }();
+  var handleUnblockUser = /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7(userId) {
+      var response, _error$response2, errorMessage, _t7;
+      return _regenerator().w(function (_context7) {
+        while (1) switch (_context7.p = _context7.n) {
+          case 0:
+            if (isAdmin()) {
+              _context7.n = 1;
+              break;
+            }
+            showError('Anda tidak memiliki hak akses untuk membuka blokir user');
+            return _context7.a(2);
+          case 1:
+            if (!confirm('Apakah Anda yakin ingin membuka blokir user ini?')) {
+              _context7.n = 8;
+              break;
+            }
+            _context7.p = 2;
+            setLoadingAction(true);
+            _context7.n = 3;
+            return axios.post("/api/users/".concat(userId, "/unblock"));
+          case 3:
+            response = _context7.v;
+            if (!response.data.success) {
+              _context7.n = 4;
+              break;
+            }
+            showSuccess(response.data.message);
+            fetchData(); // Refresh data
+            fetchStatistics(); // Refresh statistics
+            _context7.n = 5;
+            break;
+          case 4:
+            throw new Error(response.data.message);
+          case 5:
+            _context7.n = 7;
+            break;
+          case 6:
+            _context7.p = 6;
+            _t7 = _context7.v;
+            console.error('Error unblocking user:', _t7);
+            errorMessage = ((_error$response2 = _t7.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || _t7.message;
+            showError('Gagal membuka blokir user: ' + errorMessage);
+          case 7:
+            _context7.p = 7;
+            setLoadingAction(false);
+            return _context7.f(7);
+          case 8:
+            return _context7.a(2);
+        }
+      }, _callee7, null, [[2, 6, 7, 8]]);
+    }));
+    return function handleUnblockUser(_x3) {
+      return _ref7.apply(this, arguments);
+    };
+  }();
+  var handleCloseDetailModal = function handleCloseDetailModal() {
+    setShowDetailModal(false);
+    setSelectedUser(null);
+  };
+  var handleRefresh = function handleRefresh() {
+    setSearchKeyword('');
+    fetchData();
+    fetchStatistics();
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    className: "min-h-screen flex",
+    children: [notification.show && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 ".concat(notification.type === 'success' ? 'bg-green-500 text-white' : notification.type === 'error' ? 'bg-red-500 text-white' : 'bg-yellow-500 text-white'),
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "flex items-center justify-between",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          children: notification.message
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+          onClick: hideNotification,
+          className: "ml-4 text-white hover:text-gray-200",
+          children: "\xD7"
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Components_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      activeMenu: "management-user"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "flex-1 flex flex-col",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Components_Header__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("main", {
+        className: "flex-1 p-6 bg-gradient-to-br from-slate-100 via-blue-50 to-gray-100 relative",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "absolute top-10 right-10 w-72 h-72 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur-3xl"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-l from-purple-600/10 to-blue-600/10 rounded-full blur-3xl"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "space-y-6 max-w-7xl relative z-10",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "bg-gradient-to-r from-gray-900 via-black to-gray-800 rounded-xl shadow-2xl border border-amber-500/20 p-6",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              className: "flex items-center justify-between",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
+                  className: "text-2xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
+                  children: "Management User"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+                  className: "text-amber-100/80 mt-2 text-sm",
+                  children: "Kelola pengguna aplikasi dan kontrol akses sistem"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "flex items-center space-x-3",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+                  onClick: handleRefresh,
+                  className: "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2 shadow-lg",
+                  disabled: loading,
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
+                    className: "w-4 h-4 ".concat(loading ? 'animate-spin' : ''),
+                    fill: "none",
+                    stroke: "currentColor",
+                    viewBox: "0 0 24 24",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
+                      strokeLinecap: "round",
+                      strokeLinejoin: "round",
+                      strokeWidth: 2,
+                      d: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                    children: "Refresh"
+                  })]
+                })
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            className: "grid grid-cols-1 md:grid-cols-3 gap-6",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(StatCard, {
+              title: "Total User",
+              value: statistics.total_users,
+              color: "blue",
+              icon: "users"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(StatCard, {
+              title: "User Aktif",
+              value: statistics.active_users,
+              color: "green",
+              icon: "check"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(StatCard, {
+              title: "User Diblokir",
+              value: statistics.blocked_users,
+              color: "red",
+              icon: "ban"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-amber-500/20 p-6",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              className: "flex items-center space-x-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "flex-1",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                  type: "text",
+                  placeholder: "Cari berdasarkan username, nama, atau email...",
+                  value: searchKeyword,
+                  onChange: function onChange(e) {
+                    return setSearchKeyword(e.target.value);
+                  },
+                  onKeyPress: function onKeyPress(e) {
+                    return e.key === 'Enter' && handleSearch();
+                  },
+                  className: "w-full px-4 py-3 bg-gray-800/50 border border-amber-500/20 rounded-lg text-amber-100 placeholder-amber-300/60 focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400/50 transition-all duration-200"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+                onClick: handleSearch,
+                disabled: loading,
+                className: "bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 disabled:from-gray-500 disabled:to-gray-600 text-white px-6 py-3 rounded-lg transition-all duration-200 flex items-center space-x-2 shadow-lg",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
+                  className: "w-4 h-4 ".concat(loading ? 'animate-spin' : ''),
+                  fill: "none",
+                  stroke: "currentColor",
+                  viewBox: "0 0 24 24",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
+                    strokeLinecap: "round",
+                    strokeLinejoin: "round",
+                    strokeWidth: 2,
+                    d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  children: "Cari"
+                })]
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            className: "bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-amber-500/20",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              className: "p-6 border-b border-amber-500/20",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                className: "flex items-center justify-between",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+                  className: "text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent",
+                  children: "Daftar User"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                  className: "text-sm text-amber-300",
+                  children: ["Total: ", data.length, " user"]
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              className: "p-6",
+              children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(UserTableSkeleton, {}) : data.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(EmptyState, {
+                onRefresh: handleRefresh
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(UserTable, {
+                users: data,
+                onShowDetail: handleShowDetail,
+                onBlockUser: handleBlockUser,
+                onUnblockUser: handleUnblockUser,
+                loadingAction: loadingAction,
+                isAdmin: isAdmin()
+              })
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Components_Footer__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
+      })]
+    }), showDetailModal && selectedUser && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(UserDetailModal, {
+      user: selectedUser,
+      onClose: handleCloseDetailModal,
+      onBlockUser: handleBlockUser,
+      onUnblockUser: handleUnblockUser,
+      loadingAction: loadingAction,
+      isAdmin: isAdmin()
+    })]
+  });
+};
+
+// ✅ Statistics Card Component
+var StatCard = function StatCard(_ref8) {
+  var title = _ref8.title,
+    value = _ref8.value,
+    color = _ref8.color,
+    icon = _ref8.icon;
+  var colorClasses = {
+    blue: {
+      bg: 'bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95',
+      icon: 'bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/30',
+      text: 'bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent',
+      border: 'border-blue-500/20',
+      hover: 'hover:border-blue-400/40'
+    },
+    green: {
+      bg: 'bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95',
+      icon: 'bg-gradient-to-br from-green-600 to-green-700 text-white shadow-lg shadow-green-500/30',
+      text: 'bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent',
+      border: 'border-green-500/20',
+      hover: 'hover:border-green-400/40'
+    },
+    red: {
+      bg: 'bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95',
+      icon: 'bg-gradient-to-br from-red-600 to-red-700 text-white shadow-lg shadow-red-500/30',
+      text: 'bg-gradient-to-r from-red-400 to-red-500 bg-clip-text text-transparent',
+      border: 'border-red-500/20',
+      hover: 'hover:border-red-400/40'
+    }
+  };
+  var iconPaths = {
+    users: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z",
+    check: "M5 13l4 4L19 7",
+    ban: "M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    className: "".concat(colorClasses[color].bg, " backdrop-blur-xl p-6 rounded-xl shadow-2xl transition-all duration-300 border ").concat(colorClasses[color].border, " ").concat(colorClasses[color].hover, " hover:scale-105 group"),
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "flex items-center",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "flex-shrink-0",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "w-12 h-12 ".concat(colorClasses[color].icon, " rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
+            className: "w-6 h-6",
+            fill: "none",
+            stroke: "currentColor",
+            viewBox: "0 0 24 24",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
+              strokeWidth: 2,
+              d: iconPaths[icon]
+            })
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "ml-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
+          className: "text-sm font-semibold text-amber-300 group-hover:text-amber-200 transition-colors duration-300",
+          children: title
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+          className: "text-3xl font-bold ".concat(colorClasses[color].text, " group-hover:scale-105 transition-transform duration-300"),
+          children: value
+        })]
+      })]
+    })
+  });
+};
+
+// ✅ User Table Component
+var UserTable = function UserTable(_ref9) {
+  var users = _ref9.users,
+    onShowDetail = _ref9.onShowDetail,
+    onBlockUser = _ref9.onBlockUser,
+    onUnblockUser = _ref9.onUnblockUser,
+    loadingAction = _ref9.loadingAction,
+    isAdmin = _ref9.isAdmin;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    className: "overflow-x-auto",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
+      className: "w-full",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+          className: "border-b border-amber-500/20",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+            className: "text-left text-amber-300 font-semibold pb-4",
+            children: "No"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+            className: "text-left text-amber-300 font-semibold pb-4",
+            children: "Username"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+            className: "text-left text-amber-300 font-semibold pb-4",
+            children: "Nama Pengguna"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+            className: "text-left text-amber-300 font-semibold pb-4",
+            children: "Email"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+            className: "text-left text-amber-300 font-semibold pb-4",
+            children: "Hak Akses"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+            className: "text-left text-amber-300 font-semibold pb-4",
+            children: "Status"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+            className: "text-left text-amber-300 font-semibold pb-4",
+            children: "Total Password"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+            className: "text-center text-amber-300 font-semibold pb-4",
+            children: "Aksi"
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
+        children: users.map(function (user, index) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+            className: "border-b border-amber-500/10 hover:bg-amber-500/5 transition-colors duration-200",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+              className: "py-4 text-amber-100",
+              children: index + 1
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+              className: "py-4 text-amber-100 font-medium",
+              children: user.username
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+              className: "py-4 text-amber-100",
+              children: user.nama_pengguna
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+              className: "py-4 text-amber-100",
+              children: user.email_pengguna
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+              className: "py-4 text-amber-100",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "flex flex-wrap gap-1",
+                children: user.hak_akses.map(function (akses, idx) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                    className: "bg-blue-500/20 text-blue-300 px-2 py-1 rounded text-xs",
+                    children: akses.hak_akses_nama
+                  }, idx);
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+              className: "py-4",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                className: "px-2 py-1 rounded-full text-xs font-medium ".concat(user.status_class === 'active' ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'),
+                children: user.status
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+              className: "py-4 text-amber-100",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                className: "bg-amber-500/20 text-amber-300 px-2 py-1 rounded text-xs",
+                children: [user.total_passwords, " password"]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+              className: "py-4 text-center",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                className: "flex justify-center space-x-2",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+                  onClick: function onClick() {
+                    return onShowDetail(user);
+                  },
+                  className: "bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 p-2 rounded-lg transition-all duration-200",
+                  title: "Detail",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("svg", {
+                    className: "w-4 h-4",
+                    fill: "none",
+                    stroke: "currentColor",
+                    viewBox: "0 0 24 24",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
+                      strokeLinecap: "round",
+                      strokeLinejoin: "round",
+                      strokeWidth: 2,
+                      d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
+                      strokeLinecap: "round",
+                      strokeLinejoin: "round",
+                      strokeWidth: 2,
+                      d: "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    })]
+                  })
+                }), isAdmin && (user.is_blocked ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+                  onClick: function onClick() {
+                    return onUnblockUser(user.m_user_id);
+                  },
+                  disabled: loadingAction,
+                  className: "bg-green-500/20 hover:bg-green-500/30 text-green-300 p-2 rounded-lg transition-all duration-200 disabled:opacity-50",
+                  title: "Buka Blokir",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
+                    className: "w-4 h-4",
+                    fill: "none",
+                    stroke: "currentColor",
+                    viewBox: "0 0 24 24",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
+                      strokeLinecap: "round",
+                      strokeLinejoin: "round",
+                      strokeWidth: 2,
+                      d: "M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
+                    })
+                  })
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+                  onClick: function onClick() {
+                    return onBlockUser(user.m_user_id);
+                  },
+                  disabled: loadingAction,
+                  className: "bg-red-500/20 hover:bg-red-500/30 text-red-300 p-2 rounded-lg transition-all duration-200 disabled:opacity-50",
+                  title: "Blokir User",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
+                    className: "w-4 h-4",
+                    fill: "none",
+                    stroke: "currentColor",
+                    viewBox: "0 0 24 24",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
+                      strokeLinecap: "round",
+                      strokeLinejoin: "round",
+                      strokeWidth: 2,
+                      d: "M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"
+                    })
+                  })
+                }))]
+              })
+            })]
+          }, user.m_user_id);
+        })
+      })]
+    })
+  });
+};
+
+// ✅ User Detail Modal Component
+var UserDetailModal = function UserDetailModal(_ref0) {
+  var user = _ref0.user,
+    onClose = _ref0.onClose,
+    onBlockUser = _ref0.onBlockUser,
+    onUnblockUser = _ref0.onUnblockUser,
+    loadingAction = _ref0.loadingAction,
+    isAdmin = _ref0.isAdmin;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    className: "fixed inset-0 z-50 overflow-y-auto",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "fixed inset-0 transition-opacity bg-black bg-opacity-75",
+        onClick: onClose
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "inline-block w-full max-w-2xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-gradient-to-br from-gray-900 via-black to-gray-800 shadow-2xl rounded-2xl border border-amber-500/20",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "flex items-center justify-between pb-4 border-b border-amber-500/20",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
+            className: "text-xl font-bold bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent",
+            children: "Detail User"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+            onClick: onClose,
+            className: "text-amber-300 hover:text-amber-100 transition-colors duration-200",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
+              className: "w-6 h-6",
+              fill: "none",
+              stroke: "currentColor",
+              viewBox: "0 0 24 24",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: 2,
+                d: "M6 18L18 6M6 6l12 12"
+              })
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "py-6 space-y-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            className: "grid grid-cols-1 md:grid-cols-2 gap-6",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                className: "block text-sm font-medium text-amber-300 mb-2",
+                children: "Username"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "p-3 bg-gray-800/50 rounded-lg border border-amber-500/20",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "text-amber-100",
+                  children: user.username
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                className: "block text-sm font-medium text-amber-300 mb-2",
+                children: "Nama Pengguna"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "p-3 bg-gray-800/50 rounded-lg border border-amber-500/20",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "text-amber-100",
+                  children: user.nama_pengguna
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              className: "md:col-span-2",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                className: "block text-sm font-medium text-amber-300 mb-2",
+                children: "Email"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "p-3 bg-gray-800/50 rounded-lg border border-amber-500/20",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "text-amber-100",
+                  children: user.email_pengguna
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                className: "block text-sm font-medium text-amber-300 mb-2",
+                children: "No. HP"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "p-3 bg-gray-800/50 rounded-lg border border-amber-500/20",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "text-amber-100",
+                  children: user.no_hp_pengguna || '-'
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                className: "block text-sm font-medium text-amber-300 mb-2",
+                children: "Jenis Kelamin"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "p-3 bg-gray-800/50 rounded-lg border border-amber-500/20",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "text-amber-100",
+                  children: user.jenis_kelamin_pengguna === 'L' ? 'Laki-laki' : user.jenis_kelamin_pengguna === 'P' ? 'Perempuan' : '-'
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              className: "md:col-span-2",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                className: "block text-sm font-medium text-amber-300 mb-2",
+                children: "Alamat"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "p-3 bg-gray-800/50 rounded-lg border border-amber-500/20",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "text-amber-100",
+                  children: user.alamat_pengguna || '-'
+                })
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            className: "grid grid-cols-1 md:grid-cols-2 gap-6",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                className: "block text-sm font-medium text-amber-300 mb-2",
+                children: "Status"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "p-3 bg-gray-800/50 rounded-lg border border-amber-500/20",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "px-3 py-1 rounded-full text-sm font-medium ".concat(user.status_class === 'active' ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'),
+                  children: user.status
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                className: "block text-sm font-medium text-amber-300 mb-2",
+                children: "Total Password"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "p-3 bg-gray-800/50 rounded-lg border border-amber-500/20",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                  className: "bg-amber-500/20 text-amber-300 px-2 py-1 rounded text-sm",
+                  children: [user.total_passwords, " password"]
+                })
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+              className: "block text-sm font-medium text-amber-300 mb-2",
+              children: "Hak Akses"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              className: "p-3 bg-gray-800/50 rounded-lg border border-amber-500/20",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "flex flex-wrap gap-2",
+                children: user.hak_akses.map(function (akses, index) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                    className: "bg-blue-500/20 text-blue-300 px-3 py-1 rounded-lg text-sm",
+                    children: akses.hak_akses_nama
+                  }, index);
+                })
+              })
+            })]
+          })]
+        }), isAdmin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "pt-6 border-t border-amber-500/20",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "flex justify-end space-x-3",
+            children: user.is_blocked ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+              onClick: function onClick() {
+                return onUnblockUser(user.m_user_id);
+              },
+              disabled: loadingAction,
+              className: "bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 disabled:from-gray-500 disabled:to-gray-600 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
+                className: "w-4 h-4",
+                fill: "none",
+                stroke: "currentColor",
+                viewBox: "0 0 24 24",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
+                  strokeLinecap: "round",
+                  strokeLinejoin: "round",
+                  strokeWidth: 2,
+                  d: "M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                children: "Buka Blokir"
+              })]
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+              onClick: function onClick() {
+                return onBlockUser(user.m_user_id);
+              },
+              disabled: loadingAction,
+              className: "bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 disabled:from-gray-500 disabled:to-gray-600 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
+                className: "w-4 h-4",
+                fill: "none",
+                stroke: "currentColor",
+                viewBox: "0 0 24 24",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
+                  strokeLinecap: "round",
+                  strokeLinejoin: "round",
+                  strokeWidth: 2,
+                  d: "M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                children: "Blokir User"
+              })]
+            })
+          })
+        })]
+      })]
+    })
+  });
+};
+
+// ✅ Loading Skeleton Component
+var UserTableSkeleton = function UserTableSkeleton() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    className: "space-y-4",
+    children: _toConsumableArray(Array(5)).map(function (_, index) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "animate-pulse",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "grid grid-cols-8 gap-4 py-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "h-4 bg-gray-700 rounded"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "h-4 bg-gray-700 rounded"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "h-4 bg-gray-700 rounded"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "h-4 bg-gray-700 rounded"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "h-4 bg-gray-700 rounded"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "h-4 bg-gray-700 rounded"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "h-4 bg-gray-700 rounded"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "h-4 bg-gray-700 rounded"
+          })]
+        })
+      }, index);
+    })
+  });
+};
+
+// ✅ Empty State Component
+var EmptyState = function EmptyState(_ref1) {
+  var onRefresh = _ref1.onRefresh;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    className: "text-center py-12",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "w-24 h-24 bg-gradient-to-br from-amber-600/20 to-yellow-600/20 rounded-full flex items-center justify-center mx-auto mb-4",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("svg", {
+        className: "w-12 h-12 text-amber-400/60",
+        fill: "none",
+        stroke: "currentColor",
+        viewBox: "0 0 24 24",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("path", {
+          strokeLinecap: "round",
+          strokeLinejoin: "round",
+          strokeWidth: 2,
+          d: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+      className: "text-amber-200/60 text-lg mb-4",
+      children: "Tidak ada data user ditemukan"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+      className: "text-amber-300/40 text-sm mb-6",
+      children: "Coba refresh halaman atau hubungi administrator"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+      onClick: onRefresh,
+      className: "bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white px-4 py-2 rounded-lg transition-all duration-200",
+      children: "Refresh Data"
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ManagementUserIndex);
+
+/***/ }),
+
 /***/ "./resources/js/button/create.jsx":
 /*!****************************************!*\
   !*** ./resources/js/button/create.jsx ***!
@@ -47658,9 +48730,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pages_DashboardAdmin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Pages/DashboardAdmin */ "./resources/js/Pages/DashboardAdmin.jsx");
 /* harmony import */ var _Pages_ManagementPassword_KategoriPassword_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Pages/ManagementPassword/KategoriPassword/index */ "./resources/js/Pages/ManagementPassword/KategoriPassword/index.jsx");
 /* harmony import */ var _Pages_ManagementPassword_DetailPassword_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Pages/ManagementPassword/DetailPassword/index */ "./resources/js/Pages/ManagementPassword/DetailPassword/index.jsx");
-/* harmony import */ var _Authentication_login__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Authentication/login */ "./resources/js/Authentication/login.jsx");
-/* harmony import */ var _Authentication_pilih_level__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Authentication/pilih-level */ "./resources/js/Authentication/pilih-level.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Pages_ManagementUser_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Pages/ManagementUser/index */ "./resources/js/Pages/ManagementUser/index.jsx");
+/* harmony import */ var _Authentication_login__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Authentication/login */ "./resources/js/Authentication/login.jsx");
+/* harmony import */ var _Authentication_pilih_level__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Authentication/pilih-level */ "./resources/js/Authentication/pilih-level.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { if (r) i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n;else { var o = function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); }; o("next", 0), o("throw", 1), o("return", 2); } }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -47668,9 +48741,10 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 
 
 
- // ✅ Import DashboardAdmin
 
 
+
+ // ✅ Add this import
 
 
 
@@ -47705,10 +48779,10 @@ var checkAccessAndRedirect = /*#__PURE__*/function () {
             hakAksesKode = response.data.data.hak_akses.kode; // Redirect berdasarkan hak akses
             if (hakAksesKode === 'ADM') {
               // Admin -> Dashboard Admin
-              react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Pages_DashboardAdmin__WEBPACK_IMPORTED_MODULE_3__["default"], {}), document.getElementById('react-app'));
+              react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Pages_DashboardAdmin__WEBPACK_IMPORTED_MODULE_3__["default"], {}), document.getElementById('react-app'));
             } else if (hakAksesKode === 'PGN') {
               // Pengguna -> Dashboard Biasa
-              react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Pages_Dashboard__WEBPACK_IMPORTED_MODULE_2__["default"], {}), document.getElementById('react-app'));
+              react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Pages_Dashboard__WEBPACK_IMPORTED_MODULE_2__["default"], {}), document.getElementById('react-app'));
             } else {
               // Hak akses tidak dikenali, redirect ke login
               console.warn('Hak akses tidak dikenali:', hakAksesKode);
@@ -47789,10 +48863,10 @@ if (document.getElementById('react-app')) {
   var currentPath = window.location.pathname;
   switch (currentPath) {
     case '/login':
-      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Authentication_login__WEBPACK_IMPORTED_MODULE_6__["default"], {}), document.getElementById('react-app'));
+      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Authentication_login__WEBPACK_IMPORTED_MODULE_7__["default"], {}), document.getElementById('react-app'));
       break;
     case '/pilih-level':
-      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Authentication_pilih_level__WEBPACK_IMPORTED_MODULE_7__["default"], {}), document.getElementById('react-app'));
+      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Authentication_pilih_level__WEBPACK_IMPORTED_MODULE_8__["default"], {}), document.getElementById('react-app'));
       break;
     case '/dashboard':
       // ✅ Dashboard dengan logic routing berdasarkan hak akses
@@ -47802,15 +48876,24 @@ if (document.getElementById('react-app')) {
       // ✅ Dashboard Admin - hanya untuk admin
       checkAdminAccess().then(function (isAdmin) {
         if (isAdmin) {
-          react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Pages_DashboardAdmin__WEBPACK_IMPORTED_MODULE_3__["default"], {}), document.getElementById('react-app'));
+          react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Pages_DashboardAdmin__WEBPACK_IMPORTED_MODULE_3__["default"], {}), document.getElementById('react-app'));
         }
       });
       break;
     case '/kategori-password':
-      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Pages_ManagementPassword_KategoriPassword_index__WEBPACK_IMPORTED_MODULE_4__["default"], {}), document.getElementById('react-app'));
+      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Pages_ManagementPassword_KategoriPassword_index__WEBPACK_IMPORTED_MODULE_4__["default"], {}), document.getElementById('react-app'));
       break;
     case '/detail-password':
-      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Pages_ManagementPassword_DetailPassword_index__WEBPACK_IMPORTED_MODULE_5__["default"], {}), document.getElementById('react-app'));
+      react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Pages_ManagementPassword_DetailPassword_index__WEBPACK_IMPORTED_MODULE_5__["default"], {}), document.getElementById('react-app'));
+      break;
+    // ✅ Add Management User Route
+    case '/management-user':
+      // ✅ Management User - hanya untuk admin
+      checkAdminAccess().then(function (isAdmin) {
+        if (isAdmin) {
+          react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Pages_ManagementUser_index__WEBPACK_IMPORTED_MODULE_6__["default"], {}), document.getElementById('react-app'));
+        }
+      });
       break;
     default:
       // Redirect ke login jika halaman tidak dikenali
