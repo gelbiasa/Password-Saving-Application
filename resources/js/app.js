@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Dashboard from './Pages/Dashboard';
-import DashboardAdmin from './Pages/DashboardAdmin'; // ✅ Import DashboardAdmin
+import DashboardAdmin from './Pages/DashboardAdmin';
 import KategoriPasswordIndex from './Pages/ManagementPassword/KategoriPassword/index';
 import DetailPasswordIndex from './Pages/ManagementPassword/DetailPassword/index';
+import ManagementUserIndex from './Pages/ManagementUser/index'; // ✅ Add this import
 import Login from './Authentication/login';
 import PilihLevel from './Authentication/pilih-level';
 
@@ -104,6 +105,15 @@ if (document.getElementById('react-app')) {
             break;
         case '/detail-password':
             ReactDOM.render(<DetailPasswordIndex />, document.getElementById('react-app'));
+            break;
+        // ✅ Add Management User Route
+        case '/management-user':
+            // ✅ Management User - hanya untuk admin
+            checkAdminAccess().then(isAdmin => {
+                if (isAdmin) {
+                    ReactDOM.render(<ManagementUserIndex />, document.getElementById('react-app'));
+                }
+            });
             break;
         default:
             // Redirect ke login jika halaman tidak dikenali
