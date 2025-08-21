@@ -356,7 +356,18 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                             </button>
                         </li>
 
-                        {/* ✅ Management User Menu - Only for Admin */}
+                        {/* ✅ Admin Divider - Visual separator untuk admin menu */}
+                        {isAdmin() && (
+                            <li className="py-2">
+                                <div className="border-t border-amber-500/20 relative">
+                                    <span className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-gray-900 to-black px-3 text-xs text-amber-300/60">
+                                        Admin Only
+                                    </span>
+                                </div>
+                            </li>
+                        )}
+
+                        {/* ✅ Management User Menu - MOVED BELOW Admin Divider */}
                         {isAdmin() && (
                             <li>
                                 <button 
@@ -364,7 +375,7 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                                     className={`w-full flex items-center space-x-3 p-3 rounded-xl transition-all duration-300 text-sm group ${
                                         activeMenu === 'management-user' 
                                             ? 'bg-gradient-to-r from-purple-500/20 to-indigo-600/20 border border-purple-400/30 shadow-lg shadow-purple-500/25 text-purple-100' 
-                                            : 'hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-indigo-600/10 hover:border-purple-400/20 border border-transparent text-amber-200/80 hover:text-amber-100'
+                                            : 'hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-indigo-600/10 hover:border-purple-400/20 border border-transparent text-amber-200/80 hover:text-purple-100'
                                     }`}
                                 >
                                     <svg className={`w-4 h-4 ${activeMenu === 'management-user' ? 'text-purple-400' : 'text-amber-300/70 group-hover:text-purple-400'}`} fill="currentColor" viewBox="0 0 20 20">
@@ -388,35 +399,8 @@ const Sidebar = ({ activeMenu = 'dashboard' }) => {
                                 </button>
                             </li>
                         )}
-
-                        {/* ✅ Admin Divider - Visual separator untuk admin menu */}
-                        {isAdmin() && (
-                            <li className="py-2">
-                                <div className="border-t border-amber-500/20 relative">
-                                    <span className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-gray-900 to-black px-3 text-xs text-amber-300/60">
-                                        Admin Only
-                                    </span>
-                                </div>
-                            </li>
-                        )}
                     </ul>
                 </nav>
-
-                {/* ✅ Admin Badge - Tampil hanya untuk admin */}
-                {isAdmin() && (
-                    <div className="mb-4">
-                        <div className="p-3 bg-gradient-to-br from-purple-800/60 via-indigo-900/60 to-purple-700/60 backdrop-blur-xl rounded-xl border border-purple-500/20 ring-1 ring-purple-400/10">
-                            <div className="flex items-center space-x-2 text-xs">
-                                <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse shadow-lg shadow-purple-400/50"></div>
-                                <span className="text-purple-200/80">Level: </span>
-                                <span className="text-purple-300 font-semibold">Administrator</span>
-                            </div>
-                            <div className="mt-2 text-xs text-purple-300/70">
-                                Full system access
-                            </div>
-                        </div>
-                    </div>
-                )}
             </div>
             
             {/* Status Sistem */}
