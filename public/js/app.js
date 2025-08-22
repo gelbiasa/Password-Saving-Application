@@ -41946,19 +41946,19 @@ __webpack_require__.r(__webpack_exports__);
 var Footer = function Footer() {
   var currentYear = new Date().getFullYear();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("footer", {
-    className: "absolute bottom-4 left-6 right-6 bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl border border-amber-500/20 ring-1 ring-amber-400/10 rounded-2xl shadow-2xl shadow-black/50 max-w-5xl mx-auto",
+    className: "mt-8 mb-6 bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-800/95 backdrop-blur-xl border border-amber-500/20 ring-1 ring-amber-400/10 rounded-2xl shadow-2xl shadow-black/50 max-w-5xl mx-auto",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "px-6 py-4",
+      className: "px-4 md:px-6 py-4",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-        className: "flex flex-col md:flex-row justify-between items-center",
+        className: "flex flex-col lg:flex-row justify-between items-center space-y-3 lg:space-y-0",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "flex items-center space-x-4 mb-2 md:mb-0",
+          className: "flex items-center space-x-4",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("p", {
-            className: "text-amber-200/80 text-sm font-medium",
+            className: "text-amber-200/80 text-sm font-medium text-center lg:text-left",
             children: ["\xA9 ", currentYear, " Password Manager. All rights reserved."]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "flex items-center space-x-6",
+          className: "flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-6",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
             className: "flex items-center space-x-2 text-sm text-amber-300/80",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
@@ -41989,7 +41989,7 @@ var Footer = function Footer() {
               className: "text-sm text-amber-400 hover:text-amber-300 transition-colors duration-200 font-medium hover:underline",
               children: "Privacy Policy"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-              className: "text-amber-500/50",
+              className: "text-amber-500/50 hidden sm:inline",
               children: "|"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
               href: "#",
