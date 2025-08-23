@@ -45827,7 +45827,7 @@ var DetailPasswordIndex = function DetailPasswordIndex() {
               })
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
-            className: "pb-16"
+            className: "pb-32"
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Components_Footer__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
       })]
@@ -46988,7 +46988,7 @@ var KategoriPasswordIndex = function KategoriPasswordIndex() {
               })
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
-            className: "pb-16"
+            className: "pb-32"
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Components_Footer__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
       })]
