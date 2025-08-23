@@ -583,7 +583,7 @@ const DetailPasswordIndex = () => {
                             </div>
                         </div>
 
-                        <div className="pb-16"></div>
+                        <div className="pb-32"></div>
                     </div>
 
                     <Footer />
